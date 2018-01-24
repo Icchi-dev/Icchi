@@ -13,11 +13,11 @@ class MyPageViewController: UIViewController {
     @IBAction func onTapProfile(_ sender: Any) {
         
         if SaveData.shared.isInitialized {
-            let tutorialViewController = self.viewController(storyboard: "Main", identifier: "TutorialViewController")
-            self.stack(viewController: tutorialViewController, animationType: .horizontal)
-        } else {
             let profileViewController = self.viewController(storyboard: "Main", identifier: "ProfileViewController")
             self.stack(viewController: profileViewController, animationType: .horizontal)
+        } else {
+            let tutorialViewController = self.viewController(storyboard: "Main", identifier: "TutorialViewController")
+            self.stack(viewController: tutorialViewController, animationType: .horizontal)
         }
     }
 

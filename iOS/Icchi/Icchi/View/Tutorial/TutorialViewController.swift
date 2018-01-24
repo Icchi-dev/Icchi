@@ -10,26 +10,63 @@ import UIKit
 
 class TutorialViewController: UIViewController {
 
+    @IBOutlet private weak var contentsView: UIView!
+    @IBOutlet private weak var questionLabel: UILabel!
+    @IBOutlet private weak var textField: UITextField!
+
+    private var currentQuestionIndex = 0
+    private var questions = [
+        "好きなアーティストは？",
+        "質問2",
+        "質問3",
+        "質問4",
+        "質問5",
+        "質問6",
+        "質問7",
+        "質問8",
+        "質問9",
+        "質問10",
+    ]
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
-    }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+        
+        self.questionLabel.text = self.questions[0]
     }
     
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+    private func goToNextQuestion() {
+        
+        if self.currentQuestionIndex >= self.questions.count - 1 {
+            let saveData = SaveData.shared
+            saveData.isInitialized = true
+            saveData.save()            
+            
+            self.pop(animationType: .vertical)
+            return
+        }
+        self.currentQuestionIndex += 1
+        let nextQuestion = self.questions[self.currentQuestionIndex]
+        
+        UIView.animate(withDuration: 0.15, animations: {
+            self.contentsView.alpha = 0
+        }, completion: { [weak self] _ in            
+            self?.questionLabel.text = nextQuestion
+            
+            UIView.animate(withDuration: 0.15, animations: {
+                self?.contentsView.alpha = 1
+            })
+        })
     }
-    */
-
+    
+    @IBAction func didEndEditTextField(_ sender: Any) {
+        self.view.endEditing(true)
+    }
+    
+    @IBAction func onTapNext(_ sender: Any) {
+        self.goToNextQuestion()
+    }
+    
+    @IBAction func onTapSkip(_ sender: Any) {
+        self.goToNextQuestion()
+    }
 }

@@ -10,18 +10,45 @@ import UIKit
 import FBSDKCoreKit
 import FBSDKLoginKit
 
-class LoginViewController: UIViewController {
+class LoginViewController: KeyboardRespondableViewController {
 
+    @IBOutlet private weak var contentsViewCenterYConstraint: NSLayoutConstraint!
     @IBOutlet private weak var emailTextField: UITextField!
     @IBOutlet private weak var passwordTextField: UITextField!
+    @IBOutlet private weak var loginButtonView: UIView!
     
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
+    override func viewDidLoad() {
+        super.viewDidLoad()
         
         let loginButton = FBSDKLoginButton()
-        loginButton.frame = CGRect(x: 30, y: self.view.frame.size.height - 60, width: self.view.frame.size.width - 60, height: 40)
         loginButton.delegate = self
         self.view.addSubview(loginButton)
+        loginButton.translatesAutoresizingMaskIntoConstraints = false
+        loginButton.topAnchor.constraint(equalTo: self.loginButtonView.topAnchor).isActive = true
+        loginButton.leadingAnchor.constraint(equalTo: self.loginButtonView.leadingAnchor).isActive = true
+        loginButton.trailingAnchor.constraint(equalTo: self.loginButtonView.trailingAnchor).isActive = true
+        loginButton.bottomAnchor.constraint(equalTo: self.loginButtonView.bottomAnchor).isActive = true
+    }
+    
+    override func animate(with: KeyboardAnimation) {
+        
+        if with.height > 0 {
+            guard let textField = ([emailTextField, passwordTextField].filter { $0.isFirstResponder }).first,
+                let window = UIApplication.shared.keyWindow else {
+                return
+            }
+            let rect = textField.absoluteRect()
+            let bottom =  rect.origin.y + rect.size.height
+            if window.frame.size.height - bottom < with.height {
+                self.contentsViewCenterYConstraint.constant = with.height - window.frame.size.height + bottom + 30
+            }
+        } else {
+            self.contentsViewCenterYConstraint.constant = 0
+        }
+        
+        UIView.animate(withDuration: with.duration, delay: 0, options: with.curve, animations: { [weak self] in
+            self?.view.layoutIfNeeded()
+        })
     }
     
     @IBAction func onTapRegister(_ sender: Any) {
