@@ -51,7 +51,21 @@ class ProfileViewController: UIViewController {
         }
     }
     
+    private func stackAddViewController(isLike: Bool) {
+        let addViewController = self.viewController(storyboard: "Main", identifier: "ProfileAddViewController") as! ProfileAddViewController
+        addViewController.set(isLike: isLike)
+        self.stack(viewController: addViewController, animationType: .vertical)
+    }
+    
     @IBAction func onTapMenu(_ sender: Any) {
         self.pop(animationType: .vertical)
+    }
+    
+    @IBAction func onTapAddLike(_ sender: Any) {
+        self.stackAddViewController(isLike: true)
+    }
+    
+    @IBAction func onTapAddHate(_ sender: Any) {
+        self.stackAddViewController(isLike: false)
     }
 }

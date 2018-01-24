@@ -21,6 +21,9 @@
 		BBD66E312017A5D10070DFC4 /* ProfileHobbyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBD66E302017A5D10070DFC4 /* ProfileHobbyView.swift */; };
 		BBD66E332017A5DB0070DFC4 /* ProfileHobbyView.xib in Resources */ = {isa = PBXBuildFile; fileRef = BBD66E322017A5DB0070DFC4 /* ProfileHobbyView.xib */; };
 		BBE8920920189DE9004EE765 /* UIColor+Original.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBE8920820189DE9004EE765 /* UIColor+Original.swift */; };
+		BBE8920B20189FFC004EE765 /* ProfileAddViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBE8920A20189FFC004EE765 /* ProfileAddViewController.swift */; };
+		BBE8920D2018A30E004EE765 /* ProfileAddSampleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBE8920C2018A30E004EE765 /* ProfileAddSampleView.swift */; };
+		BBE8920F2018A31A004EE765 /* ProfileAddSampleView.xib in Resources */ = {isa = PBXBuildFile; fileRef = BBE8920E2018A31A004EE765 /* ProfileAddSampleView.xib */; };
 		BBF7B09F20174E0000964E95 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBF7B09E20174E0000964E95 /* AppDelegate.swift */; };
 		BBF7B0A420174E0000964E95 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BBF7B0A220174E0000964E95 /* Main.storyboard */; };
 		BBF7B0A620174E0000964E95 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BBF7B0A520174E0000964E95 /* Assets.xcassets */; };
@@ -46,6 +49,9 @@
 		BBD66E302017A5D10070DFC4 /* ProfileHobbyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileHobbyView.swift; sourceTree = "<group>"; };
 		BBD66E322017A5DB0070DFC4 /* ProfileHobbyView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ProfileHobbyView.xib; sourceTree = "<group>"; };
 		BBE8920820189DE9004EE765 /* UIColor+Original.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Original.swift"; sourceTree = "<group>"; };
+		BBE8920A20189FFC004EE765 /* ProfileAddViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileAddViewController.swift; sourceTree = "<group>"; };
+		BBE8920C2018A30E004EE765 /* ProfileAddSampleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileAddSampleView.swift; sourceTree = "<group>"; };
+		BBE8920E2018A31A004EE765 /* ProfileAddSampleView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ProfileAddSampleView.xib; sourceTree = "<group>"; };
 		BBF7B09B20174E0000964E95 /* Icchi.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Icchi.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BBF7B09E20174E0000964E95 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		BBF7B0A320174E0000964E95 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -116,6 +122,9 @@
 				BB6BBA1E20176FFF00CC4179 /* ProfileViewController.swift */,
 				BBD66E302017A5D10070DFC4 /* ProfileHobbyView.swift */,
 				BBD66E322017A5DB0070DFC4 /* ProfileHobbyView.xib */,
+				BBE8920A20189FFC004EE765 /* ProfileAddViewController.swift */,
+				BBE8920C2018A30E004EE765 /* ProfileAddSampleView.swift */,
+				BBE8920E2018A31A004EE765 /* ProfileAddSampleView.xib */,
 			);
 			path = Profile;
 			sourceTree = "<group>";
@@ -253,6 +262,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BBE8920F2018A31A004EE765 /* ProfileAddSampleView.xib in Resources */,
 				BBF7B0A920174E0000964E95 /* LaunchScreen.storyboard in Resources */,
 				BBD66E332017A5DB0070DFC4 /* ProfileHobbyView.xib in Resources */,
 				BBF7B0A620174E0000964E95 /* Assets.xcassets in Resources */,
@@ -320,12 +330,14 @@
 				BBE8920920189DE9004EE765 /* UIColor+Original.swift in Sources */,
 				BB6BBA1F20176FFF00CC4179 /* ProfileViewController.swift in Sources */,
 				BB6BBA1620176D9700CC4179 /* SaveData.swift in Sources */,
+				BBE8920B20189FFC004EE765 /* ProfileAddViewController.swift in Sources */,
 				BB6BBA1120176D5600CC4179 /* TutorialViewController.swift in Sources */,
 				BB6BBA1D20176EA300CC4179 /* CALayer+Border.swift in Sources */,
 				BBF7B09F20174E0000964E95 /* AppDelegate.swift in Sources */,
 				BB6BBA1920176E6100CC4179 /* UIViewController+Scene.swift in Sources */,
 				BBD66E2B201799BB0070DFC4 /* UIView+Frame.swift in Sources */,
 				BB6BBA0F20176D5200CC4179 /* MyPageViewController.swift in Sources */,
+				BBE8920D2018A30E004EE765 /* ProfileAddSampleView.swift in Sources */,
 				BB6BBA1B20176E8100CC4179 /* UIViewController+Alert.swift in Sources */,
 				BBD66E29201799450070DFC4 /* KeyboardRespondableViewController.swift in Sources */,
 				BBD66E312017A5D10070DFC4 /* ProfileHobbyView.swift in Sources */,
