@@ -1,8 +1,7 @@
-package leapfrog_inc.icchi;
+package leapfrog_inc.icchi.Function;
 
+import android.content.Context;
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.util.Log;
 
 import com.facebook.CallbackManager;
@@ -13,20 +12,27 @@ import com.facebook.appevents.AppEventsLogger;
 import com.facebook.login.LoginManager;
 import com.facebook.login.LoginResult;
 
-public class MainActivity extends AppCompatActivity {
+import static com.facebook.FacebookSdk.getApplicationContext;
+
+/**
+ * Created by Leapfrog-Software on 2018/01/25.
+ */
+
+public class FacebookManager {
+
+    private static FacebookManager container = null;
 
     private CallbackManager mCallbackManager;
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+    private FacebookManager(){}
 
+    public static void initialize(Context context) {
         FacebookSdk.sdkInitialize(getApplicationContext());
-        AppEventsLogger.activateApp(this);
+        AppEventsLogger.activateApp(context);
 
-        mCallbackManager = CallbackManager.Factory.create();
-        LoginManager.getInstance().registerCallback(mCallbackManager, new FacebookCallback<LoginResult>() {
+        container = new FacebookManager();
+        container.mCallbackManager = CallbackManager.Factory.create();
+        LoginManager.getInstance().registerCallback(container.mCallbackManager, new FacebookCallback<LoginResult>() {
             @Override
             public void onSuccess(LoginResult loginResult) {
                 Log.d("", "");
@@ -44,10 +50,8 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        mCallbackManager.onActivityResult(requestCode, resultCode, data);
-        super.onActivityResult(requestCode, resultCode, data);
+    public static void onActivityResult(int requestCode, int resultCode, Intent data) {
+        container.mCallbackManager.onActivityResult(requestCode, resultCode, data);
     }
+
 }

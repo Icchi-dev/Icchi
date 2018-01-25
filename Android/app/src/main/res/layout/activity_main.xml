@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="leapfrog_inc.icchi.MainActivity">
+    tools:context="leapfrog_inc.icchi.Activity.MainActivity">
 
     <com.facebook.login.widget.LoginButton
         android:id="@+id/login_button"
@@ -13,5 +13,12 @@
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="30dp"
         android:layout_marginBottom="30dp" />
+
+    <ImageView
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:src="@drawable/common_logo"
+        android:scaleType="fitCenter"
+        />
 
 </android.support.constraint.ConstraintLayout>
