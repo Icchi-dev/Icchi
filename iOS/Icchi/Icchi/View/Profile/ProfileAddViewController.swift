@@ -29,7 +29,7 @@ class ProfileAddViewController: UIViewController {
             sampleView.configure(text: "test")
             if offsetX + sampleView.frame.size.width > self.sampleView.frame.size.width {
                 offsetX = 0
-                offsetY += self.sampleView.frame.size.height + 10
+                offsetY += sampleView.frame.size.height + 10
             }
             if offsetY + sampleView.frame.size.height > self.sampleView.frame.size.height {
                 break
