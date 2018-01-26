@@ -6,6 +6,7 @@ import android.support.v4.app.FragmentTransaction;
 
 import java.util.ArrayList;
 
+import leapfrog_inc.icchi.Fragment.MyPage.MyPageFragment;
 import leapfrog_inc.icchi.R;
 
 /**
@@ -43,6 +44,34 @@ public class FragmentController {
         ft.add(mContainerId, fragment);
         ft.commitAllowingStateLoss();
         mFragmentList.add(fragment);
+    }
+
+    public void popToMyPage(AnimationType animationType) {
+
+        int myPageIndex = -1;
+        for (int i = 0; i < mFragmentList.size(); i++) {
+            if (mFragmentList.get(i).getClass() == MyPageFragment.class) {
+                myPageIndex = i;
+                break;
+            }
+        }
+        if (myPageIndex == -1) {
+            return;
+        }
+
+        FragmentTransaction ft = mFragmentManager.beginTransaction();
+        if(animationType == AnimationType.horizontal){
+            ft.setCustomAnimations(R.anim.stack_from_left, R.anim.close_for_right);
+        } else if (animationType == AnimationType.vertical) {
+            ft.setCustomAnimations(R.anim.stack_from_top, R.anim.close_for_bottom);
+        }
+        ft.remove(mFragmentList.get(mFragmentList.size() - 1));
+        ft.add(mContainerId, mFragmentList.get(myPageIndex));
+        ft.commit();
+
+        for (int i = myPageIndex + 1; i < mFragmentList.size(); i++) {
+            mFragmentList.remove(i);
+        }
     }
 
     public enum AnimationType {

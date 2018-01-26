@@ -7,9 +7,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.LinearLayout;
 
 import leapfrog_inc.icchi.Fragment.BaseFragment;
+import leapfrog_inc.icchi.Fragment.FragmentController;
 import leapfrog_inc.icchi.Parts.AlertUtility;
 import leapfrog_inc.icchi.R;
 
@@ -19,9 +21,17 @@ import leapfrog_inc.icchi.R;
 
 public class ProfileFragment extends BaseFragment {
 
+    @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstance) {
 
         View view = inflater.inflate(R.layout.fragment_profile, null);
+
+        ((ImageButton)view.findViewById(R.id.menuButton)).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                FragmentController.getInstance().popToMyPage(FragmentController.AnimationType.horizontal);
+            }
+        });
 
         ((Button)view.findViewById(R.id.ageButton)).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -61,6 +71,22 @@ public class ProfileFragment extends BaseFragment {
             });
             hateContentsLayout.addView(layout);
         }
+
+        ((Button)view.findViewById(R.id.addLikeButton)).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                ProfileAddFragment fragment = new ProfileAddFragment();
+                FragmentController.getInstance().stack(fragment, FragmentController.AnimationType.horizontal);
+            }
+        });
+
+        ((Button)view.findViewById(R.id.addHateButton)).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                ProfileAddFragment fragment = new ProfileAddFragment();
+                FragmentController.getInstance().stack(fragment, FragmentController.AnimationType.horizontal);
+            }
+        });
 
         return view;
     }

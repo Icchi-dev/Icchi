@@ -15,6 +15,7 @@
             android:src="@drawable/common_logo"
             android:scaleType="fitCenter"/>
         <ImageButton
+            android:id="@+id/menuButton"
             android:layout_width="60dp"
             android:layout_height="match_parent"
             android:src="@drawable/common_menu"
@@ -44,6 +45,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
                 android:hint="名前"
+                android:inputType="text"
                 android:background="@layout/shape_profile_edittext"
                 android:layout_marginTop="30dp"
                 android:layout_marginLeft="30dp"
@@ -115,6 +117,7 @@
                     </LinearLayout>
 
                     <Button
+                        android:id="@+id/addLikeButton"
                         android:layout_width="60dp"
                         android:layout_height="60dp"
                         android:text="+"
@@ -156,6 +159,7 @@
                     </LinearLayout>
 
                     <Button
+                        android:id="@+id/addHateButton"
                         android:layout_width="60dp"
                         android:layout_height="60dp"
                         android:text="+"
