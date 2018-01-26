@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.LinearLayout;
 
 import leapfrog_inc.icchi.Fragment.BaseFragment;
 import leapfrog_inc.icchi.Parts.AlertUtility;
@@ -35,6 +36,31 @@ public class ProfileFragment extends BaseFragment {
                 onClickGender();
             }
         });
+
+        final LinearLayout likeContentsLayout = (LinearLayout)view.findViewById(R.id.likeContentsBaseLayout);
+        for (int i = 0; i < 10; i++) {
+            final View layout = LayoutInflater.from(getActivity()).inflate(R.layout.layout_profile_contents, null);
+            ((Button)layout.findViewById(R.id.deleteButton)).setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    likeContentsLayout.removeView(layout);
+                }
+            });
+            likeContentsLayout.addView(layout);
+        }
+
+        final LinearLayout hateContentsLayout = (LinearLayout)view.findViewById(R.id.hateContentsBaseLayout);
+        for (int i = 0; i < 10; i++) {
+            final View layout = LayoutInflater.from(getActivity()).inflate(R.layout.layout_profile_contents, null);
+            ((LinearLayout)layout.findViewById(R.id.baseLayout)).setBackgroundResource(R.layout.shape_profile_hatecontents);
+            ((Button)layout.findViewById(R.id.deleteButton)).setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    hateContentsLayout.removeView(layout);
+                }
+            });
+            hateContentsLayout.addView(layout);
+        }
 
         return view;
     }

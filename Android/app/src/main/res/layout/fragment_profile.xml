@@ -85,14 +85,88 @@
                 android:orientation="horizontal"
                 android:layout_marginTop="30dp"
                 android:layout_marginLeft="20dp"
-                android:layout_marginRight="20dp">
+                android:layout_marginRight="20dp"
+                android:layout_marginBottom="20dp">
 
                 <LinearLayout
                     android:layout_width="0dp"
                     android:layout_weight="1"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical">
-                    
+                    android:orientation="vertical"
+                    android:background="@layout/shape_profile_likebase">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="好き"
+                        android:textSize="16dp"
+                        android:textStyle="bold"
+                        android:textColor="#f66"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_marginTop="10dp"/>
+                    <LinearLayout
+                        android:id="@+id/likeContentsBaseLayout"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginRight="10dp">
+
+                    </LinearLayout>
+
+                    <Button
+                        android:layout_width="60dp"
+                        android:layout_height="60dp"
+                        android:text="+"
+                        android:textSize="30dp"
+                        android:textStyle="bold"
+                        android:textColor="#f66"
+                        android:background="#0000"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginBottom="20dp"/>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:background="@layout/shape_profile_hatebase"
+                    android:layout_marginLeft="10dp">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="嫌い"
+                        android:textSize="16dp"
+                        android:textStyle="bold"
+                        android:textColor="#99f"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_marginTop="10dp"/>
+                    <LinearLayout
+                        android:id="@+id/hateContentsBaseLayout"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginRight="10dp">
+
+                    </LinearLayout>
+
+                    <Button
+                        android:layout_width="60dp"
+                        android:layout_height="60dp"
+                        android:text="+"
+                        android:textSize="30dp"
+                        android:textStyle="bold"
+                        android:textColor="#99f"
+                        android:background="#0000"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginBottom="20dp"/>
+
                 </LinearLayout>
 
             </LinearLayout>
