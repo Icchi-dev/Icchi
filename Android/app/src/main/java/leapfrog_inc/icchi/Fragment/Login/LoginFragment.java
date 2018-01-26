@@ -42,6 +42,6 @@ public class LoginFragment extends BaseFragment {
 
     private void stackMyPage() {
         MyPageFragment fragment = new MyPageFragment();
-        FragmentController.getInstance().stack(fragment, FragmentController.AnimationType.vertical);
+        FragmentController.getInstance().stack(fragment, FragmentController.AnimationType.horizontal);
     }
 }

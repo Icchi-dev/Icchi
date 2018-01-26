@@ -34,6 +34,7 @@
         android:layout_marginTop="20dp"/>
     
     <Button
+        android:id="@+id/profileButton"
         android:layout_width="match_parent"
         android:layout_height="40dp"
         android:text="プロフィール登録"
@@ -45,6 +46,7 @@
         android:background="@layout/shape_mypage_button"/>
 
     <Button
+        android:id="@+id/matchButton"
         android:layout_width="match_parent"
         android:layout_height="40dp"
         android:text="一致度をはかる"
@@ -56,6 +58,7 @@
         android:background="@layout/shape_mypage_button"/>
 
     <Button
+        android:id="@+id/myPostButton"
         android:layout_width="match_parent"
         android:layout_height="40dp"
         android:text="マイポスト"
