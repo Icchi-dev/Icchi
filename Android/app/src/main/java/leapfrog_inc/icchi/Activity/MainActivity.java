@@ -8,6 +8,7 @@ import android.os.Bundle;
 
 import leapfrog_inc.icchi.Fragment.FragmentController;
 import leapfrog_inc.icchi.Fragment.Login.LoginFragment;
+import leapfrog_inc.icchi.Fragment.MyPage.MyPageFragment;
 import leapfrog_inc.icchi.Function.FacebookManager;
 import leapfrog_inc.icchi.Function.SaveData;
 import leapfrog_inc.icchi.Http.Requester.ItemRequester;
@@ -49,7 +50,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void fetch() {
 
-        mLoadingFragment = LoadingFragment.start(this);
+        startLoading();
 
         UserRequester.getInstance().fetch(new UserRequester.UserRequesterCallback() {
             @Override
@@ -87,10 +88,7 @@ public class MainActivity extends AppCompatActivity {
             return;
         }
 
-        if (mLoadingFragment != null) {
-            mLoadingFragment.stop(this);
-            mLoadingFragment = null;
-        }
+        stopLoading();
 
         if ((fetchUserResult == FetchResult.error)
                 || (fetchItemResult == FetchResult.error)
@@ -104,13 +102,30 @@ public class MainActivity extends AppCompatActivity {
             return;
         }
 
-        LoginFragment fragment = new LoginFragment();
-        FragmentController.getInstance().stack(fragment, FragmentController.AnimationType.vertical);
+        SaveData saveData = SaveData.getInstance();
+        if (saveData.userId.length() > 0) {
+            MyPageFragment fragment = new MyPageFragment();
+            FragmentController.getInstance().stack(fragment, FragmentController.AnimationType.vertical);
+        } else {
+            LoginFragment fragment = new LoginFragment();
+            FragmentController.getInstance().stack(fragment, FragmentController.AnimationType.vertical);
+        }
     }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         FacebookManager.onActivityResult(requestCode, resultCode, data);
         super.onActivityResult(requestCode, resultCode, data);
+    }
+
+    public void startLoading() {
+        mLoadingFragment = LoadingFragment.start(this);
+    }
+
+    public void stopLoading() {
+        if (mLoadingFragment != null) {
+            mLoadingFragment.stop(this);
+            mLoadingFragment = null;
+        }
     }
 }

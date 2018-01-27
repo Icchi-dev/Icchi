@@ -11,7 +11,7 @@ import leapfrog_inc.icchi.Http.HttpManager;
 
 public class AccountRequester {
 
-    public static void register(String email, String password, final RegisterCallback callback){
+    public static void register(String email, String password, String name, String image, String fbLink, final RegisterCallback callback){
 
         HttpManager http = new HttpManager(new HttpManager.HttpCallback() {
             @Override
@@ -34,6 +34,12 @@ public class AccountRequester {
         param.append("email=" + email);
         param.append("&");
         param.append("password=" + password);
+        param.append("&");
+        param.append("name=" + name);
+        param.append("&");
+        param.append("image=" + image);
+        param.append("&");
+        param.append("fbLink=" + fbLink);
         http.execute(Constants.ServerRootUrl, "POST", param.toString());
     }
 

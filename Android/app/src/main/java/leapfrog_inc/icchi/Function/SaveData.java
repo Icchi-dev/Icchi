@@ -12,6 +12,7 @@ public class SaveData {
     private static SaveData container = null;
 
     public Context mContext;
+    public String userId = "";
     public boolean isInitialized = false;
 
     private SaveData(){}
@@ -29,6 +30,7 @@ public class SaveData {
 
         SharedPreferences data = context.getSharedPreferences(Constants.SharedPreferenceKey.Key, Context.MODE_PRIVATE);
 
+        userId = data.getString(Constants.SharedPreferenceKey.UserId, "");
         isInitialized = data.getBoolean(Constants.SharedPreferenceKey.IsInitialized, false);
     }
 
@@ -37,6 +39,7 @@ public class SaveData {
         SharedPreferences data = mContext.getSharedPreferences(Constants.SharedPreferenceKey.Key, Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = data.edit();
 
+        editor.putString(Constants.SharedPreferenceKey.UserId, userId);
         editor.putBoolean(Constants.SharedPreferenceKey.IsInitialized, isInitialized);
 
         editor.apply();

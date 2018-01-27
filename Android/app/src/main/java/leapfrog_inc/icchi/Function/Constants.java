@@ -12,6 +12,7 @@ public class Constants {
 
     public static class SharedPreferenceKey {
         public static String Key = "Icchi";
+        public static String UserId = "UserId";
         public static String IsInitialized = "IsInitialized";
     }
 }

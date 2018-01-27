@@ -78,14 +78,14 @@ public class UserRequester {
 
     public static class UserData {
 
-        public String userId;
-        public String name;
-        public AgeType age;
-        public GenderType gender;
-        public ArrayList<String> likes;
-        public ArrayList<String> hates;
-        public String image;
-        public String fbLink;
+        public String userId = "";
+        public String name = "";
+        public AgeType age = AgeType.u20;
+        public GenderType gender = GenderType.male;
+        public ArrayList<String> likes = new ArrayList<String>();
+        public ArrayList<String> hates = new ArrayList<String>();
+        public String image = "";
+        public String fbLink = "";
 
         static public UserData create(JSONObject json) {
 
