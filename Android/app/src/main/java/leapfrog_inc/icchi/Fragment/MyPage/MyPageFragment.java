@@ -9,6 +9,8 @@ import android.widget.ImageButton;
 
 import leapfrog_inc.icchi.Fragment.BaseFragment;
 import leapfrog_inc.icchi.Fragment.FragmentController;
+import leapfrog_inc.icchi.Fragment.Match.MatchFragment;
+import leapfrog_inc.icchi.Fragment.MyPost.MyPostFragment;
 import leapfrog_inc.icchi.Fragment.Profile.ProfileFragment;
 import leapfrog_inc.icchi.Fragment.Profile.TutorialFragment;
 import leapfrog_inc.icchi.Function.SaveData;
@@ -41,14 +43,16 @@ public class MyPageFragment extends BaseFragment {
         ((Button)view.findViewById(R.id.matchButton)).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                MatchFragment fragment = new MatchFragment();
+                FragmentController.getInstance().stack(fragment, FragmentController.AnimationType.horizontal);
             }
         });
 
         ((Button)view.findViewById(R.id.myPostButton)).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                MyPostFragment fragment = new MyPostFragment();
+                FragmentController.getInstance().stack(fragment, FragmentController.AnimationType.horizontal);
             }
         });
 
