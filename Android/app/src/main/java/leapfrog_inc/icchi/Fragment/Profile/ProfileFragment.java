@@ -7,11 +7,15 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 
 import leapfrog_inc.icchi.Fragment.BaseFragment;
 import leapfrog_inc.icchi.Fragment.FragmentController;
+import leapfrog_inc.icchi.Function.SaveData;
+import leapfrog_inc.icchi.Http.Requester.AccountRequester;
+import leapfrog_inc.icchi.Http.Requester.UserRequester;
 import leapfrog_inc.icchi.Parts.AlertUtility;
 import leapfrog_inc.icchi.R;
 
@@ -26,10 +30,12 @@ public class ProfileFragment extends BaseFragment {
 
         View view = inflater.inflate(R.layout.fragment_profile, null);
 
+        setProfile(view);
+
         ((ImageButton)view.findViewById(R.id.menuButton)).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                FragmentController.getInstance().popToMyPage(FragmentController.AnimationType.horizontal);
+                onClickMenu();
             }
         });
 
@@ -46,6 +52,45 @@ public class ProfileFragment extends BaseFragment {
                 onClickGender();
             }
         });
+
+        ((Button)view.findViewById(R.id.addLikeButton)).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                ProfileAddFragment fragment = new ProfileAddFragment();
+                FragmentController.getInstance().stack(fragment, FragmentController.AnimationType.horizontal);
+            }
+        });
+
+        ((Button)view.findViewById(R.id.addHateButton)).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                ProfileAddFragment fragment = new ProfileAddFragment();
+                FragmentController.getInstance().stack(fragment, FragmentController.AnimationType.horizontal);
+            }
+        });
+
+        return view;
+    }
+
+    private void setProfile(View view) {
+
+        UserRequester.UserData userData = UserRequester.getInstance().query(SaveData.getInstance().userId);
+        if (userData == null) {
+            return;
+        }
+
+        ((EditText)view.findViewById(R.id.nameEditText)).setText(userData.name);
+
+        if (userData.age != null) {
+            Button ageButton = (Button)view.findViewById(R.id.ageButton);
+            ageButton.setText(userData.age.display());
+            ageButton.setTextColor(Color.BLACK);
+        }
+        if (userData.gender != null) {
+            Button genderButton = (Button)view.findViewById(R.id.genderButton);
+            genderButton.setText(userData.gender.display());
+            genderButton.setTextColor(Color.BLACK);
+        }
 
         final LinearLayout likeContentsLayout = (LinearLayout)view.findViewById(R.id.likeContentsBaseLayout);
         for (int i = 0; i < 10; i++) {
@@ -71,35 +116,17 @@ public class ProfileFragment extends BaseFragment {
             });
             hateContentsLayout.addView(layout);
         }
-
-        ((Button)view.findViewById(R.id.addLikeButton)).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                ProfileAddFragment fragment = new ProfileAddFragment();
-                FragmentController.getInstance().stack(fragment, FragmentController.AnimationType.horizontal);
-            }
-        });
-
-        ((Button)view.findViewById(R.id.addHateButton)).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                ProfileAddFragment fragment = new ProfileAddFragment();
-                FragmentController.getInstance().stack(fragment, FragmentController.AnimationType.horizontal);
-            }
-        });
-
-        return view;
     }
 
     private void onClickAge() {
 
         final String[] items = {
-                "20歳未満",
-                "20代",
-                "30代",
-                "40代",
-                "50代",
-                "60歳以上"
+                UserRequester.AgeType.u20.display(),
+                UserRequester.AgeType.s20.display(),
+                UserRequester.AgeType.s30.display(),
+                UserRequester.AgeType.s40.display(),
+                UserRequester.AgeType.s50.display(),
+                UserRequester.AgeType.o60.display()
         };
         AlertUtility.showPicker(getActivity(), "年齢", items, new DialogInterface.OnClickListener() {
             @Override
@@ -118,8 +145,8 @@ public class ProfileFragment extends BaseFragment {
     private void onClickGender() {
 
         final String[] items = {
-                "男性",
-                "女性"
+                UserRequester.GenderType.male.display(),
+                UserRequester.GenderType.female.display()
         };
         AlertUtility.showPicker(getActivity(), "性別", items, new DialogInterface.OnClickListener() {
             @Override
@@ -133,5 +160,13 @@ public class ProfileFragment extends BaseFragment {
                 genderButton.setTextColor(Color.BLACK);
             }
         });
+    }
+
+    private void onClickMenu() {
+
+
+
+
+        FragmentController.getInstance().popToMyPage(FragmentController.AnimationType.horizontal);
     }
 }

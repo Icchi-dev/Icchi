@@ -1,6 +1,8 @@
 package leapfrog_inc.icchi.Fragment.MyPost;
 
 import android.content.Context;
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,6 +19,9 @@ import java.util.ArrayList;
 import leapfrog_inc.icchi.Fragment.BaseFragment;
 import leapfrog_inc.icchi.Fragment.FragmentController;
 import leapfrog_inc.icchi.Fragment.Match.MatchFragment;
+import leapfrog_inc.icchi.Function.SaveData;
+import leapfrog_inc.icchi.Http.Requester.PostRequester;
+import leapfrog_inc.icchi.Http.Requester.UserRequester;
 import leapfrog_inc.icchi.Parts.PicassoUtility;
 import leapfrog_inc.icchi.R;
 
@@ -31,21 +36,7 @@ public class MyPostFragment extends BaseFragment {
 
         View view = inflater.inflate(R.layout.fragment_mypost, null);
 
-        ListView listView = (ListView)view.findViewById(R.id.listView);
-        MyPostAdapter adapter = new MyPostAdapter(getActivity());
-        adapter.add("test1");
-        adapter.add("test2");
-        adapter.add("test3");
-        adapter.add("test4");
-        adapter.add("test5");
-        adapter.notifyDataSetChanged();
-        listView.setAdapter(adapter);
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-
-            }
-        });
+        setListView((ListView)view.findViewById(R.id.listView), (TextView)view.findViewById(R.id.noDataTextView));
 
         ((ImageButton)view.findViewById(R.id.menuButton)).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -57,7 +48,52 @@ public class MyPostFragment extends BaseFragment {
         return view;
     }
 
-    public static class MyPostAdapter extends ArrayAdapter<String> {
+    private void setListView(ListView listView, TextView noDataView) {
+
+        final MyPostAdapter adapter = new MyPostAdapter(getActivity());
+
+        ArrayList<PostRequester.PostData> postList = PostRequester.getInstance().getDataList();
+        UserRequester.UserData myUserData = UserRequester.getInstance().query(SaveData.getInstance().userId);
+        if (myUserData == null) {
+            return;
+        }
+
+        int count = 0;
+
+        for (int i = 0; i < postList.size(); i++) {
+            PostRequester.PostData postData = postList.get(i);
+            for (int j = 0; j < postData.relates.size(); j++) {
+                if (myUserData.likes.contains(postData.relates.get(j))) {
+                    adapter.add(postData);
+                    count++;
+                    break;
+                }
+            }
+        }
+        adapter.notifyDataSetChanged();
+        listView.setAdapter(adapter);
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                PostRequester.PostData postData = (PostRequester.PostData)adapterView.getItemAtPosition(i);
+                if (postData.link.length() > 0) {
+                    Uri uri = Uri.parse(postData.link);
+                    Intent intent = new Intent(Intent.ACTION_VIEW, uri);
+                    startActivity(intent);
+                }
+            }
+        });
+
+        if (count > 0) {
+            listView.setVisibility(View.VISIBLE);
+            noDataView.setVisibility(View.INVISIBLE);
+        } else {
+            listView.setVisibility(View.INVISIBLE);
+            noDataView.setVisibility(View.VISIBLE);
+        }
+    }
+
+    public static class MyPostAdapter extends ArrayAdapter<PostRequester.PostData> {
 
         LayoutInflater mInflater;
         Context mContext;
@@ -73,11 +109,12 @@ public class MyPostFragment extends BaseFragment {
 
             convertView = mInflater.inflate(R.layout.adapter_mypost, parent, false);
 
-            String name = getItem(position);
+            PostRequester.PostData postData = getItem(position);
 
-            PicassoUtility.getPicassoRoundImage(mContext, "", (ImageView)convertView.findViewById(R.id.postImageView));
+            PicassoUtility.getPicassoRoundImage(mContext, postData.sumbnail, (ImageView)convertView.findViewById(R.id.postImageView));
 
-            ((TextView)convertView.findViewById(R.id.postTextView)).setText(name);
+            ((TextView)convertView.findViewById(R.id.postTextView)).setText(postData.title);
+            ((TextView)convertView.findViewById(R.id.sourceTextView)).setText(postData.source);
 
             return convertView;
         }

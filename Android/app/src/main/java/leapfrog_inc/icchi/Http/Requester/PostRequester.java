@@ -92,6 +92,10 @@ public class PostRequester {
         httpManager.execute(Constants.ServerRootUrl, "POST", param.toString());
     }
 
+    public ArrayList<PostData> getDataList() {
+        return mDataList;
+    }
+
     public interface PostRequesterCallback {
         void didReceiveData(boolean result);
     }

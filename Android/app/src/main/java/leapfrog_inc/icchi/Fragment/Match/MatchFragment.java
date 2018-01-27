@@ -1,7 +1,10 @@
 package leapfrog_inc.icchi.Fragment.Match;
 
 import android.content.Context;
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,10 +16,12 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import java.net.URI;
 import java.util.ArrayList;
 
 import leapfrog_inc.icchi.Fragment.BaseFragment;
 import leapfrog_inc.icchi.Fragment.FragmentController;
+import leapfrog_inc.icchi.Http.Requester.UserRequester;
 import leapfrog_inc.icchi.Parts.PicassoUtility;
 import leapfrog_inc.icchi.R;
 
@@ -33,17 +38,22 @@ public class MatchFragment extends BaseFragment {
 
         ListView listView = (ListView)view.findViewById(R.id.listView);
         MatchAdapter adapter = new MatchAdapter(getActivity());
-        adapter.add("test1");
-        adapter.add("test2");
-        adapter.add("test3");
-        adapter.add("test4");
-        adapter.add("test5");
+
+        ArrayList<UserRequester.UserData> userList = UserRequester.getInstance().getDataList();
+        for (int i = 0; i < userList.size(); i++) {
+            adapter.add(userList.get(i));
+        }
         adapter.notifyDataSetChanged();
         listView.setAdapter(adapter);
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-
+                UserRequester.UserData userData = (UserRequester.UserData)adapterView.getItemAtPosition(i);
+                if (userData.fbLink.length() > 0) {
+                    Uri uri = Uri.parse(userData.fbLink);
+                    Intent intent = new Intent(Intent.ACTION_VIEW, uri);
+                    startActivity(intent);
+                }
             }
         });
 
@@ -57,7 +67,7 @@ public class MatchFragment extends BaseFragment {
         return view;
     }
 
-    public static class MatchAdapter extends ArrayAdapter<String> {
+    public static class MatchAdapter extends ArrayAdapter<UserRequester.UserData> {
 
         LayoutInflater mInflater;
         Context mContext;
@@ -73,11 +83,13 @@ public class MatchFragment extends BaseFragment {
 
             convertView = mInflater.inflate(R.layout.adapter_match, parent, false);
 
-            String name = getItem(position);
+            UserRequester.UserData userData = getItem(position);
 
-            PicassoUtility.getPicassoRoundImage(mContext, "", (ImageView)convertView.findViewById(R.id.faceImageView));
+            PicassoUtility.getPicassoRoundImage(mContext, userData.image, (ImageView)convertView.findViewById(R.id.faceImageView));
+            ((TextView)convertView.findViewById(R.id.nameTextView)).setText(userData.name);
 
-            ((TextView)convertView.findViewById(R.id.nameTextView)).setText(name);
+            int match = UserRequester.getInstance().queryMatch(userData.userId);
+            ((TextView)convertView.findViewById(R.id.matchTextView)).setText(String.valueOf(match));
 
             return convertView;
         }

@@ -1,6 +1,7 @@
 package leapfrog_inc.icchi.Fragment.Login;
 
 import android.accounts.Account;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -94,20 +95,43 @@ public class LoginFragment extends BaseFragment {
             return;
         }
 
-        final LoadingFragment loading = LoadingFragment.start((MainActivity) getActivity());
+        ((MainActivity)getActivity()).startLoading();
 
         AccountRequester.login(email, password, new AccountRequester.LoginCallback() {
             @Override
             public void didReceive(boolean result, String userId) {
-                loading.stop((MainActivity)getActivity());
+
                 if (result) {
                     SaveData saveData = SaveData.getInstance();
                     saveData.userId = userId;
                     saveData.save();
 
+                    fetchUser();
+
+                } else {
+                    ((MainActivity)getActivity()).stopLoading();
+                    AlertUtility.showAlert(getActivity(), "エラー", "ログインに失敗しました", "OK", null);
+                }
+            }
+        });
+    }
+
+    private void fetchUser() {
+
+        UserRequester.getInstance().fetch(new UserRequester.UserRequesterCallback() {
+            @Override
+            public void didReceiveData(boolean result) {
+                ((MainActivity)getActivity()).stopLoading();
+
+                if (result) {
                     stackMyPage();
                 } else {
-                    AlertUtility.showAlert(getActivity(), "エラー", "ログインに失敗しました", "OK", null);
+                    AlertUtility.showAlert(getActivity(), "エラー", "通信に失敗しました", "リトライ", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+                            fetchUser();
+                        }
+                    });
                 }
             }
         });
