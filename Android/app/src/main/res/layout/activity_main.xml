@@ -19,4 +19,11 @@
         android:orientation="vertical">
     </LinearLayout>
 
+    <LinearLayout
+        android:id="@+id/loadingContainer"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#0000"
+        android:orientation="vertical"/>
+
 </FrameLayout>
