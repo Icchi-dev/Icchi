@@ -22,9 +22,13 @@ function register() {
 
 	$email = $_POST["email"];
 	$password = $_POST["password"];
+	$name = $_POST["name"];
+	$image = $_POST["image"];
+	$fbLink = $_POST["fbLink"];
+
 	$userId = createUserId();
 
-	$userData = $userId . "," . $email . "," . $password . ",,,,,\n";
+	$userData = $userId . "," . $email . "," . $password . "," . $name . ",,,,," . $image . "," . $fbLink . "\n";
 	$fileName = "data/user.txt";
 	if (file_put_contents($fileName, $userData, FILE_APPEND) !== false) {
 		echo(json_encode(Array("result" => "0",
@@ -80,9 +84,9 @@ function updateAccount() {
 			$newUsers = Array();
 			for ($i = 0; $i < count($users); $i++) {
 				$userDatas = explode(",", $users[$i]);
-				if (count($userDatas) >= 1) {
+				if (count($userDatas) >= 3) {
 					if (strcmp($userDatas[0], $userId) == 0) {
-						$newUsers[] = $userId . "," . $name . "," . $age . "," . $gender . "," . $likes . "," . $hates . "," . $image . "," . $fblink;
+						$newUsers[] = $userId . "," . $userDatas[1] . "," . $userDatas[2] . "," . $name . "," . $age . "," . $gender . "," . $likes . "," . $hates . "," . $image . "," . $fblink;
 						continue;
 					}
 				}
@@ -108,15 +112,15 @@ function getUser() {
 			$users = explode("\n", $fileData);
 			for ($i = 0; $i < count($users); $i++) {
 				$userDatas = explode(",", $users[$i]);
-				if (count($userDatas) >= 8) {
+				if (count($userDatas) >= 10) {
 					$userList[] = Array("userId" => $userDatas[0],
-														"name" => $userDatas[1],
-														"age" => $userDatas[2],
-														"gender" => $userDatas[3],
-														"likes" => $userDatas[4],
-														"hates" => $userDatas[5],
-														"image" => $userDatas[6],
-														"fbLink" => $userDatas[7]);
+														"name" => $userDatas[3],
+														"age" => $userDatas[4],
+														"gender" => $userDatas[5],
+														"likes" => $userDatas[6],
+														"hates" => $userDatas[7],
+														"image" => $userDatas[8],
+														"fbLink" => $userDatas[9]);
 				}
 			}
 			$ret = Array("result" => "0",

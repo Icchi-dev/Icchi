@@ -1,2 +1,2 @@
-0,test@mail.com,password,name,0,0-1-2,3-4-5,http://image.png,http://fb.com
-1,test@mail.com,password,name,0,0-1-2,3-4-5,http://image.png,http://fb.com
+0,test@mail.com,password,name,0,0,0-1-2,3-4-5,http://image.png,http://fb.com
+1,test@mail.com,password,name,0,0,0-1-2,3-4-5,http://image.png,http://fb.com
