@@ -62,6 +62,7 @@
             android:layout_marginLeft="20dp"
             android:layout_marginRight="20dp">
             <EditText
+                android:id="@+id/searchEditText"
                 android:layout_width="0dp"
                 android:layout_weight="1"
                 android:layout_height="match_parent"
@@ -75,16 +76,16 @@
                 android:layout_marginRight="4dp"/>
         </LinearLayout>
 
-        <LinearLayout
-            android:id="@+id/contentsLayout"
+        <ListView
+            android:id="@+id/listView"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginBottom="20dp"
+            android:layout_marginTop="20dp"
             android:layout_marginLeft="20dp"
             android:layout_marginRight="20dp"
-            android:layout_marginTop="20dp"
-            android:orientation="vertical"></LinearLayout>
-
+            android:layout_marginBottom="20dp"
+            android:divider="@null"
+            android:scrollbars="none"/>
     </LinearLayout>
 
 </LinearLayout>

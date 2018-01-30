@@ -82,4 +82,28 @@ public class ItemRequester {
     public interface ItemRequesterCallback {
         void didReceiveData(boolean result);
     }
+
+    public ArrayList<ItemData> getDataList() {
+        return mDataList;
+    }
+
+    public ItemData query(String itemId) {
+
+        for (int i = 0; i < mDataList.size(); i++) {
+            if (mDataList.get(i).itemId.equals(itemId)) {
+                return mDataList.get(i);
+            }
+        }
+        return null;
+    }
+
+    public String queryId(String itemName) {
+
+        for (int i = 0; i < mDataList.size(); i++) {
+            if (mDataList.get(i).name.equals(itemName)) {
+                return mDataList.get(i).itemId;
+            }
+        }
+        return null;
+    }
 }

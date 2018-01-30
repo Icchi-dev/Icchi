@@ -2,7 +2,8 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#0000">
+    android:background="#0000"
+    android:clickable="true">
 
     <View
         android:layout_width="90dp"
