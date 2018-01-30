@@ -75,6 +75,9 @@ function updateAccount() {
 	$image = $_POST["image"];
 	$fblink = $_POST["fbLink"];
 
+	DebugSave($_POST["name"]);
+	DebugSave($name);
+
 	$fileName = "data/user.txt";
 	if (file_exists($fileName)) {
 		$fileData = file_get_contents($fileName);
@@ -142,9 +145,10 @@ function getItem() {
 			$items = explode("\n", $fileData);
 			for ($i = 0; $i < count($items); $i++) {
 				$itemDatas = explode(",", $items[$i]);
-				if (count($itemDatas) >= 2) {
+				if (count($itemDatas) >= 3) {
 					$itemList[] = Array("itemId" => $itemDatas[0],
-														"name" => $itemDatas[1]);
+										"name" => $itemDatas[1],
+										"kana" => $itemDatas[2]);
 				}
 			}
 			$ret = Array("result" => "0",
