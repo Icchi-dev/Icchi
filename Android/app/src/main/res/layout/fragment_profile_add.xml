@@ -35,9 +35,10 @@
         android:layout_marginTop="30dp"/>
 
     <LinearLayout
+        android:id="@+id/contentsBaseLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@layout/shape_profile_add_base"
+        android:background="@layout/shape_profile_add_base_like"
         android:layout_marginTop="30dp"
         android:layout_marginLeft="30dp"
         android:layout_marginRight="30dp"
@@ -45,6 +46,7 @@
         android:orientation="vertical">
 
         <TextView
+            android:id="@+id/isLikeTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="好き"
@@ -54,9 +56,10 @@
             android:layout_marginTop="10dp"/>
         
         <LinearLayout
+            android:id="@+id/searchLayout"
             android:layout_width="match_parent"
             android:layout_height="40dp"
-            android:background="@layout/shape_profile_add_search"
+            android:background="@layout/shape_profile_add_search_like"
             android:orientation="horizontal"
             android:layout_marginTop="10dp"
             android:layout_marginLeft="20dp"
@@ -70,6 +73,7 @@
                 android:inputType="text"
                 android:layout_marginLeft="10dp"/>
             <ImageView
+                android:id="@+id/grassImageView"
                 android:layout_width="30dp"
                 android:layout_height="match_parent"
                 android:src="@drawable/profileadd_grass_like"

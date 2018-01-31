@@ -4,10 +4,11 @@
     android:layout_height="match_parent">
 
     <LinearLayout
+        android:id="@+id/baseLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:background="@layout/shape_profileadd_content"
+        android:background="@layout/shape_profileadd_content_like"
         android:layout_marginTop="4dp"
         android:layout_marginBottom="4dp">
 
@@ -15,7 +16,7 @@
             android:id="@+id/contentTextView"
             android:layout_width="wrap_content"
             android:layout_height="20dp"
-            android:text="好き"
+            android:text="コンテンツ"
             android:textColor="#fff"
             android:layout_marginTop="10dp"
             android:layout_marginBottom="10dp"

@@ -1,16 +1,10 @@
 package leapfrog_inc.icchi.Fragment.Profile;
 
 import android.content.Context;
-import android.content.Intent;
 import android.graphics.Color;
-import android.net.Uri;
 import android.os.Bundle;
-import android.os.Handler;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Size;
-import android.util.TypedValue;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,17 +18,10 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import leapfrog_inc.icchi.Fragment.BaseFragment;
 import leapfrog_inc.icchi.Fragment.FragmentController;
-import leapfrog_inc.icchi.Fragment.MyPost.MyPostFragment;
-import leapfrog_inc.icchi.Function.CommonUtility;
-import leapfrog_inc.icchi.Function.SaveData;
 import leapfrog_inc.icchi.Http.Requester.ItemRequester;
-import leapfrog_inc.icchi.Http.Requester.PostRequester;
-import leapfrog_inc.icchi.Http.Requester.UserRequester;
-import leapfrog_inc.icchi.Parts.PicassoUtility;
 import leapfrog_inc.icchi.R;
 
 /**
@@ -81,12 +68,20 @@ public class ProfileAddFragment extends BaseFragment {
             }
         });
 
+        if (!mIsLike) {
+            ((TextView)view.findViewById(R.id.isLikeTextView)).setTextColor(Color.rgb(120, 120, 255));
+            ((TextView)view.findViewById(R.id.isLikeTextView)).setText("嫌い");
+            ((ImageView)view.findViewById(R.id.grassImageView)).setImageResource(R.drawable.profileadd_grass_hate);
+            ((LinearLayout) view.findViewById(R.id.contentsBaseLayout)).setBackgroundResource(R.layout.shape_profile_add_base_hate);
+            ((LinearLayout)view.findViewById(R.id.searchLayout)).setBackgroundResource(R.layout.shape_profile_add_search_hate);
+        }
+
         return view;
     }
 
     private void resetListView(ListView listView, String text) {
 
-        ProfileAddAdapter adapter = new ProfileAddAdapter(getActivity());
+        ProfileAddAdapter adapter = new ProfileAddAdapter(getActivity(), mIsLike);
 
         ArrayList<ItemRequester.ItemData> itemDatas = ItemRequester.getInstance().getDataList();
 
@@ -98,7 +93,8 @@ public class ProfileAddFragment extends BaseFragment {
             }
         } else {
             for (int i = 0; i < itemDatas.size(); i++) {
-                if (itemDatas.get(i).name.indexOf(text) != -1) {
+                ItemRequester.ItemData itemData = itemDatas.get(i);
+                if ((itemData.name.indexOf(text) != -1) || (itemData.kana.indexOf(text) != -1)) {
                     adapter.add(itemDatas.get(i).name);
                 }
             }
@@ -125,11 +121,13 @@ public class ProfileAddFragment extends BaseFragment {
 
         LayoutInflater mInflater;
         Context mContext;
+        boolean mIsLike;
 
-        public ProfileAddAdapter(Context context){
+        public ProfileAddAdapter(Context context, boolean isLike){
             super(context, 0);
             mInflater = LayoutInflater.from(context);
             mContext = context;
+            mIsLike = isLike;
         }
 
         @Override
@@ -137,9 +135,12 @@ public class ProfileAddFragment extends BaseFragment {
 
             convertView = mInflater.inflate(R.layout.adapter_profileadd, parent, false);
 
+            if (!mIsLike) {
+                ((LinearLayout)convertView.findViewById(R.id.baseLayout)).setBackgroundResource(R.layout.shape_profileadd_content_hate);
+            }
+
             String text = getItem(position);
             ((TextView)convertView.findViewById(R.id.contentTextView)).setText(text);
-
 
             return convertView;
         }

@@ -18,16 +18,19 @@ public class ItemRequester {
 
         public String itemId;
         public String name;
+        public String kana;
 
         static public ItemData create(JSONObject json) {
 
             try {
                 String itemId = json.getString("itemId");
                 String name = json.getString("name");
+                String kana = json.getString("kana");
 
                 ItemData itemData = new ItemData();
                 itemData.itemId = itemId;
                 itemData.name = name;
+                itemData.kana = kana;
 
                 return itemData;
 
