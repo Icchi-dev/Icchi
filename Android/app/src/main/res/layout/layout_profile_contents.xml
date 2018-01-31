@@ -16,6 +16,7 @@
         android:orientation="horizontal"
         android:background="@layout/shape_profile_likecontents">
         <TextView
+            android:id="@+id/itemTextView"
             android:layout_width="0dp"
             android:layout_weight="1"
             android:layout_height="wrap_content"

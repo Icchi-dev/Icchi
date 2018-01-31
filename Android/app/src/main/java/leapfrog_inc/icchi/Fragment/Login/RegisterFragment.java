@@ -11,6 +11,7 @@ import android.widget.EditText;
 import leapfrog_inc.icchi.Activity.MainActivity;
 import leapfrog_inc.icchi.Fragment.BaseFragment;
 import leapfrog_inc.icchi.Fragment.FragmentController;
+import leapfrog_inc.icchi.Fragment.MyPage.MyPageFragment;
 import leapfrog_inc.icchi.Function.SaveData;
 import leapfrog_inc.icchi.Http.Requester.AccountRequester;
 import leapfrog_inc.icchi.Http.Requester.UserRequester;
@@ -82,7 +83,8 @@ public class RegisterFragment extends BaseFragment {
                 ((MainActivity)getActivity()).stopLoading();
 
                 if (result) {
-                    FragmentController.getInstance().popToMyPage(FragmentController.AnimationType.horizontal);
+                    MyPageFragment fragment = new MyPageFragment();
+                    FragmentController.getInstance().stack(fragment, FragmentController.AnimationType.horizontal);
                 } else {
                     AlertUtility.showAlert(getActivity(), "エラー", "通信に失敗しました", "リトライ", new DialogInterface.OnClickListener() {
                         @Override

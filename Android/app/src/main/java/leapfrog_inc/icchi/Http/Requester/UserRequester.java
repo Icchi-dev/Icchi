@@ -1,5 +1,7 @@
 package leapfrog_inc.icchi.Http.Requester;
 
+import android.util.Base64;
+
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -105,7 +107,7 @@ public class UserRequester {
         public String display() {
             if (this == GenderType.male) {
                 return "男性";
-            } else if (this == GenderType.male) {
+            } else if (this == GenderType.female) {
                 return "女性";
             } else {
                 return "";
@@ -144,12 +146,16 @@ public class UserRequester {
 
                 userData.likes = new ArrayList<String>();
                 for (int i = 0; i < likes.length; i++) {
-                    userData.likes.add(likes[i]);
+                    if (likes[i].length() > 0) {
+                        userData.likes.add(likes[i]);
+                    }
                 }
 
                 userData.hates = new ArrayList<String>();
                 for (int i = 0; i < hates.length; i++) {
-                    userData.hates.add(hates[i]);
+                    if (hates[i].length() > 0) {
+                        userData.hates.add(hates[i]);
+                    }
                 }
 
                 userData.image = image;

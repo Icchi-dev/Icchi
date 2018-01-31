@@ -62,12 +62,20 @@ public class MyPostFragment extends BaseFragment {
 
         for (int i = 0; i < postList.size(); i++) {
             PostRequester.PostData postData = postList.get(i);
-            for (int j = 0; j < postData.relates.size(); j++) {
-                if (myUserData.likes.contains(postData.relates.get(j))) {
-                    adapter.add(postData);
-                    count++;
-                    break;
+            boolean relates = false;
+            if (postData.relates.contains("*")) {
+                relates = true;
+            } else {
+                for (int j = 0; j < postData.relates.size(); j++) {
+                    if (myUserData.likes.contains(postData.relates.get(j))) {
+                        relates = true;
+                        break;
+                    }
                 }
+            }
+            if (relates) {
+                adapter.add(postData);
+                count++;
             }
         }
         adapter.notifyDataSetChanged();
