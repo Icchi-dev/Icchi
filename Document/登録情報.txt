@@ -6,6 +6,11 @@ CHxgN56Z
 icchi_dev@yahoo.co.jp
 CHxgN56Z
 
+■deploy gate
+icchi_dev@yahoo.co.jp
+icchi
+CHxgN56Z
+
 
 ■ Facebookテストユーザ
 <iOS用>
@@ -21,3 +26,10 @@ CHxgN56Z
 "login_url": "https://developers.facebook.com/checkpoint/test-user-login/110853466395407/",
 "email": "wozdfdebib_1516884928@tfbnw.net",
 "password": "855487100"
+
+<クライアント用>
+"id": "112618916221432",
+"access_token": "EAAczFaynbn0BAOb0MhXZB7GdrWooXUJSYXLoZBZBnFKDCIQVHkkgzpgUMxPp2ftKwFHTTW2MNo0vvupVYIWWOBgPAtfO59uIwr1w5NYY5ZA4Vo8UcDYzv3rIp7L2k9kAQYfWiD9cjD1AVZCepC79quHm1rjH9vW6YtDubsly0sVGHv1pkMeQYZCTrFmI8iF2oiNDKoXbVYhxG80w3ZBPHtZB",
+"login_url": "https://developers.facebook.com/checkpoint/test-user-login/112618916221432/",
+"email": "fhvalpokbi_1517398100@0040tfbnw.net",
+"password": "869374213"
