@@ -6,8 +6,18 @@ CHxgN56Z
 icchi_dev@yahoo.co.jp
 CHxgN56Z
 
-■facebook
-一致太郎
-icchi_dev@yahoo.co.jp
-CHxgN56Z
-1987/4/23
+
+■ Facebookテストユーザ
+<iOS用>
+"id": "105391953609584",
+"access_token": "EAAczFaynbn0BAHxMPD921mJ0d96Yjp8RIysbxqrxGCWpnZBN5GcZAhwN7JNBa1ELmGoKnhBvzQ7ztkPwLSqHUI0BbJlsYK9WPQM55riwH0lvYoE2JQY0r1nBWUzI2FNsc8a8cip0LMrMsEZAvd4RfjlgIdWAEsHuV6WmIy5839hharatdcaTpbfvnxOPDKMF3hIOZCv0FFt1xb8dZAUkM",
+"login_url": "https://developers.facebook.com/checkpoint/test-user-login/105391953609584/",
+"email": "cjsivmwqgt_1516884900@tfbnw.net",
+"password": "1085730267"
+
+<Android用>
+"id": "110853466395407",
+"access_token": "EAAczFaynbn0BAKX8CX1yyIfelZAQ2UZAZAzih1EyRxREntTJnA1ywzv4Ihtzl6sG83cvlXdQwTcsD3UzzrbjpcdjonUPwVvzhKD6xS0ZCNjLnZA3dIF2ZAJ483qgH1MjAZBfeHkHYsZAuzyXz97cYjlShUn3GUerdYuuQyebyTtFJnCH8wo5vfPtehjF2fcyrs0DvVMjE8p0GAZDZD",
+"login_url": "https://developers.facebook.com/checkpoint/test-user-login/110853466395407/",
+"email": "wozdfdebib_1516884928@tfbnw.net",
+"password": "855487100"

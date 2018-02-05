@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#fff"
+    android:orientation="vertical">
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:orientation="horizontal">
+        <ImageView
+            android:layout_width="60dp"
+            android:layout_height="match_parent"
+            android:src="@drawable/common_logo"
+            android:scaleType="fitCenter"/>
+        <ImageButton
+            android:id="@+id/menuButton"
+            android:layout_width="60dp"
+            android:layout_height="match_parent"
+            android:src="@drawable/common_menu"
+            android:scaleType="fitCenter"
+            android:background="#0000"
+            android:layout_gravity="right"/>
+    </FrameLayout>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="プロフィール追加"
+        android:textSize="16dp"
+        android:textColor="#000"
+        android:textStyle="bold"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="30dp"/>
+
+    <LinearLayout
+        android:id="@+id/contentsBaseLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@layout/shape_profile_add_base_like"
+        android:layout_marginTop="30dp"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp"
+        android:layout_marginBottom="20dp"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/isLikeTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="好き"
+            android:textSize="14dp"
+            android:textColor="#f66"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="10dp"/>
+        
+        <LinearLayout
+            android:id="@+id/searchLayout"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:background="@layout/shape_profile_add_search_like"
+            android:orientation="horizontal"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp">
+            <EditText
+                android:id="@+id/searchEditText"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="match_parent"
+                android:background="#0000"
+                android:inputType="text"
+                android:layout_marginLeft="10dp"/>
+            <ImageView
+                android:id="@+id/grassImageView"
+                android:layout_width="30dp"
+                android:layout_height="match_parent"
+                android:src="@drawable/profileadd_grass_like"
+                android:layout_marginRight="4dp"/>
+        </LinearLayout>
+
+        <ListView
+            android:id="@+id/listView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="20dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginBottom="20dp"
+            android:divider="@null"
+            android:scrollbars="none"/>
+    </LinearLayout>
+
+</LinearLayout>

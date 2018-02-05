@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#fff"
+    android:orientation="vertical">
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:orientation="horizontal">
+        <ImageView
+            android:layout_width="60dp"
+            android:layout_height="match_parent"
+            android:src="@drawable/common_logo"
+            android:scaleType="fitCenter"/>
+        <ImageButton
+            android:layout_width="60dp"
+            android:layout_height="match_parent"
+            android:src="@drawable/common_menu"
+            android:scaleType="fitCenter"
+            android:background="#0000"
+            android:layout_gravity="right"/>
+    </FrameLayout>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="プロフィール登録"
+        android:textSize="16dp"
+        android:textStyle="bold"
+        android:textColor="#000"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="20dp"/>
+
+    <LinearLayout
+        android:id="@+id/alphaLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="40dp"
+        android:orientation="vertical">
+        <TextView
+            android:id="@+id/questionTextView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="30dp"
+            android:text="質問文"
+            android:textSize="14dp"
+            android:textColor="#000"
+            android:gravity="center"
+            android:lines="3"/>
+        <EditText
+            android:id="@+id/answerEditText"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="30dp"
+            android:layout_marginTop="30dp"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:background="@layout/shape_tutorial_edittext"
+            android:inputType="text"/>
+
+        <Button
+            android:id="@+id/nextButton"
+            android:layout_width="120dp"
+            android:layout_height="40dp"
+            android:text="次へ"
+            android:textSize="14dp"
+            android:textColor="#000"
+            android:background="@layout/shape_tutorial_button"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="30dp" />
+
+        <Button
+            android:id="@+id/skipButton"
+            android:layout_width="120dp"
+            android:layout_height="40dp"
+            android:text="スキップ"
+            android:textSize="14dp"
+            android:textColor="#000"
+            android:background="@layout/shape_tutorial_button"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="20dp" />
+    </LinearLayout>
+
+</LinearLayout>
