@@ -12,6 +12,17 @@ import FBSDKLoginKit
 
 class LoginViewController: KeyboardRespondableViewController {
 
+    @IBOutlet weak var loginIndicator: UIActivityIndicatorView!
+    
+    private enum FetchResult: Int {
+        case ok
+        case error
+        case progress
+    }
+    private var fetchUserResult = FetchResult.progress;
+    private var fetchItemResult = FetchResult.progress;
+    private var fetchPostResult = FetchResult.progress;
+    
     @IBOutlet private weak var contentsViewCenterYConstraint: NSLayoutConstraint!
     @IBOutlet private weak var emailTextField: UITextField!
     @IBOutlet private weak var passwordTextField: UITextField!
@@ -20,6 +31,7 @@ class LoginViewController: KeyboardRespondableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        // facebookログイン作成
         let loginButton = FBSDKLoginButton()
         loginButton.delegate = self
         self.view.addSubview(loginButton)
@@ -28,6 +40,73 @@ class LoginViewController: KeyboardRespondableViewController {
         loginButton.leadingAnchor.constraint(equalTo: self.loginButtonView.leadingAnchor).isActive = true
         loginButton.trailingAnchor.constraint(equalTo: self.loginButtonView.trailingAnchor).isActive = true
         loginButton.bottomAnchor.constraint(equalTo: self.loginButtonView.bottomAnchor).isActive = true
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
+            self.fetch()
+        }
+    }
+    
+    /* データ取得 */
+    private func fetch() {
+        
+        loginIndicator.isHidden = false;
+        loginIndicator.startAnimating()
+        
+        // ユーザー一覧取得
+        UserRequester.sharedManager.fetch() { (result) in
+            if result {self.fetchUserResult = FetchResult.ok}
+            else      {self.fetchUserResult = FetchResult.error}
+            self.checkResult()
+        }
+        // アイテム一覧取得
+        ItemRequester.sharedManager.fetch() { (result) in
+            if result {self.fetchItemResult = FetchResult.ok}
+            else      {self.fetchItemResult = FetchResult.error}
+            self.checkResult()
+        }
+        // アイテム一覧取得
+        PostRequester.sharedManager.fetch() { (result) in
+            if result {self.fetchPostResult = FetchResult.ok}
+            else      {self.fetchPostResult = FetchResult.error}
+            self.checkResult()
+        }
+    }
+    
+    private func checkResult() {
+        
+        // 受信待ち
+        if (self.fetchUserResult == .progress
+            || self.fetchItemResult == .progress
+            || self.fetchPostResult == .progress) {
+            return
+        }
+        
+        // インジケータ解除
+        loginIndicator.stopAnimating()
+        loginIndicator.isHidden = true;
+        
+        // 受信チェック
+        if (self.fetchUserResult == .error
+            || self.fetchItemResult == .error
+            || self.fetchPostResult == .error) {
+            
+            let alert = UIAlertController(title:"エラー", message:"通信に失敗しました", preferredStyle:.alert)
+            let cancelAction = UIAlertAction(title: "リトライ", style: .default) {(tapAction) in
+                self.fetch()
+            }
+            alert.addAction(cancelAction)
+            present(alert, animated: true, completion: nil)
+        }
+
+//        SaveData saveData = SaveData.getInstance();
+//        if (saveData.userId.length() > 0) {
+//            MyPageFragment fragment = new MyPageFragment();
+//            FragmentController.getInstance().stack(fragment, FragmentController.AnimationType.vertical);
+//        } else {
+//            LoginFragment fragment = new LoginFragment();
+//            FragmentController.getInstance().stack(fragment, FragmentController.AnimationType.vertical);
+//        }
+        
     }
     
     override func animate(with: KeyboardAnimation) {

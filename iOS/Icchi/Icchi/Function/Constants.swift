@@ -11,11 +11,11 @@ import Foundation
 struct Constants {
     
     static let HttpTimeOutInterval = TimeInterval(10)
-//    static let ServerRootUrl = "https://lfrogs.sakura.ne.jp/icchi/srv.php"
-    static let ServerApiUrl = "http://localhost/icchi/srv.php"
+    static let ServerApiUrl = "http://lfrogs.sakura.ne.jp/icchi/srv.php"
     static let StringEncoding = String.Encoding.utf8
     
     struct UserDefaultsKey {
+        static let Key = "Icchi"
         static let UserId = "UserId"
         static let IsInitialized = "IsInitialized"
     }
