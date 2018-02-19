@@ -52,6 +52,10 @@ public class MainActivity extends AppCompatActivity {
 
         startLoading();
 
+        fetchUserResult = FetchResult.progress;
+        fetchItemResult = FetchResult.progress;
+        fetchPostResult = FetchResult.progress;
+
         UserRequester.getInstance().fetch(new UserRequester.UserRequesterCallback() {
             @Override
             public void didReceiveData(boolean result) {

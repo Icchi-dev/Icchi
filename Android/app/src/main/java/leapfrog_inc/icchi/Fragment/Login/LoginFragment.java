@@ -63,15 +63,27 @@ public class LoginFragment extends BaseFragment {
                 AccountRequester.register("", "", userData.name, userData.image, userData.fbLink, new AccountRequester.RegisterCallback() {
                     @Override
                     public void didReceive(boolean result, String userId) {
-                        ((MainActivity)getActivity()).stopLoading();
+
+                        final String fUserId = userId;
 
                         if (result) {
-                            SaveData saveData = SaveData.getInstance();
-                            saveData.userId = userId;
-                            saveData.save();
+                            UserRequester.getInstance().fetch(new UserRequester.UserRequesterCallback() {
+                                @Override
+                                public void didReceiveData(boolean result) {
 
-                            stackMyPage();
+                                    ((MainActivity)getActivity()).stopLoading();
+
+                                    if (result) {
+                                        SaveData saveData = SaveData.getInstance();
+                                        saveData.userId = fUserId;
+                                        saveData.save();
+
+                                        stackMyPage();
+                                    }
+                                }
+                            });
                         } else {
+                            ((MainActivity)getActivity()).stopLoading();
                             AlertUtility.showAlert(getActivity(), "エラー", "ユーザー登録に失敗しました", "OK", null);
                         }
                     }

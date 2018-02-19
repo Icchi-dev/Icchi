@@ -12,6 +12,8 @@ import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import org.w3c.dom.Text;
+
 import leapfrog_inc.icchi.Activity.MainActivity;
 import leapfrog_inc.icchi.Fragment.BaseFragment;
 import leapfrog_inc.icchi.Fragment.FragmentController;
@@ -88,14 +90,14 @@ public class ProfileFragment extends BaseFragment {
         ((EditText)view.findViewById(R.id.nameEditText)).setText(userData.name);
 
         if (userData.age != null) {
-            Button ageButton = (Button)view.findViewById(R.id.ageButton);
-            ageButton.setText(userData.age.display());
-            ageButton.setTextColor(Color.BLACK);
+            TextView ageLabel = (TextView)view.findViewById(R.id.ageLabel);
+            ageLabel.setText(userData.age.display());
+            ageLabel.setTextColor(Color.BLACK);
         }
         if (userData.gender != null) {
-            Button genderButton = (Button)view.findViewById(R.id.genderButton);
-            genderButton.setText(userData.gender.display());
-            genderButton.setTextColor(Color.BLACK);
+            TextView genderLabel = (TextView)view.findViewById(R.id.genderLabel);
+            genderLabel.setText(userData.gender.display());
+            genderLabel.setTextColor(Color.BLACK);
         }
 
         final LinearLayout likeContentsLayout = (LinearLayout)view.findViewById(R.id.likeContentsBaseLayout);
@@ -163,9 +165,9 @@ public class ProfileFragment extends BaseFragment {
                 };
                 UserRequester.AgeType age = ages[i];
 
-                Button ageButton = (Button)view.findViewById(R.id.ageButton);
-                ageButton.setText(age.display());
-                ageButton.setTextColor(Color.BLACK);
+                TextView ageLabel = (TextView)view.findViewById(R.id.ageLabel);
+                ageLabel.setText(age.display());
+                ageLabel.setTextColor(Color.BLACK);
 
                 tmpUserData.age = age;
             }
@@ -191,9 +193,9 @@ public class ProfileFragment extends BaseFragment {
                 UserRequester.GenderType gender = genders[i];
 
                 String item = gender.display();
-                Button genderButton = (Button)view.findViewById(R.id.genderButton);
-                genderButton.setText(item);
-                genderButton.setTextColor(Color.BLACK);
+                TextView genderTextView = (TextView)view.findViewById(R.id.genderLabel);
+                genderTextView.setText(item);
+                genderTextView.setTextColor(Color.BLACK);
 
                 tmpUserData.gender = gender;
             }

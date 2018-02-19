@@ -5,24 +5,37 @@
     android:orientation="vertical"
     android:background="#fff">
 
-    <FrameLayout
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:orientation="horizontal">
-        <ImageView
-            android:layout_width="60dp"
-            android:layout_height="match_parent"
-            android:src="@drawable/common_logo"
-            android:scaleType="fitCenter"/>
         <ImageButton
             android:id="@+id/menuButton"
             android:layout_width="60dp"
-            android:layout_height="match_parent"
-            android:src="@drawable/common_menu"
+            android:layout_height="30dp"
+            android:src="@drawable/common_logo"
             android:scaleType="fitCenter"
-            android:background="#0000"
-            android:layout_gravity="right"/>
-    </FrameLayout>
+            android:layout_gravity="center_vertical"
+            android:background="#0000"/>
+        <TextView
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="match_parent"
+            android:text="プロフィール"
+            android:textColor="#333"
+            android:textStyle="bold"
+            android:textSize="14dp"
+            android:textAlignment="center"
+            android:gravity="center_vertical"/>
+        <View
+            android:layout_width="60dp"
+            android:layout_height="1dp"/>
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#ececec"/>
 
     <ScrollView
         android:layout_width="match_parent"
@@ -31,55 +44,114 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="プロフィール"
-                android:textSize="16dp"
-                android:textStyle="bold"
-                android:textColor="#000"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginTop="30dp"/>
-            <EditText
-                android:id="@+id/nameEditText"
-                android:layout_width="match_parent"
-                android:layout_height="40dp"
-                android:hint="名前"
-                android:inputType="text"
-                android:background="@layout/shape_profile_edittext"
-                android:layout_marginTop="30dp"
-                android:layout_marginLeft="30dp"
-                android:layout_marginRight="30dp"
-                android:paddingLeft="10dp"
-                android:paddingRight="10dp"/>
 
+            <!-- 名前 -->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
                 android:orientation="horizontal"
-                android:layout_marginTop="20dp"
+                android:background="@layout/shape_profile_edittext"
+                android:layout_marginTop="30dp"
                 android:layout_marginLeft="30dp"
                 android:layout_marginRight="30dp">
+                <ImageView
+                    android:layout_width="14dp"
+                    android:layout_height="14dp"
+                    android:src="@drawable/profile_name"
+                    android:scaleType="fitCenter"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="14dp" />
+                <EditText
+                    android:id="@+id/nameEditText"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:textSize="11dp"
+                    android:textColor="#333"
+                    android:textStyle="bold"
+                    android:hint="名前"
+                    android:textColorHint="#ccc"
+                    android:inputType="text"
+                    android:background="#0000"
+                    android:layout_marginLeft="10dp"/>
+            </LinearLayout>
+
+            <!-- 年代 -->
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:background="@layout/shape_profile_edittext"
+                android:layout_marginTop="12dp"
+                android:layout_marginLeft="30dp"
+                android:layout_marginRight="30dp">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal">
+                    <ImageView
+                        android:layout_width="14dp"
+                        android:layout_height="14dp"
+                        android:src="@drawable/profile_age"
+                        android:scaleType="fitCenter"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginLeft="14dp" />
+                    <TextView
+                        android:id="@+id/ageLabel"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:text="年代 ▼"
+                        android:textStyle="bold"
+                        android:textColor="#ccc"
+                        android:textSize="11dp"
+                        android:layout_marginLeft="10dp"
+                        android:gravity="center_vertical"/>
+                </LinearLayout>
+
                 <Button
                     android:id="@+id/ageButton"
-                    android:layout_width="0dp"
-                    android:layout_weight="1"
+                    android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:text="年齢"
-                    android:textSize="14dp"
-                    android:textColor="#999"
-                    android:background="@layout/shape_profile_edittext"/>
+                    android:background="#0000"/>
+            </FrameLayout>
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:background="@layout/shape_profile_edittext"
+                android:layout_marginTop="12dp"
+                android:layout_marginLeft="30dp"
+                android:layout_marginRight="30dp">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal">
+                    <ImageView
+                        android:layout_width="14dp"
+                        android:layout_height="14dp"
+                        android:src="@drawable/profile_gender"
+                        android:scaleType="fitCenter"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginLeft="14dp" />
+                    <TextView
+                        android:id="@+id/genderLabel"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:text="性別 ▼"
+                        android:textStyle="bold"
+                        android:textColor="#ccc"
+                        android:textSize="11dp"
+                        android:layout_marginLeft="10dp"
+                        android:gravity="center_vertical"/>
+                </LinearLayout>
+
                 <Button
                     android:id="@+id/genderButton"
-                    android:layout_width="0dp"
-                    android:layout_weight="1"
+                    android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:text="性別"
-                    android:textSize="14dp"
-                    android:textColor="#999"
-                    android:background="@layout/shape_profile_edittext"
-                    android:layout_marginLeft="20dp"/>
-            </LinearLayout>
+                    android:background="#0000"/>
+            </FrameLayout>
+
+
+
 
             <LinearLayout
                 android:layout_width="match_parent"
