@@ -5,6 +5,7 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,9 +20,12 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 
+import leapfrog_inc.icchi.Activity.MainActivity;
 import leapfrog_inc.icchi.Fragment.BaseFragment;
 import leapfrog_inc.icchi.Fragment.FragmentController;
+import leapfrog_inc.icchi.Function.CommonUtility;
 import leapfrog_inc.icchi.Http.Requester.ItemRequester;
+import leapfrog_inc.icchi.Parts.AlertUtility;
 import leapfrog_inc.icchi.R;
 
 /**
@@ -50,7 +54,8 @@ public class ProfileAddFragment extends BaseFragment {
 
         resetListView((ListView)view.findViewById(R.id.listView), "");
 
-        ((EditText)view.findViewById(R.id.searchEditText)).addTextChangedListener(new TextWatcher() {
+        EditText searchEditText = (EditText)view.findViewById(R.id.searchEditText);
+        searchEditText.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {}
             @Override
@@ -65,6 +70,17 @@ public class ProfileAddFragment extends BaseFragment {
                 if ((listView != null) && (text != null)) {
                     resetListView(listView, text);
                 }
+            }
+        });
+
+        searchEditText.setOnKeyListener(new View.OnKeyListener() {
+            @Override
+            public boolean onKey(View view, int i, KeyEvent keyEvent) {
+                if ((keyEvent.getAction() == KeyEvent.ACTION_DOWN) && i == KeyEvent.KEYCODE_ENTER) {
+                    createItem((EditText)view);
+                    return true;
+                }
+                return false;
             }
         });
 
@@ -108,13 +124,52 @@ public class ProfileAddFragment extends BaseFragment {
                 String itemName = (String)adapterView.getItemAtPosition(i);
                 String itemId = ItemRequester.getInstance().queryId(itemName);
                 if (itemId != null) {
-                    ProfileFragment profileFragment = (ProfileFragment) FragmentController.getInstance().getPreviousFragment();
-                    profileFragment.addItemId(itemId, mIsLike);
-
-                    FragmentController.getInstance().pop(FragmentController.AnimationType.horizontal);
+                    notifyToProfile(itemId);
                 }
             }
         });
+    }
+
+    private void createItem(EditText editText) {
+
+        String itemName = editText.getText().toString();
+        if (itemName.length() > 0) {
+
+            ((MainActivity)getActivity()).startLoading();
+
+            ItemRequester.creteItem(itemName, new ItemRequester.CreateItemCallback() {
+                @Override
+                public void didCreateItem(boolean result, String itemId) {
+
+                    final String fItemId = itemId;
+
+                    if (result) {
+                        ItemRequester.getInstance().fetch(new ItemRequester.ItemRequesterCallback() {
+                            @Override
+                            public void didReceiveData(boolean result) {
+                                ((MainActivity)getActivity()).stopLoading();
+                                if (result) {
+                                    notifyToProfile(fItemId);
+                                } else {
+                                    AlertUtility.showAlert(getActivity(), "エラー", "通信に失敗しました", "OK", null);
+                                }
+                            }
+                        });
+                    } else {
+                        ((MainActivity)getActivity()).stopLoading();
+                        AlertUtility.showAlert(getActivity(), "エラー", "通信に失敗しました", "OK", null);
+                    }
+                }
+            });
+        }
+    }
+
+    private void notifyToProfile(String itemId) {
+
+        ProfileFragment profileFragment = (ProfileFragment) FragmentController.getInstance().getPreviousFragment();
+        profileFragment.addItemId(itemId, mIsLike);
+
+        FragmentController.getInstance().pop(FragmentController.AnimationType.horizontal);
     }
 
     public static class ProfileAddAdapter extends ArrayAdapter<String> {

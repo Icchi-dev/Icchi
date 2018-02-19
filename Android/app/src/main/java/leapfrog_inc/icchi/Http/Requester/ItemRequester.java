@@ -109,4 +109,32 @@ public class ItemRequester {
         }
         return null;
     }
+
+    public static void creteItem(String itemName, final CreateItemCallback callback){
+
+        HttpManager http = new HttpManager(new HttpManager.HttpCallback() {
+            @Override
+            public void didReceiveData(boolean result, String data) {
+                if (result) {
+                    try {
+                        JSONObject jsonObject = new JSONObject(data);
+                        String ret = jsonObject.getString("result");
+                        String itemId = jsonObject.getString("itemId");
+                        callback.didCreateItem(ret.equals("0"), itemId);
+                        return;
+                    } catch(Exception e) {}
+                }
+                callback.didCreateItem(false, null);
+            }
+        });
+        StringBuffer param = new StringBuffer();
+        param.append("command=createItem");
+        param.append("&");
+        param.append("itemName=" + itemName);
+        http.execute(Constants.ServerRootUrl, "POST", param.toString());
+    }
+
+    public interface CreateItemCallback {
+        void didCreateItem(boolean result, String itemId);
+    }
 }
