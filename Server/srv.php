@@ -1,5 +1,7 @@
 <?php
 
+require "item.php";
+
 $command = $_POST["command"];
 
 if(strcmp($command, "register") == 0) {
@@ -14,6 +16,8 @@ if(strcmp($command, "register") == 0) {
 	getItem();
 } else if(strcmp($command, "getPost") == 0) {
 	getPost();
+} else if(strcmp($command, "createItem") == 0) {
+	createItem();
 } else {
   echo("unknown");
 }
@@ -137,27 +141,17 @@ function getUser() {
 
 function getItem() {
 
-	$fileName = "data/item.txt";
-	if (file_exists($fileName)) {
-		$fileData = file_get_contents($fileName);
-		if ($fileData !== false) {
-			$itemList = Array();
-			$items = explode("\n", $fileData);
-			for ($i = 0; $i < count($items); $i++) {
-				$itemDatas = explode(",", $items[$i]);
-				if (count($itemDatas) >= 3) {
-					$itemList[] = Array("itemId" => $itemDatas[0],
-										"name" => $itemDatas[1],
-										"kana" => $itemDatas[2]);
-				}
-			}
-			$ret = Array("result" => "0",
-									 "items" => $itemList);
-			echo(json_encode($ret));
-			return;
-		}
+	$data = [];
+	$items = Item::readAll();
+	foreach($items as $item) {
+		$data[] = Array(
+			"itemId" => $item->id,
+			"name" => $item->name,
+			"kana" => $item->kana
+		);
 	}
-	echo(json_encode(Array("result" => "1")));
+	echo(json_encode(Array("result" => "0",
+												"items" => $data)));
 }
 
 function getPost() {
@@ -187,15 +181,22 @@ function getPost() {
 	echo(json_encode(Array("result" => "1")));
 }
 
+function createItem() {
+
+	$itemName = $_POST["itemName"];
+	$itemId = Item::append($itemName);
+	echo(json_encode(Array("result" => "0", "itemId" => $itemId)));
+}
+
 function createUserId() {
 
 	date_default_timezone_set('Asia/Tokyo');
 
 	static $chars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJLKMNOPQRSTUVWXYZ0123456789";
-  $str = "";
-  for ($i = 0; $i < 8; $i++) {
-    $str .= $chars[mt_rand(0, strlen($chars) - 1)];
-  }
+	$str = "";
+  	for ($i = 0; $i < 8; $i++) {
+    	$str .= $chars[mt_rand(0, strlen($chars) - 1)];
+  	}
 	return date("YmdHis") . "_" . $str;
 }
 
