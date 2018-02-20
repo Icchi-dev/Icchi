@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		5B174F47203C3E7B0046D2C7 /* StartUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B174F46203C3E7B0046D2C7 /* StartUpViewController.swift */; };
+		5B174F49203C4DA10046D2C7 /* RegisterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B174F48203C4DA10046D2C7 /* RegisterViewController.swift */; };
 		5B794DC92035C461006BC0CE /* UserRequester.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B794DC82035C461006BC0CE /* UserRequester.swift */; };
 		5B8BBCB22036EF4A00B292E7 /* HttpManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B8BBCB12036EF4A00B292E7 /* HttpManager.swift */; };
 		5BED6FAD203AFDFD00874884 /* ItemRequester.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BED6FAC203AFDFD00874884 /* ItemRequester.swift */; };
@@ -37,6 +39,8 @@
 
 /* Begin PBXFileReference section */
 		0625066F3426C500F447EA52 /* Pods-Icchi.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Icchi.release.xcconfig"; path = "Pods/Target Support Files/Pods-Icchi/Pods-Icchi.release.xcconfig"; sourceTree = "<group>"; };
+		5B174F46203C3E7B0046D2C7 /* StartUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartUpViewController.swift; sourceTree = "<group>"; };
+		5B174F48203C4DA10046D2C7 /* RegisterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterViewController.swift; sourceTree = "<group>"; };
 		5B794DC82035C461006BC0CE /* UserRequester.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserRequester.swift; sourceTree = "<group>"; };
 		5B8BBCB12036EF4A00B292E7 /* HttpManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HttpManager.swift; sourceTree = "<group>"; };
 		5BED6FAC203AFDFD00874884 /* ItemRequester.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemRequester.swift; sourceTree = "<group>"; };
@@ -80,6 +84,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		5B174F45203C3E5B0046D2C7 /* StartUp */ = {
+			isa = PBXGroup;
+			children = (
+				5B174F46203C3E7B0046D2C7 /* StartUpViewController.swift */,
+			);
+			path = StartUp;
+			sourceTree = "<group>";
+		};
 		5B794DC62035C42B006BC0CE /* Http */ = {
 			isa = PBXGroup;
 			children = (
@@ -110,6 +122,7 @@
 		BB6BBA0720176CEB00CC4179 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				5B174F45203C3E5B0046D2C7 /* StartUp */,
 				BB6BBA0820176CF100CC4179 /* Login */,
 				BB6BBA0B20176D1D00CC4179 /* MyPage */,
 				BB6BBA0C20176D3000CC4179 /* Tutorial */,
@@ -123,6 +136,7 @@
 			isa = PBXGroup;
 			children = (
 				BB6BBA0920176D0E00CC4179 /* LoginViewController.swift */,
+				5B174F48203C4DA10046D2C7 /* RegisterViewController.swift */,
 			);
 			path = Login;
 			sourceTree = "<group>";
@@ -354,6 +368,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				5BED6FAD203AFDFD00874884 /* ItemRequester.swift in Sources */,
+				5B174F49203C4DA10046D2C7 /* RegisterViewController.swift in Sources */,
 				BB6BBA1420176D8F00CC4179 /* Constants.swift in Sources */,
 				BB6BBA0A20176D0E00CC4179 /* LoginViewController.swift in Sources */,
 				BBE8920920189DE9004EE765 /* UIColor+Original.swift in Sources */,
@@ -372,6 +387,7 @@
 				BB6BBA1B20176E8100CC4179 /* UIViewController+Alert.swift in Sources */,
 				5B794DC92035C461006BC0CE /* UserRequester.swift in Sources */,
 				BBD66E29201799450070DFC4 /* KeyboardRespondableViewController.swift in Sources */,
+				5B174F47203C3E7B0046D2C7 /* StartUpViewController.swift in Sources */,
 				BBD66E312017A5D10070DFC4 /* ProfileHobbyView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
