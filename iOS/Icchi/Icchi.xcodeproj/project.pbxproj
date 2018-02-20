@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		5B794DC92035C461006BC0CE /* UserRequester.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B794DC82035C461006BC0CE /* UserRequester.swift */; };
+		5B8BBCB22036EF4A00B292E7 /* HttpManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B8BBCB12036EF4A00B292E7 /* HttpManager.swift */; };
+		5BED6FAD203AFDFD00874884 /* ItemRequester.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BED6FAC203AFDFD00874884 /* ItemRequester.swift */; };
+		5BED6FAF203B014100874884 /* PostRequester.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BED6FAE203B014100874884 /* PostRequester.swift */; };
 		BB6BBA0A20176D0E00CC4179 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB6BBA0920176D0E00CC4179 /* LoginViewController.swift */; };
 		BB6BBA0F20176D5200CC4179 /* MyPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB6BBA0E20176D5100CC4179 /* MyPageViewController.swift */; };
 		BB6BBA1120176D5600CC4179 /* TutorialViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB6BBA1020176D5600CC4179 /* TutorialViewController.swift */; };
@@ -33,6 +37,10 @@
 
 /* Begin PBXFileReference section */
 		0625066F3426C500F447EA52 /* Pods-Icchi.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Icchi.release.xcconfig"; path = "Pods/Target Support Files/Pods-Icchi/Pods-Icchi.release.xcconfig"; sourceTree = "<group>"; };
+		5B794DC82035C461006BC0CE /* UserRequester.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserRequester.swift; sourceTree = "<group>"; };
+		5B8BBCB12036EF4A00B292E7 /* HttpManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HttpManager.swift; sourceTree = "<group>"; };
+		5BED6FAC203AFDFD00874884 /* ItemRequester.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemRequester.swift; sourceTree = "<group>"; };
+		5BED6FAE203B014100874884 /* PostRequester.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostRequester.swift; sourceTree = "<group>"; };
 		7CBF87828A2E52901754E087 /* Pods-Icchi.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Icchi.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Icchi/Pods-Icchi.debug.xcconfig"; sourceTree = "<group>"; };
 		900095789B8231EC9494EBD8 /* Pods_Icchi.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Icchi.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		BB6BBA0920176D0E00CC4179 /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
@@ -72,6 +80,25 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		5B794DC62035C42B006BC0CE /* Http */ = {
+			isa = PBXGroup;
+			children = (
+				5B794DC72035C438006BC0CE /* Requester */,
+				5B8BBCB12036EF4A00B292E7 /* HttpManager.swift */,
+			);
+			path = Http;
+			sourceTree = "<group>";
+		};
+		5B794DC72035C438006BC0CE /* Requester */ = {
+			isa = PBXGroup;
+			children = (
+				5B794DC82035C461006BC0CE /* UserRequester.swift */,
+				5BED6FAC203AFDFD00874884 /* ItemRequester.swift */,
+				5BED6FAE203B014100874884 /* PostRequester.swift */,
+			);
+			path = Requester;
+			sourceTree = "<group>";
+		};
 		A3F3080DC56C370394B60365 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -129,13 +156,13 @@
 			path = Profile;
 			sourceTree = "<group>";
 		};
-		BB6BBA1220176D7C00CC4179 /* System */ = {
+		BB6BBA1220176D7C00CC4179 /* Function */ = {
 			isa = PBXGroup;
 			children = (
 				BB6BBA1320176D8F00CC4179 /* Constants.swift */,
 				BB6BBA1520176D9700CC4179 /* SaveData.swift */,
 			);
-			path = System;
+			path = Function;
 			sourceTree = "<group>";
 		};
 		BB6BBA1720176E4A00CC4179 /* Extension */ = {
@@ -188,9 +215,10 @@
 		BBF7B09D20174E0000964E95 /* Icchi */ = {
 			isa = PBXGroup;
 			children = (
+				5B794DC62035C42B006BC0CE /* Http */,
 				BBF7B09E20174E0000964E95 /* AppDelegate.swift */,
 				BB6BBA0720176CEB00CC4179 /* View */,
-				BB6BBA1220176D7C00CC4179 /* System */,
+				BB6BBA1220176D7C00CC4179 /* Function */,
 				BB6BBA1720176E4A00CC4179 /* Extension */,
 				BBF7B0A220174E0000964E95 /* Main.storyboard */,
 				BBF7B0A520174E0000964E95 /* Assets.xcassets */,
@@ -325,9 +353,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5BED6FAD203AFDFD00874884 /* ItemRequester.swift in Sources */,
 				BB6BBA1420176D8F00CC4179 /* Constants.swift in Sources */,
 				BB6BBA0A20176D0E00CC4179 /* LoginViewController.swift in Sources */,
 				BBE8920920189DE9004EE765 /* UIColor+Original.swift in Sources */,
+				5BED6FAF203B014100874884 /* PostRequester.swift in Sources */,
+				5B8BBCB22036EF4A00B292E7 /* HttpManager.swift in Sources */,
 				BB6BBA1F20176FFF00CC4179 /* ProfileViewController.swift in Sources */,
 				BB6BBA1620176D9700CC4179 /* SaveData.swift in Sources */,
 				BBE8920B20189FFC004EE765 /* ProfileAddViewController.swift in Sources */,
@@ -339,6 +370,7 @@
 				BB6BBA0F20176D5200CC4179 /* MyPageViewController.swift in Sources */,
 				BBE8920D2018A30E004EE765 /* ProfileAddSampleView.swift in Sources */,
 				BB6BBA1B20176E8100CC4179 /* UIViewController+Alert.swift in Sources */,
+				5B794DC92035C461006BC0CE /* UserRequester.swift in Sources */,
 				BBD66E29201799450070DFC4 /* KeyboardRespondableViewController.swift in Sources */,
 				BBD66E312017A5D10070DFC4 /* ProfileHobbyView.swift in Sources */,
 			);

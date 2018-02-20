@@ -9,7 +9,9 @@
 import UIKit
 
 class ProfileViewController: UIViewController {
-
+    @IBOutlet weak var age: UILabel!
+    @IBOutlet weak var sex: UILabel!
+    
     @IBOutlet private weak var likeContentsStackView: UIStackView!
     @IBOutlet private weak var hateContentsStackView: UIStackView!
     @IBOutlet private weak var contentsHeightConstraint: NSLayoutConstraint!
@@ -30,7 +32,21 @@ class ProfileViewController: UIViewController {
                 stackView?.addArrangedSubview(hobbyView)
             }
         }
+        
+        // 年齢タップ
+        let ageTapGesture = UITapGestureRecognizer(
+            target: self,
+            action: #selector(self.onTapAge(_:)))
+        self.age!.addGestureRecognizer(ageTapGesture)
+        
+        // 性別タップ
+        let sexTapGesture = UITapGestureRecognizer(
+            target: self,
+            action: #selector(self.onTapSex(_:)))
+        self.sex!.addGestureRecognizer(sexTapGesture)
+        
     }
+    
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
@@ -58,7 +74,8 @@ class ProfileViewController: UIViewController {
     }
     
     @IBAction func onTapMenu(_ sender: Any) {
-        self.pop(animationType: .vertical)
+        
+        self.pop(animationType: .horizontal)
     }
     
     @IBAction func onTapAddLike(_ sender: Any) {
@@ -67,5 +84,56 @@ class ProfileViewController: UIViewController {
     
     @IBAction func onTapAddHate(_ sender: Any) {
         self.stackAddViewController(isLike: false)
+    }
+    
+    // キーボードリターン
+    @IBAction func onDidEndOnExit(_ sender: Any) {
+    }
+    
+    // 年齢タップ
+    @objc func onTapAge(_ sender: UITapGestureRecognizer) {
+        let alert = UIAlertController(title:"年齢", message:nil, preferredStyle:.alert)
+        
+        let items:[String] = [
+            UserRequester.AgeType.u20.display(),
+            UserRequester.AgeType.s20.display(),
+            UserRequester.AgeType.s30.display(),
+            UserRequester.AgeType.s40.display(),
+            UserRequester.AgeType.s50.display(),
+            UserRequester.AgeType.o60.display()
+        ];
+        
+        items.forEach { (item) in
+            let action = UIAlertAction(title: item, style: .default) { (tapAction) in
+                self.age.text = tapAction.title!
+                self.age.textColor = UIColor.black
+            }
+            alert.addAction(action)
+        }
+        let cancelAction = UIAlertAction(title: "キャンセル", style: .cancel) {(tapAction) in}
+        alert.addAction(cancelAction)
+        present(alert, animated: true, completion: nil)
+    }
+    
+    // 性別タップ
+    @objc func onTapSex(_ sender: UITapGestureRecognizer) {
+        let alert = UIAlertController(title:"性別", message:nil, preferredStyle:.alert)
+        
+        let items:[String] = [
+            UserRequester.GenderType.male.display(),
+            UserRequester.GenderType.female.display(),
+            ];
+        
+        items.forEach { (item) in
+            let action = UIAlertAction(title: item, style: .default) { (tapAction) in
+                self.sex.text = tapAction.title!
+                self.sex.textColor = UIColor.black
+            }
+            alert.addAction(action)
+        }
+        let cancelAction = UIAlertAction(title: "キャンセル", style: .cancel) {(tapAction) in}
+        alert.addAction(cancelAction)
+        
+        present(alert, animated: true, completion: nil)
     }
 }
