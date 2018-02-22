@@ -11,6 +11,9 @@
 		5B174F49203C4DA10046D2C7 /* RegisterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B174F48203C4DA10046D2C7 /* RegisterViewController.swift */; };
 		5B794DC92035C461006BC0CE /* UserRequester.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B794DC82035C461006BC0CE /* UserRequester.swift */; };
 		5B8BBCB22036EF4A00B292E7 /* HttpManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B8BBCB12036EF4A00B292E7 /* HttpManager.swift */; };
+		5BE222C2203EEF720016B40B /* Loading.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5BE222C1203EEF720016B40B /* Loading.xib */; };
+		5BE222C4203EEF890016B40B /* Loading.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BE222C3203EEF890016B40B /* Loading.swift */; };
+		5BE222C6203EF2210016B40B /* AccountRequester.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BE222C5203EF2210016B40B /* AccountRequester.swift */; };
 		5BED6FAD203AFDFD00874884 /* ItemRequester.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BED6FAC203AFDFD00874884 /* ItemRequester.swift */; };
 		5BED6FAF203B014100874884 /* PostRequester.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BED6FAE203B014100874884 /* PostRequester.swift */; };
 		BB6BBA0A20176D0E00CC4179 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB6BBA0920176D0E00CC4179 /* LoginViewController.swift */; };
@@ -43,6 +46,9 @@
 		5B174F48203C4DA10046D2C7 /* RegisterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterViewController.swift; sourceTree = "<group>"; };
 		5B794DC82035C461006BC0CE /* UserRequester.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserRequester.swift; sourceTree = "<group>"; };
 		5B8BBCB12036EF4A00B292E7 /* HttpManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HttpManager.swift; sourceTree = "<group>"; };
+		5BE222C1203EEF720016B40B /* Loading.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = Loading.xib; sourceTree = "<group>"; };
+		5BE222C3203EEF890016B40B /* Loading.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Loading.swift; sourceTree = "<group>"; };
+		5BE222C5203EF2210016B40B /* AccountRequester.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountRequester.swift; sourceTree = "<group>"; };
 		5BED6FAC203AFDFD00874884 /* ItemRequester.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemRequester.swift; sourceTree = "<group>"; };
 		5BED6FAE203B014100874884 /* PostRequester.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostRequester.swift; sourceTree = "<group>"; };
 		7CBF87828A2E52901754E087 /* Pods-Icchi.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Icchi.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Icchi/Pods-Icchi.debug.xcconfig"; sourceTree = "<group>"; };
@@ -107,8 +113,18 @@
 				5B794DC82035C461006BC0CE /* UserRequester.swift */,
 				5BED6FAC203AFDFD00874884 /* ItemRequester.swift */,
 				5BED6FAE203B014100874884 /* PostRequester.swift */,
+				5BE222C5203EF2210016B40B /* AccountRequester.swift */,
 			);
 			path = Requester;
+			sourceTree = "<group>";
+		};
+		5BE222C0203EEF410016B40B /* Loading */ = {
+			isa = PBXGroup;
+			children = (
+				5BE222C3203EEF890016B40B /* Loading.swift */,
+				5BE222C1203EEF720016B40B /* Loading.xib */,
+			);
+			path = Loading;
 			sourceTree = "<group>";
 		};
 		A3F3080DC56C370394B60365 /* Frameworks */ = {
@@ -127,6 +143,7 @@
 				BB6BBA0B20176D1D00CC4179 /* MyPage */,
 				BB6BBA0C20176D3000CC4179 /* Tutorial */,
 				BB6BBA0D20176D4600CC4179 /* Profile */,
+				5BE222C0203EEF410016B40B /* Loading */,
 				BBD66E27201799300070DFC4 /* Common */,
 			);
 			path = View;
@@ -306,6 +323,7 @@
 			files = (
 				BBE8920F2018A31A004EE765 /* ProfileAddSampleView.xib in Resources */,
 				BBF7B0A920174E0000964E95 /* LaunchScreen.storyboard in Resources */,
+				5BE222C2203EEF720016B40B /* Loading.xib in Resources */,
 				BBD66E332017A5DB0070DFC4 /* ProfileHobbyView.xib in Resources */,
 				BBF7B0A620174E0000964E95 /* Assets.xcassets in Resources */,
 				BBF7B0A420174E0000964E95 /* Main.storyboard in Resources */,
@@ -377,9 +395,11 @@
 				BB6BBA1F20176FFF00CC4179 /* ProfileViewController.swift in Sources */,
 				BB6BBA1620176D9700CC4179 /* SaveData.swift in Sources */,
 				BBE8920B20189FFC004EE765 /* ProfileAddViewController.swift in Sources */,
+				5BE222C4203EEF890016B40B /* Loading.swift in Sources */,
 				BB6BBA1120176D5600CC4179 /* TutorialViewController.swift in Sources */,
 				BB6BBA1D20176EA300CC4179 /* CALayer+Border.swift in Sources */,
 				BBF7B09F20174E0000964E95 /* AppDelegate.swift in Sources */,
+				5BE222C6203EF2210016B40B /* AccountRequester.swift in Sources */,
 				BB6BBA1920176E6100CC4179 /* UIViewController+Scene.swift in Sources */,
 				BBD66E2B201799BB0070DFC4 /* UIView+Frame.swift in Sources */,
 				BB6BBA0F20176D5200CC4179 /* MyPageViewController.swift in Sources */,

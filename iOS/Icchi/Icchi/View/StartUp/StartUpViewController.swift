@@ -10,8 +10,6 @@ import UIKit
 
 class StartUpViewController: UIViewController {
 
-    @IBOutlet weak var loginIndicator: UIActivityIndicatorView!
-    
     private enum FetchResult: Int {
         case ok
         case error
@@ -39,9 +37,6 @@ class StartUpViewController: UIViewController {
 
     /* データ取得 */
     private func fetch() {
-        
-        loginIndicator.isHidden = false;
-        loginIndicator.startAnimating()
         
         // ユーザー一覧取得
         UserRequester.sharedManager.fetch() { (result) in
@@ -72,10 +67,6 @@ class StartUpViewController: UIViewController {
             || self.fetchPostResult == .progress) {
             return
         }
-        
-        // インジケータ解除
-        loginIndicator.stopAnimating()
-        loginIndicator.isHidden = true;
         
         // 受信チェック
         if (self.fetchUserResult == .error
