@@ -20,7 +20,7 @@ class PostRequester {
         }
         init(from decoder: Decoder) throws {
             let values = try decoder.container(keyedBy: CodingKeys.self)
-            result = NSString(string:try values.decode(String.self, forKey: .result)).boolValue
+            result = NSString(string:try values.decode(String.self, forKey: .result)).isEqual(to: "0")
             posts = try values.decode([PostData].self, forKey: .posts)
         }
     }
@@ -84,7 +84,7 @@ class PostRequester {
                 }
                 
                 // 成功
-                completion(true)
+                completion(result.result)
             }
             catch let error {
                 // 失敗

@@ -88,7 +88,7 @@ class UserRequester {
         }
         init(from decoder: Decoder) throws {
             let values = try decoder.container(keyedBy: CodingKeys.self)
-            result = NSString(string:try values.decode(String.self, forKey: .result)).boolValue
+            result = NSString(string:try values.decode(String.self, forKey: .result)).isEqual(to: "0")
             users = try values.decode([UserData].self, forKey: .users)
         }
     }
@@ -167,7 +167,7 @@ class UserRequester {
                 }
                 
                 // 成功
-                completion(true)
+                completion(result.result)
             }
             catch let error {
                 // 失敗

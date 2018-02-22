@@ -20,7 +20,7 @@ class ItemRequester {
         }
         init(from decoder: Decoder) throws {
             let values = try decoder.container(keyedBy: CodingKeys.self)
-            result = NSString(string:try values.decode(String.self, forKey: .result)).boolValue
+            result = NSString(string:try values.decode(String.self, forKey: .result)).isEqual(to: "0")
             items = try values.decode([ItemData].self, forKey: .items)
         }
     }
@@ -65,7 +65,7 @@ class ItemRequester {
                 }
                 
                 // 成功
-                completion(true)
+                completion(result.result)
             }
             catch let error {
                 // 失敗
