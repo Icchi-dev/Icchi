@@ -135,7 +135,7 @@ class UserRequester {
     }
     
     // ユーザーデータ配列
-    fileprivate(set) var userDatas:[UserData] = []
+    fileprivate(set) var mDataList:[UserData] = []
     
     /** データ取得 */
     func fetch(completion: @escaping ((Bool) -> ())) {
@@ -158,7 +158,7 @@ class UserRequester {
                 
                 // ユーザーIDが存在するリストを登録
                 if let users = result.users {
-                    self.userDatas = users.filter({ (userData) -> Bool in
+                    self.mDataList = users.filter({ (userData) -> Bool in
                         if let userId = userData.userId {
                             return userId.count > 0
                         }
@@ -175,6 +175,11 @@ class UserRequester {
                 completion(false)
             }
         }
+    }
+    
+    /** データ取得 */
+    func query(userId:String) -> UserData? {
+        return mDataList.first(where: { return $0.userId == userId})
     }
 }
 

@@ -9,8 +9,12 @@
 import UIKit
 
 class ProfileViewController: UIViewController {
+    
+    private var tmpUserData: UserRequester.UserData?
+    
+    @IBOutlet weak var name: UITextField!
     @IBOutlet weak var age: UILabel!
-    @IBOutlet weak var sex: UILabel!
+    @IBOutlet weak var gender: UILabel!
     
     @IBOutlet private weak var likeContentsStackView: UIStackView!
     @IBOutlet private weak var hateContentsStackView: UIStackView!
@@ -20,6 +24,11 @@ class ProfileViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        if let userData = UserRequester.sharedManager.query(userId: SaveData.shared.userId) {
+            self.tmpUserData = userData
+            self.setProfile(userData: userData)
+        }
         
         for i in 0..<10 {
             [true, false].forEach { isLike in
@@ -43,7 +52,7 @@ class ProfileViewController: UIViewController {
         let sexTapGesture = UITapGestureRecognizer(
             target: self,
             action: #selector(self.onTapSex(_:)))
-        self.sex!.addGestureRecognizer(sexTapGesture)
+        self.gender!.addGestureRecognizer(sexTapGesture)
         
     }
     
@@ -70,12 +79,11 @@ class ProfileViewController: UIViewController {
     private func stackAddViewController(isLike: Bool) {
         let addViewController = self.viewController(storyboard: "Main", identifier: "ProfileAddViewController") as! ProfileAddViewController
         addViewController.set(isLike: isLike)
-        self.stack(viewController: addViewController, animationType: .vertical)
+        self.stack(viewController: addViewController, animationType: .horizontal)
     }
     
     @IBAction func onTapMenu(_ sender: Any) {
-        
-        self.pop(animationType: .horizontal)
+        self.onClickMenu()
     }
     
     @IBAction func onTapAddLike(_ sender: Any) {
@@ -107,6 +115,17 @@ class ProfileViewController: UIViewController {
             let action = UIAlertAction(title: item, style: .default) { (tapAction) in
                 self.age.text = tapAction.title!
                 self.age.textColor = UIColor.black
+                
+                let items:[UserRequester.AgeType] = [
+                    UserRequester.AgeType.u20,
+                    UserRequester.AgeType.s20,
+                    UserRequester.AgeType.s30,
+                    UserRequester.AgeType.s40,
+                    UserRequester.AgeType.s50,
+                    UserRequester.AgeType.o60
+                ];
+                
+                self.tmpUserData?.age = items.first(where: {return $0.display() == tapAction.title!})
             }
             alert.addAction(action)
         }
@@ -126,8 +145,14 @@ class ProfileViewController: UIViewController {
         
         items.forEach { (item) in
             let action = UIAlertAction(title: item, style: .default) { (tapAction) in
-                self.sex.text = tapAction.title!
-                self.sex.textColor = UIColor.black
+                self.gender.text = tapAction.title!
+                self.gender.textColor = UIColor.black
+                
+                let items:[UserRequester.GenderType] = [
+                    UserRequester.GenderType.male,
+                    UserRequester.GenderType.female,
+                    ];
+                self.tmpUserData?.gender = items.first(where: {return $0.display() == tapAction.title!})
             }
             alert.addAction(action)
         }
@@ -136,4 +161,26 @@ class ProfileViewController: UIViewController {
         
         present(alert, animated: true, completion: nil)
     }
+    
+    private func setProfile(userData:UserRequester.UserData) {
+        
+        if let name = userData.name {
+            self.name.text = name
+        }
+        
+        if let age = userData.age {
+            self.age.text = age.display()
+            self.age.textColor = UIColor.black
+        }
+        if let gender = userData.gender {
+            self.gender.text = gender.display()
+            self.gender.textColor = UIColor.black
+        }
+    }
+    
+    private func onClickMenu() {
+        
+        self.pop(animationType: .horizontal)
+    }
+
 }
