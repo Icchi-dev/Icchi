@@ -178,7 +178,7 @@ class UserRequester {
     }
     
     /** データ取得 */
-    func query(userId:String) -> UserData? {
+    func query(_ userId:String) -> UserData? {
         return mDataList.first(where: { return $0.userId == userId})
     }
 }

@@ -24,9 +24,9 @@ class ProfileAddViewController: UIViewController {
         var offsetX = CGFloat(0)
         var offsetY = CGFloat(0)
         
-        for _ in 0..<50 {
+        for a in 0..<50 {
             let sampleView = UINib(nibName: "ProfileAddSampleView", bundle: nil).instantiate(withOwner: self, options: nil).first as! ProfileAddSampleView
-            sampleView.configure(text: "test")
+            sampleView.configure(text: "test_" + String(a))
             if offsetX + sampleView.frame.size.width > self.sampleView.frame.size.width {
                 offsetX = 0
                 offsetY += sampleView.frame.size.height + 10
@@ -43,6 +43,6 @@ class ProfileAddViewController: UIViewController {
     }
     
     @IBAction func onTapMenu(_ sender: Any) {
-        self.pop(animationType: .vertical)
+        self.pop(animationType: .horizontal)
     }
 }

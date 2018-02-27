@@ -10,9 +10,9 @@ import UIKit
 
 struct AlertAction {
     let title: String
-    let action: (() -> ())?
+    let action: ((_ title:String) -> ())?
     
-    init(title: String, action: (() -> ())? = nil) {
+    init(title: String, action: ((_ title:String) -> ())? = nil) {
         self.title = title
         self.action = action
     }
@@ -25,7 +25,7 @@ extension UIViewController {
         let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
         actions.forEach { action in
             let alertAction = UIAlertAction(title: action.title, style: .default) { _ in
-                action.action?()
+                action.action?(action.title)
             }
             alertController.addAction(alertAction)
         }
