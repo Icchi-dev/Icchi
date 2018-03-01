@@ -155,14 +155,14 @@ class ProfileViewController: UIViewController {
         for (i,itemId) in userData.likes!.enumerated() {
             let itemData = ItemRequester.sharedManager.query(itemId);
             if let likeString = itemData?.name {
-                self.addHobby(isLike: true, tag:i, hobbyText:likeString)
+                self.addHobby(isLike: true, tag:i, itemId:itemId, hobbyText:likeString)
             }
         }
         
         for (i,itemId) in userData.hates!.enumerated() {
             let itemData = ItemRequester.sharedManager.query(itemId);
             if let heiteString = itemData?.name {
-                self.addHobby(isLike: false, tag:i, hobbyText:heiteString)
+                self.addHobby(isLike: false, tag:i, itemId:itemId, hobbyText:heiteString)
             }
         }
         
@@ -176,18 +176,18 @@ class ProfileViewController: UIViewController {
         self.view.layoutIfNeeded()
     }
 
-    private func addHobby(isLike: Bool, tag:Int, hobbyText:String) {
+    private func addHobby(isLike: Bool, tag:Int, itemId:String, hobbyText:String) {
         
         let hobbyView = UINib(nibName: "ProfileHobbyView", bundle: nil).instantiate(withOwner: self, options: nil).first as! ProfileHobbyView
         hobbyView.tag = tag
         hobbyView.set(isLike: isLike, title: hobbyText, didTapDelete: { [weak self] in
-            self?.deleteHobby(isLike: isLike, tag: tag)
+            self?.deleteHobby(isLike: isLike, tag:tag, itemId: itemId)
         })
         let stackView = isLike ? self.likeContentsStackView : self.hateContentsStackView
         stackView?.addArrangedSubview(hobbyView)
     }
     
-    private func deleteHobby(isLike: Bool, tag: Int) {
+    private func deleteHobby(isLike: Bool, tag:Int, itemId: String) {
         
         let stackView = isLike ? self.likeContentsStackView : self.hateContentsStackView
         if let deleteHobbyView = (stackView?.arrangedSubviews.filter { $0.tag == tag })?.first {
@@ -198,10 +198,12 @@ class ProfileViewController: UIViewController {
             })
         }
         if isLike {
-            self.tmpUserData?.likes?.remove(at: tag)
+            let likes = self.tmpUserData?.likes?.filter({return !($0==itemId)})
+            self.tmpUserData?.likes = likes
         }
         else {
-            self.tmpUserData?.hates?.remove(at: tag)
+            let hates = self.tmpUserData?.hates?.filter({return !($0==itemId)})
+            self.tmpUserData?.hates = hates
         }
     }
     
