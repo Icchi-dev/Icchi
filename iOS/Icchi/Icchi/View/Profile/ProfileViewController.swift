@@ -28,9 +28,7 @@ class ProfileViewController: UIViewController {
         // ユーザーデータ取得
         if let userData = UserRequester.sharedManager.query(SaveData.shared.userId) {
             self.tmpUserData = userData
-            self.setProfile(userData: userData)
         }
-        
         // 年齢タップ
         let ageTapGesture = UITapGestureRecognizer(
             target: self,
@@ -43,6 +41,11 @@ class ProfileViewController: UIViewController {
             action: #selector(self.onTapSex(_:)))
         self.gender!.addGestureRecognizer(sexTapGesture)
         
+    }
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        self.setProfile(userData: self.tmpUserData)
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -137,32 +140,36 @@ class ProfileViewController: UIViewController {
         self.showAlert(title: "性別", message: nil, actions: alertActions)
     }
     
-    private func setProfile(userData:UserRequester.UserData) {
+    private func setProfile(userData:UserRequester.UserData?) {
         
-        if let name = userData.name {
+        if let name = userData?.name {
             self.name.text = name
         }
         
-        if let age = userData.age {
+        if let age = userData?.age {
             self.age.text = age.display()
             self.age.textColor = UIColor.black
         }
-        if let gender = userData.gender {
+        if let gender = userData?.gender {
             self.gender.text = gender.display()
             self.gender.textColor = UIColor.black
         }
         
-        for (i,itemId) in userData.likes!.enumerated() {
-            let itemData = ItemRequester.sharedManager.query(itemId);
-            if let likeString = itemData?.name {
-                self.addHobby(isLike: true, tag:i, itemId:itemId, hobbyText:likeString)
+        if let likes =  userData?.likes {
+            for (i,itemId) in likes.enumerated() {
+                let itemData = ItemRequester.sharedManager.query(itemId);
+                if let likeString = itemData?.name {
+                    self.addHobby(isLike: true, tag:i, itemId:itemId, hobbyText:likeString)
+                }
             }
         }
         
-        for (i,itemId) in userData.hates!.enumerated() {
-            let itemData = ItemRequester.sharedManager.query(itemId);
-            if let heiteString = itemData?.name {
-                self.addHobby(isLike: false, tag:i, itemId:itemId, hobbyText:heiteString)
+        if let hates =  userData?.hates {
+            for (i,itemId) in hates.enumerated() {
+                let itemData = ItemRequester.sharedManager.query(itemId);
+                if let heiteString = itemData?.name {
+                    self.addHobby(isLike: false, tag:i, itemId:itemId, hobbyText:heiteString)
+                }
             }
         }
         
@@ -235,4 +242,29 @@ class ProfileViewController: UIViewController {
         self.pop(animationType: .horizontal)
     }
 
+    public func addItemId(itemId:String? , isLike:Bool) {
+        
+        guard let itemId = itemId else {
+            return;
+        }
+        
+        if isLike {
+            if let likes = self.tmpUserData?.likes, !likes.contains(itemId) {
+                self.tmpUserData?.likes?.append(itemId)
+            }
+        }
+        else {
+            if let hates = self.tmpUserData?.hates, !hates.contains(itemId) {
+                self.tmpUserData?.hates?.append(itemId)
+            }
+        }
+        self.likeContentsStackView.arrangedSubviews.forEach({subView in
+            self.likeContentsStackView.removeArrangedSubview(subView)
+        })
+        self.hateContentsStackView.arrangedSubviews.forEach({subView in
+            self.hateContentsStackView.removeArrangedSubview(subView)
+        })
+        self.setProfile(userData: self.tmpUserData)
+    }
+    
 }
