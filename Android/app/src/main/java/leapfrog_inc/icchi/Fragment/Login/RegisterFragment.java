@@ -37,6 +37,13 @@ public class RegisterFragment extends BaseFragment {
             }
         });
 
+        ((Button)view.findViewById(R.id.cancelButton)).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                cancel();
+            }
+        });
+
         return view;
     }
 
@@ -95,6 +102,9 @@ public class RegisterFragment extends BaseFragment {
                 }
             }
         });
+    }
 
+    private void cancel() {
+        FragmentController.getInstance().pop(FragmentController.AnimationType.horizontal);
     }
 }

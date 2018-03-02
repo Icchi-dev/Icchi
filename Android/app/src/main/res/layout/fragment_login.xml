@@ -6,78 +6,94 @@
     android:background="#fff">
 
     <ImageView
-        android:layout_width="80dp"
-        android:layout_height="80dp"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
         android:src="@drawable/common_logo"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="40dp"
         android:layout_gravity="center_horizontal"/>
-
-    <Button
-        android:id="@+id/registerButton"
-        android:layout_width="match_parent"
-        android:layout_height="40dp"
-        android:text="はじめての方は新規登録"
-        android:textSize="14dp"
-        android:textColor="#000"
-        android:background="@layout/shape_login_register"
-        android:layout_marginTop="30dp"
-        android:layout_marginLeft="30dp"
-        android:layout_marginRight="30dp"/>
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
         android:orientation="vertical"
         android:gravity="center_vertical">
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="icchiまたはFacebookアカウントで\nログインしてください"
+                android:textSize="14dp"
+                android:textAlignment="center"
+                android:lineSpacingMultiplier="1.5"
+                android:textColor="#bbb"
+                android:layout_marginLeft="40dp"
+                android:layout_marginRight="40dp"/>
             <EditText
                 android:id="@+id/emailEditText"
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
-                android:textSize="12dp"
+                android:textSize="11dp"
+                android:textStyle="bold"
                 android:inputType="text"
                 android:hint="メールアドレス"
+                android:textColorHint="#ccc"
                 android:background="@layout/shape_login_edittext"
-                android:paddingLeft="10dp"
-                android:paddingRight="10dp"
-                android:layout_marginLeft="30dp"
-                android:layout_marginRight="30dp"/>
+                android:paddingLeft="20dp"
+                android:paddingRight="20dp"
+                android:layout_marginTop="50dp"
+                android:layout_marginLeft="50dp"
+                android:layout_marginRight="50dp"/>
             <EditText
                 android:id="@+id/passwordEditText"
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
-                android:textSize="12dp"
+                android:textSize="11dp"
+                android:textStyle="bold"
                 android:inputType="text"
                 android:hint="パスワード"
+                android:textColorHint="#ccc"
                 android:background="@layout/shape_login_edittext"
-                android:paddingLeft="10dp"
-                android:paddingRight="10dp"
-                android:layout_marginTop="10dp"
-                android:layout_marginLeft="30dp"
-                android:layout_marginRight="30dp"/>
-
+                android:paddingLeft="20dp"
+                android:paddingRight="30dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginLeft="50dp"
+                android:layout_marginRight="50dp"/>
             <Button
                 android:id="@+id/loginButton"
-                android:layout_width="100dp"
+                android:layout_width="180dp"
                 android:layout_height="40dp"
                 android:text="ログイン"
-                android:textSize="12dp"
-                android:textColor="#000"
-                android:background="@layout/shape_login_register"
+                android:textSize="14dp"
+                android:textColor="#fff"
+                android:textStyle="bold"
+                android:background="@layout/shape_login_login"
                 android:layout_gravity="center_horizontal"
-                android:layout_marginTop="20dp"/>
+                android:layout_marginTop="40dp"/>
 
             <com.facebook.login.widget.LoginButton
                 android:id="@+id/login_button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
-                android:layout_marginTop="30dp"/>
-
+                android:layout_marginTop="18dp" />
         </LinearLayout>
     </LinearLayout>
-    
+
+    <Button
+        android:id="@+id/registerButton"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:text="はじめての方は新規登録"
+        android:textSize="14dp"
+        android:textStyle="bold"
+        android:textColor="#fff"
+        android:background="@layout/shape_login_register"
+        android:layout_marginTop="30dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"/>
+
 </LinearLayout>

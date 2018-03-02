@@ -5,67 +5,150 @@
     android:background="#fff"
     android:orientation="vertical">
 
-    <FrameLayout
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:orientation="horizontal">
         <ImageView
             android:layout_width="60dp"
-            android:layout_height="match_parent"
+            android:layout_height="30dp"
             android:src="@drawable/common_logo"
-            android:scaleType="fitCenter"/>
-        <ImageButton
-            android:layout_width="60dp"
-            android:layout_height="match_parent"
-            android:src="@drawable/common_menu"
             android:scaleType="fitCenter"
-            android:background="#0000"
-            android:layout_gravity="right"/>
-    </FrameLayout>
+            android:layout_gravity="center_vertical"/>
+        <TextView
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="match_parent"
+            android:text="マイページ"
+            android:textColor="#333"
+            android:textStyle="bold"
+            android:textSize="14dp"
+            android:textAlignment="center"
+            android:gravity="center_vertical"/>
+        <View
+            android:layout_width="60dp"
+            android:layout_height="1dp"/>
+    </LinearLayout>
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="マイページ"
-        android:textSize="16dp"
-        android:textStyle="bold"
-        android:textColor="#000"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginTop="20dp"/>
-    
-    <Button
-        android:id="@+id/profileButton"
+    <View
         android:layout_width="match_parent"
-        android:layout_height="40dp"
-        android:text="プロフィール登録"
-        android:textSize="12dp"
-        android:textColor="#000"
-        android:layout_marginTop="30dp"
-        android:layout_marginLeft="30dp"
-        android:layout_marginRight="30dp"
-        android:background="@layout/shape_mypage_button"/>
+        android:layout_height="1dp"
+        android:background="#ececec"/>
 
-    <Button
-        android:id="@+id/matchButton"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="40dp"
-        android:text="一致度をはかる"
-        android:textSize="12dp"
-        android:textColor="#000"
-        android:layout_marginTop="30dp"
-        android:layout_marginLeft="30dp"
-        android:layout_marginRight="30dp"
-        android:background="@layout/shape_mypage_button"/>
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:orientation="vertical">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_gravity="center_vertical">
+                <ImageView
+                    android:layout_width="44dp"
+                    android:layout_height="44dp"
+                    android:src="@drawable/mypage_profile"
+                    android:layout_gravity="center_horizontal"/>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="プロフィール登録"
+                    android:textSize="14dp"
+                    android:textColor="#333"
+                    android:textStyle="bold"
+                    android:textAlignment="center"
+                    android:layout_marginTop="16dp"/>
+            </LinearLayout>
+            <Button
+                android:id="@+id/profileButton"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="#0000"/>
+        </FrameLayout>
 
-    <Button
-        android:id="@+id/myPostButton"
-        android:layout_width="match_parent"
-        android:layout_height="40dp"
-        android:text="マイポスト"
-        android:textSize="12dp"
-        android:textColor="#000"
-        android:layout_marginTop="30dp"
-        android:layout_marginLeft="30dp"
-        android:layout_marginRight="30dp"
-        android:background="@layout/shape_mypage_button"/>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#ececec"
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="30dp"/>
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:orientation="vertical">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_gravity="center_vertical">
+                <ImageView
+                    android:layout_width="44dp"
+                    android:layout_height="44dp"
+                    android:src="@drawable/mypage_match"
+                    android:layout_gravity="center_horizontal"/>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="一致度をはかる"
+                    android:textSize="14dp"
+                    android:textColor="#333"
+                    android:textStyle="bold"
+                    android:textAlignment="center"
+                    android:layout_marginTop="16dp"/>
+            </LinearLayout>
+            <Button
+                android:id="@+id/matchButton"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="#0000"/>
+        </FrameLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#ececec"
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="30dp"/>
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:orientation="vertical">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_gravity="center_vertical">
+                <ImageView
+                    android:layout_width="44dp"
+                    android:layout_height="44dp"
+                    android:src="@drawable/mypage_mypost"
+                    android:layout_gravity="center_horizontal"/>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="マイポスト"
+                    android:textSize="14dp"
+                    android:textColor="#333"
+                    android:textStyle="bold"
+                    android:textAlignment="center"
+                    android:layout_marginTop="16dp"/>
+            </LinearLayout>
+            <Button
+                android:id="@+id/myPostButton"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="#0000"/>
+        </FrameLayout>
+
+    </LinearLayout>
+
 </LinearLayout>

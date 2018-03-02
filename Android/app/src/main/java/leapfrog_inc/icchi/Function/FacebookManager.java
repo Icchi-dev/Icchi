@@ -89,9 +89,13 @@ public class FacebookManager {
                 fetchUserData();
             }
             @Override
-            public void onCancel() {}
+            public void onCancel() {
+
+            }
             @Override
-            public void onError(FacebookException error) {}
+            public void onError(FacebookException error) {
+                Log.d("", "");
+            }
         });
     }
 
