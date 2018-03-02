@@ -37,7 +37,7 @@ class ItemRequester {
     }
     
     // アイテムデータ配列
-    fileprivate(set) var itemDatas:[ItemData] = []
+    fileprivate(set) var mDataList:[ItemData] = []
     
     
     /** データ取得 */
@@ -61,7 +61,7 @@ class ItemRequester {
                 
                 // アイテムデータ配列を登録
                 if let users = result.items {
-                    self.itemDatas = users
+                    self.mDataList = users
                 }
                 
                 // 成功
@@ -73,5 +73,10 @@ class ItemRequester {
                 completion(false)
             }
         }
+    }
+    
+    /** データ取得 */
+    func query(_ itemId:String) -> ItemData? {
+        return mDataList.first(where: { return $0.itemId == itemId})
     }
 }

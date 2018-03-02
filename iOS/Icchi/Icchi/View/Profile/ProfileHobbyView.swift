@@ -15,7 +15,7 @@ class ProfileHobbyView: UIView {
     private var didTapDelete: (() -> ())?
     
     func set(isLike: Bool, title: String, didTapDelete: @escaping (() -> ())) {
-        self.backgroundColor = isLike ? .lightRed : .lightBlue
+        self.backgroundColor = isLike ? .likeRed : .hateBlue
         self.titleLbale.text = title
         self.didTapDelete = didTapDelete
     }

@@ -11,6 +11,8 @@
 		5B174F49203C4DA10046D2C7 /* RegisterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B174F48203C4DA10046D2C7 /* RegisterViewController.swift */; };
 		5B794DC92035C461006BC0CE /* UserRequester.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B794DC82035C461006BC0CE /* UserRequester.swift */; };
 		5B8BBCB22036EF4A00B292E7 /* HttpManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B8BBCB12036EF4A00B292E7 /* HttpManager.swift */; };
+		5BAC297120458CC5000B61FF /* String+Base64.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BAC297020458CC4000B61FF /* String+Base64.swift */; };
+		5BC6A6D1204973B7006D0590 /* ProfileAddTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BC6A6D0204973B7006D0590 /* ProfileAddTableViewCell.swift */; };
 		5BE222C2203EEF720016B40B /* Loading.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5BE222C1203EEF720016B40B /* Loading.xib */; };
 		5BE222C4203EEF890016B40B /* Loading.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BE222C3203EEF890016B40B /* Loading.swift */; };
 		5BE222C6203EF2210016B40B /* AccountRequester.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BE222C5203EF2210016B40B /* AccountRequester.swift */; };
@@ -46,6 +48,8 @@
 		5B174F48203C4DA10046D2C7 /* RegisterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterViewController.swift; sourceTree = "<group>"; };
 		5B794DC82035C461006BC0CE /* UserRequester.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserRequester.swift; sourceTree = "<group>"; };
 		5B8BBCB12036EF4A00B292E7 /* HttpManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HttpManager.swift; sourceTree = "<group>"; };
+		5BAC297020458CC4000B61FF /* String+Base64.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "String+Base64.swift"; sourceTree = "<group>"; };
+		5BC6A6D0204973B7006D0590 /* ProfileAddTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileAddTableViewCell.swift; sourceTree = "<group>"; };
 		5BE222C1203EEF720016B40B /* Loading.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = Loading.xib; sourceTree = "<group>"; };
 		5BE222C3203EEF890016B40B /* Loading.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Loading.swift; sourceTree = "<group>"; };
 		5BE222C5203EF2210016B40B /* AccountRequester.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountRequester.swift; sourceTree = "<group>"; };
@@ -183,6 +187,7 @@
 				BBE8920A20189FFC004EE765 /* ProfileAddViewController.swift */,
 				BBE8920C2018A30E004EE765 /* ProfileAddSampleView.swift */,
 				BBE8920E2018A31A004EE765 /* ProfileAddSampleView.xib */,
+				5BC6A6D0204973B7006D0590 /* ProfileAddTableViewCell.swift */,
 			);
 			path = Profile;
 			sourceTree = "<group>";
@@ -199,6 +204,7 @@
 		BB6BBA1720176E4A00CC4179 /* Extension */ = {
 			isa = PBXGroup;
 			children = (
+				5BAC297020458CC4000B61FF /* String+Base64.swift */,
 				BB6BBA1820176E6100CC4179 /* UIViewController+Scene.swift */,
 				BB6BBA1A20176E8100CC4179 /* UIViewController+Alert.swift */,
 				BB6BBA1C20176EA300CC4179 /* CALayer+Border.swift */,
@@ -387,6 +393,7 @@
 			files = (
 				5BED6FAD203AFDFD00874884 /* ItemRequester.swift in Sources */,
 				5B174F49203C4DA10046D2C7 /* RegisterViewController.swift in Sources */,
+				5BAC297120458CC5000B61FF /* String+Base64.swift in Sources */,
 				BB6BBA1420176D8F00CC4179 /* Constants.swift in Sources */,
 				BB6BBA0A20176D0E00CC4179 /* LoginViewController.swift in Sources */,
 				BBE8920920189DE9004EE765 /* UIColor+Original.swift in Sources */,
@@ -401,6 +408,7 @@
 				BBF7B09F20174E0000964E95 /* AppDelegate.swift in Sources */,
 				5BE222C6203EF2210016B40B /* AccountRequester.swift in Sources */,
 				BB6BBA1920176E6100CC4179 /* UIViewController+Scene.swift in Sources */,
+				5BC6A6D1204973B7006D0590 /* ProfileAddTableViewCell.swift in Sources */,
 				BBD66E2B201799BB0070DFC4 /* UIView+Frame.swift in Sources */,
 				BB6BBA0F20176D5200CC4179 /* MyPageViewController.swift in Sources */,
 				BBE8920D2018A30E004EE765 /* ProfileAddSampleView.swift in Sources */,

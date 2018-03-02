@@ -51,6 +51,7 @@ class TutorialViewController: UIViewController {
             self.contentsView.alpha = 0
         }, completion: { [weak self] _ in            
             self?.questionLabel.text = nextQuestion
+            self?.textField.text = ""
             
             UIView.animate(withDuration: 0.15, animations: {
                 self?.contentsView.alpha = 1
@@ -62,8 +63,18 @@ class TutorialViewController: UIViewController {
         self.view.endEditing(true)
     }
     
-    @IBAction func onTapNext(_ sender: Any) {
+    @IBAction func onTapNext(_ sender: UITextField) {
+        
+        guard self.checkText() else {
+            let action = AlertAction(title:"OK")
+            self.showAlert(title: "エラー", message: "入力がありません", actions: [action])
+            return;
+        }
         self.goToNextQuestion()
+    }
+    
+    private func checkText() -> Bool {
+        return self.textField.text?.count ?? 0 > 0;
     }
     
     @IBAction func onTapSkip(_ sender: Any) {

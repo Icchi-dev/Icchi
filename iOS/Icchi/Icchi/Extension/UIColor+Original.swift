@@ -10,11 +10,11 @@ import UIKit
 
 extension UIColor {
     
-    class var lightRed: UIColor {
-        return UIColor(red: 245 / 255, green: 37 / 255, blue: 73 / 255, alpha: 1)
+    class var likeRed: UIColor {
+        return UIColor(red: 255 / 255, green: 85 / 255, blue: 85 / 255, alpha: 1)
     }
     
-    class var lightBlue: UIColor {
-        return UIColor(red: 129 / 255, green: 161 / 255, blue: 227 / 255, alpha: 1)
+    class var hateBlue: UIColor {
+        return UIColor(red: 153 / 255, green: 153 / 255, blue: 255 / 255, alpha: 1)
     }
 }

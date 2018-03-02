@@ -114,7 +114,7 @@ class RegisterViewController: KeyboardRespondableViewController, UITextFieldDele
             
             // 入力チェック
             guard result else {
-                let action = AlertAction(title:"リトライ", action: {()in self.fetch()})
+                let action = AlertAction(title:"リトライ", action: {_ in self.fetch()})
                 self.showAlert(title: "エラー", message: "通信に失敗しました", actions: [action])
                 return;
             }
