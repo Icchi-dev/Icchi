@@ -11,6 +11,7 @@ import leapfrog_inc.icchi.Fragment.Login.LoginFragment;
 import leapfrog_inc.icchi.Fragment.MyPage.MyPageFragment;
 import leapfrog_inc.icchi.Function.FacebookManager;
 import leapfrog_inc.icchi.Function.SaveData;
+import leapfrog_inc.icchi.Http.External.YahooNewsRequester;
 import leapfrog_inc.icchi.Http.Requester.ItemRequester;
 import leapfrog_inc.icchi.Http.Requester.PostRequester;
 import leapfrog_inc.icchi.Http.Requester.UserRequester;
@@ -29,6 +30,7 @@ public class MainActivity extends AppCompatActivity {
     private FetchResult fetchUserResult = FetchResult.progress;
     private FetchResult fetchItemResult = FetchResult.progress;
     private FetchResult fetchPostResult = FetchResult.progress;
+    private FetchResult fetchYahooNewsResult = FetchResult.progress;
     private LoadingFragment mLoadingFragment;
 
     @Override
@@ -55,6 +57,7 @@ public class MainActivity extends AppCompatActivity {
         fetchUserResult = FetchResult.progress;
         fetchItemResult = FetchResult.progress;
         fetchPostResult = FetchResult.progress;
+        fetchYahooNewsResult = FetchResult.progress;
 
         UserRequester.getInstance().fetch(new UserRequester.UserRequesterCallback() {
             @Override
@@ -80,6 +83,14 @@ public class MainActivity extends AppCompatActivity {
                 if (result) fetchPostResult = FetchResult.ok;
                 else        fetchPostResult = FetchResult.error;
                 checkResult();
+            }
+        });
+
+        YahooNewsRequester.getInstance().fetch(new YahooNewsRequester.YahooNewsRequesterCallback() {
+            @Override
+            public void didReceiveData(boolean result) {
+                if (result) fetchYahooNewsResult = FetchResult.ok;
+                else        fetchYahooNewsResult = FetchResult.error;
             }
         });
     }
