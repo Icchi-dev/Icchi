@@ -75,12 +75,16 @@
                 android:background="#0000"
                 android:inputType="text"
                 android:layout_marginLeft="10dp"/>
-            <ImageView
-                android:id="@+id/grassImageView"
+            <Button
+                android:id="@+id/addButton"
                 android:layout_width="30dp"
                 android:layout_height="match_parent"
-                android:src="@drawable/profileadd_grass_like"
-                android:layout_marginRight="4dp"/>
+                android:text="+"
+                android:textSize="30dp"
+                android:textColor="@color/likeRed"
+                android:background="#0000"
+                android:layout_marginRight="14dp"/>
+
         </LinearLayout>
 
         <ListView
@@ -94,5 +98,4 @@
             android:divider="@null"
             android:scrollbars="none"/>
     </LinearLayout>
-
 </LinearLayout>
