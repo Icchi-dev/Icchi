@@ -1,6 +1,7 @@
 <?php
 
 require "item.php";
+require "parameter.php";
 
 $command = $_POST["command"];
 
@@ -18,6 +19,8 @@ if(strcmp($command, "register") == 0) {
 	getPost();
 } else if(strcmp($command, "createItem") == 0) {
 	createItem();
+} else if (strcmp($command, "getMatchParameter") == 0) {
+	getMatchParameter();
 } else {
   echo("unknown");
 }
@@ -186,6 +189,20 @@ function createItem() {
 	$itemName = $_POST["itemName"];
 	$itemId = Item::append($itemName);
 	echo(json_encode(Array("result" => "0", "itemId" => $itemId)));
+}
+
+function getMatchParameter() {
+
+	$parameter = Parameter::read();
+	if (!is_null($parameter)) {
+		$ret = Array("result" => "0",
+								 "pointPerItem" => $parameter->pointPerItem,
+								 "pointPerMinorItem" => $parameter->pointPerMinorItem,
+								 "minorThreshold" => $parameter->minorThreshold);
+		echo(json_encode($ret));
+	} else {
+		echo(json_encode(Array("result" => "1")));
+	}
 }
 
 function createUserId() {
