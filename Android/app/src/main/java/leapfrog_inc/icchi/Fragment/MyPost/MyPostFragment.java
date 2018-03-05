@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,11 +15,15 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import org.w3c.dom.Text;
+
 import java.util.ArrayList;
 
+import leapfrog_inc.icchi.Activity.MainActivity;
 import leapfrog_inc.icchi.Fragment.BaseFragment;
 import leapfrog_inc.icchi.Fragment.FragmentController;
 import leapfrog_inc.icchi.Fragment.Match.MatchFragment;
+import leapfrog_inc.icchi.Function.CommonUtility;
 import leapfrog_inc.icchi.Function.SaveData;
 import leapfrog_inc.icchi.Http.External.YahooNewsRequester;
 import leapfrog_inc.icchi.Http.Requester.PostRequester;
@@ -43,6 +48,14 @@ public class MyPostFragment extends BaseFragment {
             @Override
             public void onClick(View view) {
                 FragmentController.getInstance().popToMyPage(FragmentController.AnimationType.horizontal);
+            }
+        });
+
+        // 引っ張って更新
+        ((SwipeRefreshLayout)view.findViewById(R.id.swipeRefreshLayout)).setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                refresh();
             }
         });
 
@@ -130,6 +143,30 @@ public class MyPostFragment extends BaseFragment {
         }
 
         return myPostDatas;
+    }
+
+    private void refresh() {
+
+        View view = getView();
+        if (view == null) return;
+
+        SwipeRefreshLayout swipeRefreshLayout = (SwipeRefreshLayout)view.findViewById(R.id.swipeRefreshLayout);
+        swipeRefreshLayout.setRefreshing(true);
+
+        PostRequester.getInstance().fetch(new PostRequester.PostRequesterCallback() {
+            @Override
+            public void didReceiveData(boolean result) {
+                View view = getView();
+                if (view == null) return;
+
+                ListView listView = (ListView)view.findViewById(R.id.listView);
+                TextView noDataTextView = (TextView)view.findViewById(R.id.noDataTextView);
+
+                setListView(listView, noDataTextView);
+
+                ((SwipeRefreshLayout)view.findViewById(R.id.swipeRefreshLayout)).setRefreshing(false);
+            }
+        });
     }
 
     public static class MyPostData {
