@@ -11,6 +11,7 @@ import UIKit
 class ProfileViewController: UIViewController {
     
     private var tmpUserData: UserRequester.UserData?
+    @IBOutlet weak var logo: UIImageView!
     
     @IBOutlet weak var name: UITextField!
     @IBOutlet weak var age: UILabel!
@@ -29,16 +30,17 @@ class ProfileViewController: UIViewController {
         if let userData = UserRequester.sharedManager.query(SaveData.shared.userId) {
             self.tmpUserData = userData
         }
+        
+        // ロゴタップ
+        let logoTap = UITapGestureRecognizer(target:self, action:#selector(self.onTapLogo(_:)))
+        self.logo!.addGestureRecognizer(logoTap)
+        
         // 年齢タップ
-        let ageTapGesture = UITapGestureRecognizer(
-            target: self,
-            action: #selector(self.onTapAge(_:)))
+        let ageTapGesture = UITapGestureRecognizer(target: self, action: #selector(self.onTapAge(_:)))
         self.age!.addGestureRecognizer(ageTapGesture)
         
         // 性別タップ
-        let sexTapGesture = UITapGestureRecognizer(
-            target: self,
-            action: #selector(self.onTapSex(_:)))
+        let sexTapGesture = UITapGestureRecognizer(target: self, action: #selector(self.onTapSex(_:)))
         self.gender!.addGestureRecognizer(sexTapGesture)
         
     }
@@ -61,10 +63,6 @@ class ProfileViewController: UIViewController {
         self.stack(viewController: addViewController, animationType: .horizontal)
     }
     
-    @IBAction func onTapMenu(_ sender: Any) {
-        self.onClickMenu()
-    }
-    
     @IBAction func onTapAddLike(_ sender: Any) {
         self.stackAddViewController(isLike: true)
     }
@@ -75,6 +73,11 @@ class ProfileViewController: UIViewController {
     
     // キーボードリターン
     @IBAction func onDidEndOnExit(_ sender: Any) {
+    }
+    
+    // ロゴタップ
+    @objc func onTapLogo(_ sender: UITapGestureRecognizer) {
+        self.onClickMenu()
     }
     
     // 年齢タップ
