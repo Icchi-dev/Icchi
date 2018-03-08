@@ -1,6 +1,9 @@
 <?php
 
+require "user.php";
 require "item.php";
+require "post.php";
+require "parameter.php";
 
 $command = $_POST["command"];
 
@@ -18,7 +21,10 @@ if(strcmp($command, "register") == 0) {
 	getPost();
 } else if(strcmp($command, "createItem") == 0) {
 	createItem();
+} else if (strcmp($command, "getMatchParameter") == 0) {
+	getMatchParameter();
 } else {
+	login();
   echo("unknown");
 }
 
@@ -32,14 +38,9 @@ function register() {
 
 	$userId = createUserId();
 
-	$userData = $userId . "," . $email . "," . $password . "," . $name . ",,,,," . $image . "," . $fbLink . "\n";
-	$fileName = "data/user.txt";
-	if (file_put_contents($fileName, $userData, FILE_APPEND) !== false) {
-		echo(json_encode(Array("result" => "0",
+	User::register($userId, $email, $password, $name, $image, $fbLink);
+	echo(json_encode(Array("result" => "0",
 													"userId" => $userId)));
-		return;
-	}
-	echo(json_encode(Array("result" => "1")));
 }
 
 function login() {
@@ -47,31 +48,19 @@ function login() {
 	$email = $_POST["email"];
 	$password = $_POST["password"];
 
-	$fileName = "data/user.txt";
-	if (file_exists($fileName)) {
-		$fileData = file_get_contents($fileName);
-		if ($fileData !== false) {
-			$users = explode("\n", $fileData);
-			for ($i = 0; $i < count($users); $i++) {
-				$userDatas = explode(",", $users[$i]);
-				if (count($userDatas) >= 3) {
-					if ((strcmp($userDatas[1], $email) == 0)
-					&& (strcmp($userDatas[2], $password) == 0)) {
-						echo(json_encode(Array("result" => "0",
-																		"userId" => $userDatas[0])));
-						return;
-					}
-				}
-			}
-		}
+	$userId = User::login($email, $password);
+	if (is_null($userId)) {
+		echo(json_encode(Array("result" => "0",
+														"userId" => $userId)));
+	} else {
+		echo(json_encode(Array("result" => "1")));
 	}
-	echo(json_encode(Array("result" => "1")));
 }
 
 function updateAccount() {
 
 	$userId = $_POST["userId"];
-	$name = decodeBase64($_POST["name"]);
+	$name = $_POST["name"];
 	$age = $_POST["age"];
 	$gender = $_POST["gender"];
 	$likes = $_POST["likes"];
@@ -79,64 +68,27 @@ function updateAccount() {
 	$image = $_POST["image"];
 	$fblink = $_POST["fbLink"];
 
-	DebugSave($_POST["name"]);
-	DebugSave($name);
-
-	$fileName = "data/user.txt";
-	if (file_exists($fileName)) {
-		$fileData = file_get_contents($fileName);
-		if ($fileData !== false) {
-			$users = explode("\n", $fileData);
-
-			$newUsers = Array();
-			for ($i = 0; $i < count($users); $i++) {
-				$userDatas = explode(",", $users[$i]);
-				if (count($userDatas) >= 3) {
-					if (strcmp($userDatas[0], $userId) == 0) {
-						$newUsers[] = $userId . "," . $userDatas[1] . "," . $userDatas[2] . "," . $name . "," . $age . "," . $gender . "," . $likes . "," . $hates . "," . $image . "," . $fblink;
-						continue;
-					}
-				}
-				$newUsers[] = $users[$i];
-			}
-			if ($newIndex >= 0) {
-				file_put_contents($fileName, implode("\n", $newUsers));
-				echo(json_encode(Array("result" => "0")));
-				return;
-			}
-		}
-	}
-	echo(json_encode(Array("result" => "1")));
+	User::update($userId, $name, $age, $gender, $likes, $hates, $image, $fbLink);
+	echo(json_encode(Array("result" => "0")));
 }
 
 function getUser() {
 
-	$fileName = "data/user.txt";
-	if (file_exists($fileName)) {
-		$fileData = file_get_contents($fileName);
-		if ($fileData !== false) {
-			$userList = Array();
-			$users = explode("\n", $fileData);
-			for ($i = 0; $i < count($users); $i++) {
-				$userDatas = explode(",", $users[$i]);
-				if (count($userDatas) >= 10) {
-					$userList[] = Array("userId" => $userDatas[0],
-														"name" => $userDatas[3],
-														"age" => $userDatas[4],
-														"gender" => $userDatas[5],
-														"likes" => $userDatas[6],
-														"hates" => $userDatas[7],
-														"image" => $userDatas[8],
-														"fbLink" => $userDatas[9]);
-				}
-			}
-			$ret = Array("result" => "0",
-									 "users" => $userList);
-			echo(json_encode($ret));
-			return;
-		}
+	$users = User::readAll();
+	$userList = Array();
+	foreach ($users as $userData) {
+		$userList[] = Array("userId" => $userData->id,
+												"name" => $userData->name,
+												"age" => $userData->age,
+												"gender" => $userData->gender,
+												"likes" => $userData->likes,
+												"hates" => $userData->hates,
+												"image" => $userData->image,
+												"fbLink" => $userData->fbLink);
 	}
-	echo(json_encode(Array("result" => "1")));
+	$ret = Array("result" => "0",
+							 "users" => $userList);
+	echo(json_encode($ret));
 }
 
 function getItem() {
@@ -156,29 +108,18 @@ function getItem() {
 
 function getPost() {
 
-	$fileName = "data/post.txt";
-	if (file_exists($fileName)) {
-		$fileData = file_get_contents($fileName);
-		if ($fileData !== false) {
-			$postList = Array();
-			$posts = explode("\n", $fileData);
-			for ($i = 0; $i < count($posts); $i++) {
-				$postDatas = explode(",", $posts[$i]);
-				if (count($postDatas) >= 2) {
-					$postList[] = Array("title" => $postDatas[0],
-															"source" => $postDatas[1],
-															"relates" => $postDatas[2],
-															"sumbnail" => $postDatas[3],
-															"link" => $postDatas[4]);
-				}
-			}
-			$ret = Array("result" => "0",
-									 "posts" => $postList);
-			echo(json_encode($ret));
-			return;
-		}
+	$posts = Post::readAll();
+	$postList = Array();
+	foreach ($posts as $postData) {
+		$postList[] = Array("title" => $postData->title,
+												"source" => $postData->source,
+												"relates" => $postData->relates,
+												"sumbnail" => $postData->sumbnail,
+												"link" => $postData->link);
 	}
-	echo(json_encode(Array("result" => "1")));
+	$ret = Array("result" => "0",
+							 "posts" => $postList);
+	echo(json_encode($ret));
 }
 
 function createItem() {
@@ -186,6 +127,20 @@ function createItem() {
 	$itemName = $_POST["itemName"];
 	$itemId = Item::append($itemName);
 	echo(json_encode(Array("result" => "0", "itemId" => $itemId)));
+}
+
+function getMatchParameter() {
+
+	$parameter = Parameter::read();
+	if (!is_null($parameter)) {
+		$ret = Array("result" => "0",
+								 "pointPerItem" => $parameter->pointPerItem,
+								 "pointPerMinorItem" => $parameter->pointPerMinorItem,
+								 "minorThreshold" => $parameter->minorThreshold);
+		echo(json_encode($ret));
+	} else {
+		echo(json_encode(Array("result" => "1")));
+	}
 }
 
 function createUserId() {
