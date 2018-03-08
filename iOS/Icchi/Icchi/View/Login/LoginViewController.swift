@@ -16,9 +16,18 @@ class LoginViewController: KeyboardRespondableViewController, UITextFieldDelegat
     @IBOutlet private weak var emailTextField: UITextField!
     @IBOutlet private weak var passwordTextField: UITextField!
     @IBOutlet private weak var loginButtonView: UIView!
+    @IBOutlet weak var registBtn: UIButton!
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        // ボタンの丸み
+        let path = UIBezierPath(roundedRect: registBtn.bounds
+            , byRoundingCorners: [.topLeft, .topRight]
+            , cornerRadii: CGSize(width: 15, height: 15))
+        let mask = CAShapeLayer()
+        mask.path = path.cgPath
+        registBtn.layer.mask = mask
         
         self.emailTextField.delegate = self
         self.passwordTextField.delegate = self
@@ -116,7 +125,7 @@ class LoginViewController: KeyboardRespondableViewController, UITextFieldDelegat
             // 入力チェック
             guard result, let userId = userId else {
                 let action = AlertAction(title:"OK")
-                self.showAlert(title: "エラー", message: "新規登録に失敗しました", actions: [action])
+                self.showAlert(title: "エラー", message: "ログインに失敗しました", actions: [action])
                 return;
             }
             

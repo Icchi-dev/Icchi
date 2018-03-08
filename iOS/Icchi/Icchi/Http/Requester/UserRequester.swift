@@ -125,6 +125,7 @@ class UserRequester {
             hates = try? values.decode(String.self, forKey: .hates).components(separatedBy: "-")
             image = try? values.decode(String.self, forKey: .image)
             fbLink = try? values.decode(String.self, forKey: .fbLink)
+            name = name?.base64Decode()
         }
         
     }
