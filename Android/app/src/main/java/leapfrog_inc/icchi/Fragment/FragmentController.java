@@ -6,9 +6,12 @@ import android.support.v4.app.FragmentTransaction;
 
 import java.util.ArrayList;
 
+import leapfrog_inc.icchi.Activity.MainActivity;
 import leapfrog_inc.icchi.Fragment.MyPage.MyPageFragment;
 import leapfrog_inc.icchi.Fragment.Profile.ProfileFragment;
 import leapfrog_inc.icchi.R;
+
+import static android.app.Activity.RESULT_OK;
 
 /**
  * Created by Leapfrog-Software on 2018/01/25.
@@ -92,6 +95,15 @@ public class FragmentController {
 
     public Fragment getPreviousFragment() {
         return mFragmentList.get(mFragmentList.size() - 2);
+    }
+
+    public void didTapBack() {
+
+        if (mFragmentList.size() <= 1) {
+            System.exit(RESULT_OK);
+        } else {
+            FragmentController.getInstance().pop(AnimationType.horizontal);
+        }
     }
 
     public enum AnimationType {

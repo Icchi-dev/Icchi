@@ -3,6 +3,7 @@ package leapfrog_inc.icchi.Fragment.Profile;
 import android.content.Context;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.support.v4.content.ContextCompat;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.KeyEvent;
@@ -11,6 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -77,17 +79,24 @@ public class ProfileAddFragment extends BaseFragment {
             @Override
             public boolean onKey(View view, int i, KeyEvent keyEvent) {
                 if ((keyEvent.getAction() == KeyEvent.ACTION_DOWN) && i == KeyEvent.KEYCODE_ENTER) {
-                    createItem((EditText)view);
+                    createItem();
                     return true;
                 }
                 return false;
             }
         });
 
+        ((Button)view.findViewById(R.id.addButton)).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                createItem();
+            }
+        });
+
         if (!mIsLike) {
             ((TextView)view.findViewById(R.id.isLikeTextView)).setTextColor(Color.rgb(120, 120, 255));
             ((TextView)view.findViewById(R.id.isLikeTextView)).setText("嫌い");
-            ((ImageView)view.findViewById(R.id.grassImageView)).setImageResource(R.drawable.profileadd_grass_hate);
+            ((Button)view.findViewById(R.id.addButton)).setTextColor(ContextCompat.getColor(getActivity(), R.color.hateBlue));
             ((LinearLayout) view.findViewById(R.id.contentsBaseLayout)).setBackgroundResource(R.layout.shape_profile_add_base_hate);
             ((LinearLayout)view.findViewById(R.id.searchLayout)).setBackgroundResource(R.layout.shape_profile_add_search_hate);
         }
@@ -130,7 +139,13 @@ public class ProfileAddFragment extends BaseFragment {
         });
     }
 
-    private void createItem(EditText editText) {
+    private void createItem() {
+
+        View view = getView();
+        if (view == null) return;
+
+        EditText editText = (EditText)view.findViewById(R.id.searchEditText);
+        if (editText == null) return;
 
         String itemName = editText.getText().toString();
         if (itemName.length() > 0) {

@@ -5,12 +5,14 @@ import android.content.Intent;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.KeyEvent;
 
 import leapfrog_inc.icchi.Fragment.FragmentController;
 import leapfrog_inc.icchi.Fragment.Login.LoginFragment;
 import leapfrog_inc.icchi.Fragment.MyPage.MyPageFragment;
 import leapfrog_inc.icchi.Function.FacebookManager;
 import leapfrog_inc.icchi.Function.SaveData;
+import leapfrog_inc.icchi.Http.External.YahooNewsRequester;
 import leapfrog_inc.icchi.Http.Requester.ItemRequester;
 import leapfrog_inc.icchi.Http.Requester.PostRequester;
 import leapfrog_inc.icchi.Http.Requester.UserRequester;
@@ -29,6 +31,7 @@ public class MainActivity extends AppCompatActivity {
     private FetchResult fetchUserResult = FetchResult.progress;
     private FetchResult fetchItemResult = FetchResult.progress;
     private FetchResult fetchPostResult = FetchResult.progress;
+    private FetchResult fetchYahooNewsResult = FetchResult.progress;
     private LoadingFragment mLoadingFragment;
 
     @Override
@@ -55,6 +58,7 @@ public class MainActivity extends AppCompatActivity {
         fetchUserResult = FetchResult.progress;
         fetchItemResult = FetchResult.progress;
         fetchPostResult = FetchResult.progress;
+        fetchYahooNewsResult = FetchResult.progress;
 
         UserRequester.getInstance().fetch(new UserRequester.UserRequesterCallback() {
             @Override
@@ -82,13 +86,23 @@ public class MainActivity extends AppCompatActivity {
                 checkResult();
             }
         });
+
+        YahooNewsRequester.getInstance().fetch(new YahooNewsRequester.YahooNewsRequesterCallback() {
+            @Override
+            public void didReceiveData(boolean result) {
+                if (result) fetchYahooNewsResult = FetchResult.ok;
+                else        fetchYahooNewsResult = FetchResult.error;
+                checkResult();
+            }
+        });
     }
 
     private void checkResult() {
 
         if ((fetchUserResult == FetchResult.progress)
                 || (fetchItemResult == FetchResult.progress)
-                || (fetchPostResult == FetchResult.progress)) {
+                || (fetchPostResult == FetchResult.progress)
+                || (fetchYahooNewsResult == FetchResult.progress)) {
             return;
         }
 
@@ -96,7 +110,8 @@ public class MainActivity extends AppCompatActivity {
 
         if ((fetchUserResult == FetchResult.error)
                 || (fetchItemResult == FetchResult.error)
-                || (fetchPostResult == FetchResult.error)) {
+                || (fetchPostResult == FetchResult.error)
+                || (fetchYahooNewsResult == FetchResult.error)) {
             AlertUtility.showAlert(this, "エラー", "通信に失敗しました", "リトライ", new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialogInterface, int i) {
@@ -131,5 +146,15 @@ public class MainActivity extends AppCompatActivity {
             mLoadingFragment.stop(this);
             mLoadingFragment = null;
         }
+    }
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event){
+
+        if (keyCode == KeyEvent.KEYCODE_BACK){
+            FragmentController.getInstance().didTapBack();
+            return true;
+        }
+        return false;
     }
 }
