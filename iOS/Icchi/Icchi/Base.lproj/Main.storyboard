@@ -213,20 +213,16 @@
                                 </constraints>
                             </view>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fc0-E2-ofV">
-                                <rect key="frame" x="20" y="686" width="374" height="50"/>
+                                <rect key="frame" x="57" y="686" width="300" height="50"/>
                                 <color key="backgroundColor" red="0.95686274509803915" green="0.10980392156862745" blue="0.26666666666666666" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="50" id="sVf-8P-gT8"/>
+                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="300" id="xh8-Kz-ddo"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="14"/>
                                 <state key="normal" title="はじめての方は新規登録">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
-                                <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
-                                        <integer key="value" value="16"/>
-                                    </userDefinedRuntimeAttribute>
-                                </userDefinedRuntimeAttributes>
                                 <connections>
                                     <action selector="onTapRegister:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Qdx-6J-1ad"/>
                                 </connections>
@@ -234,11 +230,10 @@
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
+                            <constraint firstItem="fc0-E2-ofV" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="1kd-Z0-ZMJ"/>
                             <constraint firstItem="QgU-TZ-1A3" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="30" id="ImE-EY-gvq"/>
                             <constraint firstItem="fc0-E2-ofV" firstAttribute="bottom" secondItem="6Tk-OE-BBY" secondAttribute="bottom" id="SAP-8Y-Ror"/>
                             <constraint firstItem="7b0-M4-fSb" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="Tiu-f8-srx"/>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="fc0-E2-ofV" secondAttribute="trailing" constant="20" id="amT-FZ-bHZ"/>
-                            <constraint firstItem="fc0-E2-ofV" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="20" id="cHI-Br-fXO"/>
                             <constraint firstItem="QgU-TZ-1A3" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="ra0-4a-8ak"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="QgU-TZ-1A3" secondAttribute="trailing" constant="30" id="spM-G5-DAF"/>
                             <constraint firstItem="7b0-M4-fSb" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="20" id="tHO-Tg-rAF"/>
@@ -250,6 +245,7 @@
                         <outlet property="emailTextField" destination="w6v-4X-cb0" id="nXD-Ed-t1n"/>
                         <outlet property="loginButtonView" destination="n1b-dP-SHH" id="pxX-OK-lGw"/>
                         <outlet property="passwordTextField" destination="EN9-i5-634" id="Kr8-d9-3BX"/>
+                        <outlet property="registBtn" destination="fc0-E2-ofV" id="EMT-Q7-XkC"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
