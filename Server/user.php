@@ -58,7 +58,6 @@ class User {
 
 		$str = "";
 		foreach($userList as $user) {
-//			$str .= $user->toFileString();
 			$str .= $user->id;
 			$str .= ",";
 			$str .= $user->email;
@@ -83,13 +82,30 @@ class User {
 		file_put_contents(User::FILE_NAME, $str);
 	}
 
+	static function register($userId, $email, $password, $name, $image, $fbLink) {
+
+		$userData = $userId . "," . $email . "," . $password . "," . $name . ",,,,," . $image . "," . $fbLink . "\n";
+		file_put_contents(User::FILE_NAME, $userData, FILE_APPEND);
+	}
+
+	static function login($email, $password) {
+
+		$users = User::readAll();
+		foreach ($users as $user) {
+			if ((strcmp($user->email, $email) == 0) && (strcmp($user->password, $password) == 0)) {
+				return $user->id;
+			}
+		}
+		return null;
+	}
+
 	static function update($userId, $name, $age, $gender, $likes, $hates, $image, $fbLink) {
 
 		$users = User::readAll();
 		foreach ($users as &$user) {
 			if (strcmp($user->id, $userId) == 0) {
 				$newUserData = new UserData();
-				$newUserData = $userId;
+				$newUserData->id = $userId;
 				$newUserData->email = $user->email;
 				$newUserData->password = $user->password;
 				$newUserData->name = $user->name;

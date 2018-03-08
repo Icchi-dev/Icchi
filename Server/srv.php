@@ -24,7 +24,7 @@ if(strcmp($command, "register") == 0) {
 } else if (strcmp($command, "getMatchParameter") == 0) {
 	getMatchParameter();
 } else {
-	getPost();
+	login();
   echo("unknown");
 }
 
@@ -38,14 +38,9 @@ function register() {
 
 	$userId = createUserId();
 
-	$userData = $userId . "," . $email . "," . $password . "," . $name . ",,,,," . $image . "," . $fbLink . "\n";
-	$fileName = "data/user.txt";
-	if (file_put_contents($fileName, $userData, FILE_APPEND) !== false) {
-		echo(json_encode(Array("result" => "0",
+	User::register($userId, $email, $password, $name, $image, $fbLink);
+	echo(json_encode(Array("result" => "0",
 													"userId" => $userId)));
-		return;
-	}
-	echo(json_encode(Array("result" => "1")));
 }
 
 function login() {
@@ -53,25 +48,13 @@ function login() {
 	$email = $_POST["email"];
 	$password = $_POST["password"];
 
-	$fileName = "data/user.txt";
-	if (file_exists($fileName)) {
-		$fileData = file_get_contents($fileName);
-		if ($fileData !== false) {
-			$users = explode("\n", $fileData);
-			for ($i = 0; $i < count($users); $i++) {
-				$userDatas = explode(",", $users[$i]);
-				if (count($userDatas) >= 3) {
-					if ((strcmp($userDatas[1], $email) == 0)
-					&& (strcmp($userDatas[2], $password) == 0)) {
-						echo(json_encode(Array("result" => "0",
-																		"userId" => $userDatas[0])));
-						return;
-					}
-				}
-			}
-		}
+	$userId = User::login($email, $password);
+	if (is_null($userId)) {
+		echo(json_encode(Array("result" => "0",
+														"userId" => $userId)));
+	} else {
+		echo(json_encode(Array("result" => "1")));
 	}
-	echo(json_encode(Array("result" => "1")));
 }
 
 function updateAccount() {
@@ -135,7 +118,7 @@ function getPost() {
 												"link" => $postData->link);
 	}
 	$ret = Array("result" => "0",
-							 "users" => $postList);
+							 "posts" => $postList);
 	echo(json_encode($ret));
 }
 
