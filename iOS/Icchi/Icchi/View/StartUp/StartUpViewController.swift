@@ -79,6 +79,7 @@ class StartUpViewController: UIViewController {
             }
             alert.addAction(cancelAction)
             present(alert, animated: true, completion: nil)
+            return;
         }
         
         // ID取得済み
