@@ -73,6 +73,7 @@ class ProfileViewController: UIViewController {
     
     // キーボードリターン
     @IBAction func onDidEndOnExit(_ sender: Any) {
+        self.view.endEditing(true)
     }
     
     // ロゴタップ

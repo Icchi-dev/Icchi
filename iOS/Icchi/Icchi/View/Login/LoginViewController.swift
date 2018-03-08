@@ -125,7 +125,7 @@ class LoginViewController: KeyboardRespondableViewController, UITextFieldDelegat
             // 入力チェック
             guard result, let userId = userId else {
                 let action = AlertAction(title:"OK")
-                self.showAlert(title: "エラー", message: "新規登録に失敗しました", actions: [action])
+                self.showAlert(title: "エラー", message: "ログインに失敗しました", actions: [action])
                 return;
             }
             
