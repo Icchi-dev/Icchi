@@ -59,7 +59,7 @@ class ProfileViewController: UIViewController {
     
     private func stackAddViewController(isLike: Bool) {
         let addViewController = self.viewController(storyboard: "Main", identifier: "ProfileAddViewController") as! ProfileAddViewController
-        addViewController.set(isLike: isLike)
+        addViewController.set(isLike: isLike, exceptItemIdList: isLike ? self.tmpUserData?.likes : self.tmpUserData?.hates)
         self.stack(viewController: addViewController, animationType: .horizontal)
     }
     

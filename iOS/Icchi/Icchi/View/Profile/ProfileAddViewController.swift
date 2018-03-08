@@ -23,8 +23,10 @@ class ProfileAddViewController: UIViewController {
     var itemDatas:[ItemRequester.ItemData]?
     
     private var isLike:Bool = true
-    func set(isLike: Bool) {
+    private var exceptItemIdList:[String]? = nil
+    func set(isLike: Bool, exceptItemIdList:[String]?) {
         self.isLike = isLike
+        self.exceptItemIdList = exceptItemIdList
     }
     
     override func viewDidLoad() {
@@ -50,7 +52,17 @@ class ProfileAddViewController: UIViewController {
             grassImageView.image = UIImage(named:"profileadd_grass_hate")
         }
         
-        self.itemDatas = ItemRequester.sharedManager.mDataList;
+        self.itemDatas = ItemRequester.sharedManager.mDataList.filter({ (data) -> Bool in
+        
+            guard let exceptItemIdList = exceptItemIdList else {
+                return true;
+            }
+            guard let itemId = data.itemId else {
+                return false;
+            }
+            
+            return !exceptItemIdList.contains(itemId)
+        })
         resetTableView(search:self.searchEditText.text)
     }
     
