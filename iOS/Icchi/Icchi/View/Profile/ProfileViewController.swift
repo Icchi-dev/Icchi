@@ -206,6 +206,8 @@ class ProfileViewController: UIViewController {
             UIView.animate(withDuration: 0.2, animations: {
                 deleteHobbyView.isHidden = true
                 self.refreshScrollSize()
+            }, completion:{ (res) in
+                deleteHobbyView.removeFromSuperview()
             })
         }
         if isLike {
@@ -264,9 +266,11 @@ class ProfileViewController: UIViewController {
         }
         self.likeContentsStackView.arrangedSubviews.forEach({subView in
             self.likeContentsStackView.removeArrangedSubview(subView)
+            subView.removeFromSuperview()
         })
         self.hateContentsStackView.arrangedSubviews.forEach({subView in
             self.hateContentsStackView.removeArrangedSubview(subView)
+            subView.removeFromSuperview()
         })
         self.setProfile(userData: self.tmpUserData)
     }
