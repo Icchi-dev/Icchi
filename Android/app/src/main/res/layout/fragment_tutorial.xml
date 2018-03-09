@@ -49,9 +49,10 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="30dp"
             android:layout_marginRight="30dp"
-            android:text="質問文"
-            android:textSize="14dp"
-            android:textColor="#000"
+            android:text="好きなアーティストは？"
+            android:textSize="18dp"
+            android:textStyle="bold"
+            android:textColor="#333"
             android:gravity="center"
             android:lines="3"/>
         <EditText
@@ -60,7 +61,7 @@
             android:layout_height="40dp"
             android:layout_marginLeft="30dp"
             android:layout_marginRight="30dp"
-            android:layout_marginTop="30dp"
+            android:layout_marginTop="24dp"
             android:paddingLeft="10dp"
             android:paddingRight="10dp"
             android:background="@layout/shape_tutorial_edittext"
@@ -68,23 +69,23 @@
 
         <Button
             android:id="@+id/nextButton"
-            android:layout_width="120dp"
-            android:layout_height="40dp"
+            android:layout_width="200dp"
+            android:layout_height="50dp"
             android:text="次へ"
-            android:textSize="14dp"
-            android:textColor="#000"
-            android:background="@layout/shape_tutorial_button"
+            android:textSize="16dp"
+            android:textColor="#fff"
+            android:background="@layout/shape_tutorial_next_button"
             android:layout_gravity="center_horizontal"
-            android:layout_marginTop="30dp" />
+            android:layout_marginTop="44dp" />
 
         <Button
             android:id="@+id/skipButton"
-            android:layout_width="120dp"
-            android:layout_height="40dp"
+            android:layout_width="200dp"
+            android:layout_height="50dp"
             android:text="スキップ"
-            android:textSize="14dp"
-            android:textColor="#000"
-            android:background="@layout/shape_tutorial_button"
+            android:textSize="16dp"
+            android:textColor="#fff"
+            android:background="@layout/shape_tutorial_skip_button"
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="20dp" />
     </LinearLayout>
