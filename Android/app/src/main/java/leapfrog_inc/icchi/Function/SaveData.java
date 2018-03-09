@@ -15,6 +15,8 @@ public class SaveData {
     public String userId = "";
     public boolean isInitialized = false;
 
+    private String mVersion = "1";
+
     private SaveData(){}
 
     public static SaveData getInstance(){
@@ -30,8 +32,14 @@ public class SaveData {
 
         SharedPreferences data = context.getSharedPreferences(Constants.SharedPreferenceKey.Key, Context.MODE_PRIVATE);
 
-        userId = data.getString(Constants.SharedPreferenceKey.UserId, "");
-        isInitialized = data.getBoolean(Constants.SharedPreferenceKey.IsInitialized, false);
+        String savedVersion = data.getString(Constants.SharedPreferenceKey.Version, "");
+        if (savedVersion.equals(mVersion)) {
+            userId = data.getString(Constants.SharedPreferenceKey.UserId, "");
+            isInitialized = data.getBoolean(Constants.SharedPreferenceKey.IsInitialized, false);
+        } else {
+            userId = "";
+            isInitialized = false;
+        }
     }
 
     public void save() {
@@ -39,6 +47,7 @@ public class SaveData {
         SharedPreferences data = mContext.getSharedPreferences(Constants.SharedPreferenceKey.Key, Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = data.edit();
 
+        editor.putString(Constants.SharedPreferenceKey.Version, mVersion);
         editor.putString(Constants.SharedPreferenceKey.UserId, userId);
         editor.putBoolean(Constants.SharedPreferenceKey.IsInitialized, isInitialized);
 

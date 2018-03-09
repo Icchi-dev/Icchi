@@ -11,6 +11,7 @@ public class Constants {
     public static int HttpReadTimeout = 10000;
 
     public static class SharedPreferenceKey {
+        public static String Version = "Version";
         public static String Key = "Icchi";
         public static String UserId = "UserId";
         public static String IsInitialized = "IsInitialized";

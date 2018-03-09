@@ -37,7 +37,7 @@ public class AccountRequester {
         param.append("&");
         param.append("password=" + password);
         param.append("&");
-        param.append("name=" + name);
+        param.append("name=" + Base64.encodeToString(name.getBytes(), Base64.URL_SAFE | Base64.NO_WRAP));
         param.append("&");
         param.append("image=" + image);
         param.append("&");
