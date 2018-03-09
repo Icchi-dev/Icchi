@@ -14,6 +14,7 @@ import leapfrog_inc.icchi.Function.FacebookManager;
 import leapfrog_inc.icchi.Function.SaveData;
 import leapfrog_inc.icchi.Http.External.YahooNewsRequester;
 import leapfrog_inc.icchi.Http.Requester.ItemRequester;
+import leapfrog_inc.icchi.Http.Requester.ParameterRequester;
 import leapfrog_inc.icchi.Http.Requester.PostRequester;
 import leapfrog_inc.icchi.Http.Requester.UserRequester;
 import leapfrog_inc.icchi.Parts.AlertUtility;
@@ -32,6 +33,7 @@ public class MainActivity extends AppCompatActivity {
     private FetchResult fetchItemResult = FetchResult.progress;
     private FetchResult fetchPostResult = FetchResult.progress;
     private FetchResult fetchYahooNewsResult = FetchResult.progress;
+    private FetchResult fetchParameterResult = FetchResult.progress;
     private LoadingFragment mLoadingFragment;
 
     @Override
@@ -59,6 +61,7 @@ public class MainActivity extends AppCompatActivity {
         fetchItemResult = FetchResult.progress;
         fetchPostResult = FetchResult.progress;
         fetchYahooNewsResult = FetchResult.progress;
+        fetchParameterResult = FetchResult.progress;
 
         UserRequester.getInstance().fetch(new UserRequester.UserRequesterCallback() {
             @Override
@@ -95,6 +98,15 @@ public class MainActivity extends AppCompatActivity {
                 checkResult();
             }
         });
+
+        ParameterRequester.getInstance().fetch(new ParameterRequester.ParameterRequesterCallback() {
+            @Override
+            public void didReceiveData(boolean result) {
+                if (result) fetchParameterResult = FetchResult.ok;
+                else        fetchParameterResult = FetchResult.error;
+                checkResult();
+            }
+        });
     }
 
     private void checkResult() {
@@ -102,7 +114,8 @@ public class MainActivity extends AppCompatActivity {
         if ((fetchUserResult == FetchResult.progress)
                 || (fetchItemResult == FetchResult.progress)
                 || (fetchPostResult == FetchResult.progress)
-                || (fetchYahooNewsResult == FetchResult.progress)) {
+                || (fetchYahooNewsResult == FetchResult.progress)
+                || (fetchParameterResult == FetchResult.progress)) {
             return;
         }
 
@@ -111,7 +124,8 @@ public class MainActivity extends AppCompatActivity {
         if ((fetchUserResult == FetchResult.error)
                 || (fetchItemResult == FetchResult.error)
                 || (fetchPostResult == FetchResult.error)
-                || (fetchYahooNewsResult == FetchResult.error)) {
+                || (fetchYahooNewsResult == FetchResult.error)
+                || (fetchParameterResult == FetchResult.error)) {
             AlertUtility.showAlert(this, "エラー", "通信に失敗しました", "リトライ", new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialogInterface, int i) {

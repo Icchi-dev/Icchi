@@ -4,9 +4,7 @@
     android:layout_width="20dp"
     android:layout_height="20dp">
 
-    <solid android:color="#fff" />
-    <stroke
-        android:width="2dp"
-        android:color="#000" />
-
+    <solid android:color="#aaa" />
+    <corners android:radius="25dp" />
 </shape>
+
