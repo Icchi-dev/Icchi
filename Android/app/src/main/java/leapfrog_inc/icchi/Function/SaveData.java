@@ -15,7 +15,7 @@ public class SaveData {
     public String userId = "";
     public boolean isInitialized = false;
 
-    private String mVersion = "2";
+    private String mVersion = "1";
 
     private SaveData(){}
 
