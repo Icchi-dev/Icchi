@@ -10,6 +10,7 @@ import UIKit
 
 class MyPageViewController: UIViewController {
 
+    // プロフィール変更・登録タップ
     @IBAction func onTapProfile(_ sender: Any) {
         
         if SaveData.shared.isInitialized {
@@ -21,10 +22,14 @@ class MyPageViewController: UIViewController {
         }
     }
 
+    // 一致度をはかるをタップ
     @IBAction func onTapIcchi(_ sender: Any) {
         
+        let matchViewController = self.viewController(storyboard: "Main", identifier: "MatchViewController")
+        self.stack(viewController: matchViewController, animationType: .horizontal)
     }
     
+    // マイポストをタップ
     @IBAction func onTapMyPost(_ sender: Any) {
         
     }
