@@ -140,7 +140,7 @@ public class UserRequester {
 
                 UserData userData = new UserData();
                 userData.userId = userId;
-                userData.name = name;
+                userData.name = new String(Base64.decode(name, Base64.URL_SAFE | Base64.NO_WRAP));
                 userData.age = AgeType.init(age);
                 userData.gender = GenderType.init(gender);
 
@@ -231,6 +231,9 @@ public class UserRequester {
 
     public int queryMatch(String targetId) {
 
+        int pointPerItem = ParameterRequester.getInstance().mPointPerItem;
+        int pointPerMinorItem = ParameterRequester.getInstance().mPointPerMinorItem;
+
         UserData targetUserData = query(targetId);
         UserData myUserData = query(SaveData.getInstance().userId);
         if ((targetUserData == null) || (myUserData == null)) {
@@ -243,9 +246,9 @@ public class UserRequester {
             String itemId = targetUserData.likes.get(i);
             if (myUserData.likes.contains(itemId)) {
                 if (isMinorItem(itemId)) {
-                    match += 20;
+                    match += pointPerMinorItem;
                 } else {
-                    match += 5;
+                    match += pointPerItem;
                 }
             }
         }
@@ -253,9 +256,9 @@ public class UserRequester {
             String itemId = targetUserData.hates.get(i);
             if (myUserData.likes.contains(itemId)) {
                 if (isMinorItem(itemId)) {
-                    match += 20;
+                    match += pointPerMinorItem;
                 } else {
-                    match += 5;
+                    match += pointPerItem;
                 }
             }
         }
@@ -276,7 +279,7 @@ public class UserRequester {
                 count++;
             }
         }
-        if (count * 100 < mDataList.size()) {
+        if (count * 100 * ParameterRequester.getInstance().mMinorThreshold < mDataList.size()) {
             return true;
         } else {
             return false;

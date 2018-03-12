@@ -95,7 +95,7 @@ public class TutorialFragment extends BaseFragment {
             saveData.isInitialized = true;
             saveData.save();
 
-            ProfileFragment fragment = new ProfileFragment();
+            LikeListFragment fragment = new LikeListFragment();
             FragmentController.getInstance().stack(fragment, FragmentController.AnimationType.horizontal);
         }
     }
