@@ -42,10 +42,25 @@ extension MatchViewController:UITableViewDelegate, UITableViewDataSource {
         
         let cell = tableView.dequeueReusableCell(withIdentifier: "MatchTableViewCell") as! MatchTableViewCell?
         
-        cell!.nameTextView?.text =  UserRequester.sharedManager.mDataList[indexPath.row].name
+        cell!.configure(with:UserRequester.sharedManager.mDataList[indexPath.row])
 
         return cell!
     }
     
+    public func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
+        
+        guard let urlString = UserRequester.sharedManager.mDataList[indexPath.row].fbLink else {
+            return;
+        }
+        
+        guard let url = URL(string: urlString) else {
+            return;
+        }
+        
+        if UIApplication.shared.canOpenURL(url){
+            UIApplication.shared.open(url, options: [:], completionHandler:nil)
+        }
+    }
     
 }

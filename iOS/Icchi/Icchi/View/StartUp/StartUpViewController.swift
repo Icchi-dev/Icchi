@@ -18,6 +18,7 @@ class StartUpViewController: UIViewController {
     private var fetchUserResult = FetchResult.progress;
     private var fetchItemResult = FetchResult.progress;
     private var fetchPostResult = FetchResult.progress;
+    private var fetchParameterResult = FetchResult.progress;
     
     
     override func viewDidLoad() {
@@ -50,10 +51,16 @@ class StartUpViewController: UIViewController {
             else      {self.fetchItemResult = FetchResult.error}
             self.checkResult()
         }
-        // アイテム一覧取得
+        // ポスト一覧取得
         PostRequester.sharedManager.fetch() { (result) in
             if result {self.fetchPostResult = FetchResult.ok}
             else      {self.fetchPostResult = FetchResult.error}
+            self.checkResult()
+        }
+        // パラメータ一覧取得
+        ParameterRequester.sharedManager.fetch() { (result) in
+            if result {self.fetchParameterResult = FetchResult.ok}
+            else      {self.fetchParameterResult = FetchResult.error}
             self.checkResult()
         }
     }
@@ -64,14 +71,16 @@ class StartUpViewController: UIViewController {
         // 受信待ち
         if (self.fetchUserResult == .progress
             || self.fetchItemResult == .progress
-            || self.fetchPostResult == .progress) {
+            || self.fetchPostResult == .progress
+            || self.fetchParameterResult == .progress) {
             return
         }
         
         // 受信チェック
         if (self.fetchUserResult == .error
             || self.fetchItemResult == .error
-            || self.fetchPostResult == .error) {
+            || self.fetchPostResult == .error
+            || self.fetchParameterResult == .error) {
             
             let alert = UIAlertController(title:"エラー", message:"通信に失敗しました", preferredStyle:.alert)
             let cancelAction = UIAlertAction(title: "リトライ", style: .default) {(tapAction) in

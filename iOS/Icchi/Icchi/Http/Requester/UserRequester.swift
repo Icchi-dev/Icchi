@@ -182,5 +182,75 @@ class UserRequester {
     func query(_ userId:String) -> UserData? {
         return mDataList.first(where: { return $0.userId == userId})
     }
+    
+    /** 一致度を取得 */
+    func queryMatch(_ targetId:String?) -> Int {
+        
+        guard let targetId = targetId else {
+            return 0;
+        }
+        
+        guard let targetUserData = self.query(targetId)
+            , let myUserData = query(SaveData.shared.userId) else {
+            return 0;
+        }
+        
+        let pointPerItem = ParameterRequester.sharedManager.mPointPerItem;
+        let pointPerMinorItem = ParameterRequester.sharedManager.mPointPerMinorItem;
+        
+        var match = 0;
+        
+        targetUserData.likes?.forEach({ itemId in
+            if let likes = myUserData.likes, likes.contains(itemId) {
+                if self.isMinorItem(itemId) {
+                    match += pointPerMinorItem
+                }
+                else {
+                    match += pointPerItem
+                }
+            }
+        })
+        
+        targetUserData.hates?.forEach({ itemId in
+            if let hates = myUserData.hates, hates.contains(itemId) {
+                if self.isMinorItem(itemId) {
+                    match += pointPerMinorItem
+                }
+                else {
+                    match += pointPerItem
+                }
+            }
+        })
+        
+        if (match > 100) {
+            match = 100;
+        }
+        return match;
+    }
+    
+    func isMinorItem(_ itemId:String?) -> Bool {
+    
+        guard let itemId = itemId else {
+            return false
+        }
+        
+        var count:Int = 0;
+        
+        mDataList.forEach { userData in
+            
+            if let likes = userData.likes, likes.contains(itemId) {
+                count+=1;
+            }
+            if let hates = userData.hates, hates.contains(itemId) {
+                count+=1;
+            }
+        }
+        
+        if (count * 100 * ParameterRequester.sharedManager.mMinorThreshold < mDataList.count) {
+            return true;
+        } else {
+            return false;
+        }
+    }
 }
 

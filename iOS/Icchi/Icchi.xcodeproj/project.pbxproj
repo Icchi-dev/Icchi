@@ -9,6 +9,9 @@
 /* Begin PBXBuildFile section */
 		5B174F47203C3E7B0046D2C7 /* StartUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B174F46203C3E7B0046D2C7 /* StartUpViewController.swift */; };
 		5B174F49203C4DA10046D2C7 /* RegisterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B174F48203C4DA10046D2C7 /* RegisterViewController.swift */; };
+		5B25BBA72056A40B001408DF /* ImageStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B25BBA62056A40B001408DF /* ImageStorage.swift */; };
+		5B25BBA92056A5DC001408DF /* CircleImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B25BBA82056A5DC001408DF /* CircleImageView.swift */; };
+		5B25BBAB2056AB7C001408DF /* ParameterRequester.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B25BBAA2056AB7C001408DF /* ParameterRequester.swift */; };
 		5B794DC92035C461006BC0CE /* UserRequester.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B794DC82035C461006BC0CE /* UserRequester.swift */; };
 		5B8BBCB22036EF4A00B292E7 /* HttpManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B8BBCB12036EF4A00B292E7 /* HttpManager.swift */; };
 		5B9F8EEA2052A7F30072BFC9 /* MatchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B9F8EE92052A7F30072BFC9 /* MatchViewController.swift */; };
@@ -46,6 +49,9 @@
 		0625066F3426C500F447EA52 /* Pods-Icchi.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Icchi.release.xcconfig"; path = "Pods/Target Support Files/Pods-Icchi/Pods-Icchi.release.xcconfig"; sourceTree = "<group>"; };
 		5B174F46203C3E7B0046D2C7 /* StartUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartUpViewController.swift; sourceTree = "<group>"; };
 		5B174F48203C4DA10046D2C7 /* RegisterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterViewController.swift; sourceTree = "<group>"; };
+		5B25BBA62056A40B001408DF /* ImageStorage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageStorage.swift; sourceTree = "<group>"; };
+		5B25BBA82056A5DC001408DF /* CircleImageView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CircleImageView.swift; sourceTree = "<group>"; };
+		5B25BBAA2056AB7C001408DF /* ParameterRequester.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParameterRequester.swift; sourceTree = "<group>"; };
 		5B794DC82035C461006BC0CE /* UserRequester.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserRequester.swift; sourceTree = "<group>"; };
 		5B8BBCB12036EF4A00B292E7 /* HttpManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HttpManager.swift; sourceTree = "<group>"; };
 		5B9F8EE92052A7F30072BFC9 /* MatchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MatchViewController.swift; sourceTree = "<group>"; };
@@ -118,6 +124,7 @@
 				5BED6FAC203AFDFD00874884 /* ItemRequester.swift */,
 				5BED6FAE203B014100874884 /* PostRequester.swift */,
 				5BE222C5203EF2210016B40B /* AccountRequester.swift */,
+				5B25BBAA2056AB7C001408DF /* ParameterRequester.swift */,
 			);
 			path = Requester;
 			sourceTree = "<group>";
@@ -205,6 +212,8 @@
 			children = (
 				BB6BBA1320176D8F00CC4179 /* Constants.swift */,
 				BB6BBA1520176D9700CC4179 /* SaveData.swift */,
+				5B25BBA82056A5DC001408DF /* CircleImageView.swift */,
+				5B25BBA62056A40B001408DF /* ImageStorage.swift */,
 			);
 			path = Function;
 			sourceTree = "<group>";
@@ -399,6 +408,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				5BED6FAD203AFDFD00874884 /* ItemRequester.swift in Sources */,
+				5B25BBA72056A40B001408DF /* ImageStorage.swift in Sources */,
 				5B174F49203C4DA10046D2C7 /* RegisterViewController.swift in Sources */,
 				5BAC297120458CC5000B61FF /* String+Base64.swift in Sources */,
 				BB6BBA1420176D8F00CC4179 /* Constants.swift in Sources */,
@@ -412,8 +422,10 @@
 				5BE222C4203EEF890016B40B /* Loading.swift in Sources */,
 				BB6BBA1120176D5600CC4179 /* TutorialViewController.swift in Sources */,
 				BB6BBA1D20176EA300CC4179 /* CALayer+Border.swift in Sources */,
+				5B25BBA92056A5DC001408DF /* CircleImageView.swift in Sources */,
 				5B9F8EEA2052A7F30072BFC9 /* MatchViewController.swift in Sources */,
 				BBF7B09F20174E0000964E95 /* AppDelegate.swift in Sources */,
+				5B25BBAB2056AB7C001408DF /* ParameterRequester.swift in Sources */,
 				5BE222C6203EF2210016B40B /* AccountRequester.swift in Sources */,
 				BB6BBA1920176E6100CC4179 /* UIViewController+Scene.swift in Sources */,
 				5BC6A6D1204973B7006D0590 /* ProfileAddTableViewCell.swift in Sources */,

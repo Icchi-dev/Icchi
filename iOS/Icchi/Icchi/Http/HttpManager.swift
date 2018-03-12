@@ -78,9 +78,9 @@ class HttpManager {
                 // レスポンス内容確認
                 if error == nil, let data = data {
                     
-                    let str: String? = String(data: data, encoding: .utf8)
-                    print("[RESPONSE]" + str!)
-                    
+                    if let str = String(data: data, encoding: .utf8) {
+                        print("[RESPONSE]" + str)
+                    }
                     // 成功＋受信データ
                     completion(true, data)
                 } else {

@@ -26,4 +26,14 @@ class MatchTableViewCell: UITableViewCell {
         // Configure the view for the selected state
     }
 
+    public func configure(with:UserRequester.UserData?) {
+        
+        self.nameTextView.text = with?.name
+        if let image = with?.image {
+            ImageStorage.shared.fetch(url: image, imageView: self.faceImageView)
+        }
+        let match = UserRequester.sharedManager.queryMatch(with?.userId)
+        self.matchTextView.text = String(match)
+    }
+
 }
