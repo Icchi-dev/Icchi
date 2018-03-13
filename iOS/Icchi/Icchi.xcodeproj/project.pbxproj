@@ -12,6 +12,8 @@
 		5B25BBA72056A40B001408DF /* ImageStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B25BBA62056A40B001408DF /* ImageStorage.swift */; };
 		5B25BBA92056A5DC001408DF /* CircleImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B25BBA82056A5DC001408DF /* CircleImageView.swift */; };
 		5B25BBAB2056AB7C001408DF /* ParameterRequester.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B25BBAA2056AB7C001408DF /* ParameterRequester.swift */; };
+		5B2C8C662057F3460083FBF6 /* YahooNewsRequester.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B2C8C652057F3460083FBF6 /* YahooNewsRequester.swift */; };
+		5B2C8C682057FF710083FBF6 /* libxml2.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 5B2C8C672057FF700083FBF6 /* libxml2.tbd */; };
 		5B794DC92035C461006BC0CE /* UserRequester.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B794DC82035C461006BC0CE /* UserRequester.swift */; };
 		5B8BBCB22036EF4A00B292E7 /* HttpManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B8BBCB12036EF4A00B292E7 /* HttpManager.swift */; };
 		5B9F8EEA2052A7F30072BFC9 /* MatchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B9F8EE92052A7F30072BFC9 /* MatchViewController.swift */; };
@@ -52,6 +54,8 @@
 		5B25BBA62056A40B001408DF /* ImageStorage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageStorage.swift; sourceTree = "<group>"; };
 		5B25BBA82056A5DC001408DF /* CircleImageView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CircleImageView.swift; sourceTree = "<group>"; };
 		5B25BBAA2056AB7C001408DF /* ParameterRequester.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParameterRequester.swift; sourceTree = "<group>"; };
+		5B2C8C652057F3460083FBF6 /* YahooNewsRequester.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YahooNewsRequester.swift; sourceTree = "<group>"; };
+		5B2C8C672057FF700083FBF6 /* libxml2.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libxml2.tbd; path = usr/lib/libxml2.tbd; sourceTree = SDKROOT; };
 		5B794DC82035C461006BC0CE /* UserRequester.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserRequester.swift; sourceTree = "<group>"; };
 		5B8BBCB12036EF4A00B292E7 /* HttpManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HttpManager.swift; sourceTree = "<group>"; };
 		5B9F8EE92052A7F30072BFC9 /* MatchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MatchViewController.swift; sourceTree = "<group>"; };
@@ -93,6 +97,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5B2C8C682057FF710083FBF6 /* libxml2.tbd in Frameworks */,
 				FA901E4062A075EA61155D12 /* Pods_Icchi.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -108,9 +113,18 @@
 			path = StartUp;
 			sourceTree = "<group>";
 		};
+		5B2C8C642057F32A0083FBF6 /* External */ = {
+			isa = PBXGroup;
+			children = (
+				5B2C8C652057F3460083FBF6 /* YahooNewsRequester.swift */,
+			);
+			path = External;
+			sourceTree = "<group>";
+		};
 		5B794DC62035C42B006BC0CE /* Http */ = {
 			isa = PBXGroup;
 			children = (
+				5B2C8C642057F32A0083FBF6 /* External */,
 				5B794DC72035C438006BC0CE /* Requester */,
 				5B8BBCB12036EF4A00B292E7 /* HttpManager.swift */,
 			);
@@ -150,6 +164,7 @@
 		A3F3080DC56C370394B60365 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				5B2C8C672057FF700083FBF6 /* libxml2.tbd */,
 				900095789B8231EC9494EBD8 /* Pods_Icchi.framework */,
 			);
 			name = Frameworks;
@@ -432,6 +447,7 @@
 				BBD66E2B201799BB0070DFC4 /* UIView+Frame.swift in Sources */,
 				BB6BBA0F20176D5200CC4179 /* MyPageViewController.swift in Sources */,
 				BB6BBA1B20176E8100CC4179 /* UIViewController+Alert.swift in Sources */,
+				5B2C8C662057F3460083FBF6 /* YahooNewsRequester.swift in Sources */,
 				5B9F8EEC2052AEED0072BFC9 /* MatchTableViewCell.swift in Sources */,
 				5B794DC92035C461006BC0CE /* UserRequester.swift in Sources */,
 				BBD66E29201799450070DFC4 /* KeyboardRespondableViewController.swift in Sources */,
