@@ -50,17 +50,15 @@ extension MatchViewController:UITableViewDelegate, UITableViewDataSource {
     public func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
         
-        guard let urlString = UserRequester.sharedManager.mDataList[indexPath.row].fbLink else {
+        guard let urlString = UserRequester.sharedManager.mDataList[indexPath.row].fbLink
+            , let url = URL(string: urlString)
+            , UIApplication.shared.canOpenURL(url) else {
+                print("fbLinkなし")
             return;
         }
         
-        guard let url = URL(string: urlString) else {
-            return;
-        }
-        
-        if UIApplication.shared.canOpenURL(url){
-            UIApplication.shared.open(url, options: [:], completionHandler:nil)
-        }
+        // ブラウザ起動
+        UIApplication.shared.open(url, options: [:], completionHandler:nil)
     }
     
 }

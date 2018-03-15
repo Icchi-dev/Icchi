@@ -32,5 +32,7 @@ class MyPageViewController: UIViewController {
     // マイポストをタップ
     @IBAction func onTapMyPost(_ sender: Any) {
         
+        let myPostViewController = self.viewController(storyboard: "Main", identifier: "MyPostViewController")
+        self.stack(viewController: myPostViewController, animationType: .horizontal)
     }
 }

@@ -11,7 +11,7 @@ import Foundation
 class YahooNewsRequester: NSObject {
     
     // レスポンスデータ型
-    private struct YahooNewsData : Codable {
+    public struct YahooNewsData : Codable {
         var title:String?
         var link:String?
         var category:String?
@@ -25,8 +25,8 @@ class YahooNewsRequester: NSObject {
     private var pubDateOn = false;
     
     // データ配列
-    private var mNewsList:[YahooNewsData] = []
-    private var mRssIndex:Int = 0;
+    public var mNewsList:[YahooNewsData] = []
+    public var mRssIndex:Int = 0;
     
     // rss
     var rssType:[String] = [
