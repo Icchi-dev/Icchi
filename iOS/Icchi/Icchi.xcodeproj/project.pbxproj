@@ -15,6 +15,7 @@
 		5B2C8C662057F3460083FBF6 /* YahooNewsRequester.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B2C8C652057F3460083FBF6 /* YahooNewsRequester.swift */; };
 		5B2C8C682057FF710083FBF6 /* libxml2.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 5B2C8C672057FF700083FBF6 /* libxml2.tbd */; };
 		5B591F53205A993B0052CADF /* MyPostViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B591F52205A993B0052CADF /* MyPostViewController.swift */; };
+		5B6C1656205BFD7F005A411F /* MyPostTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B6C1655205BFD7F005A411F /* MyPostTableViewCell.swift */; };
 		5B794DC92035C461006BC0CE /* UserRequester.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B794DC82035C461006BC0CE /* UserRequester.swift */; };
 		5B8BBCB22036EF4A00B292E7 /* HttpManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B8BBCB12036EF4A00B292E7 /* HttpManager.swift */; };
 		5B9F8EEA2052A7F30072BFC9 /* MatchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B9F8EE92052A7F30072BFC9 /* MatchViewController.swift */; };
@@ -58,6 +59,7 @@
 		5B2C8C652057F3460083FBF6 /* YahooNewsRequester.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YahooNewsRequester.swift; sourceTree = "<group>"; };
 		5B2C8C672057FF700083FBF6 /* libxml2.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libxml2.tbd; path = usr/lib/libxml2.tbd; sourceTree = SDKROOT; };
 		5B591F52205A993B0052CADF /* MyPostViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPostViewController.swift; sourceTree = "<group>"; };
+		5B6C1655205BFD7F005A411F /* MyPostTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPostTableViewCell.swift; sourceTree = "<group>"; };
 		5B794DC82035C461006BC0CE /* UserRequester.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserRequester.swift; sourceTree = "<group>"; };
 		5B8BBCB12036EF4A00B292E7 /* HttpManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HttpManager.swift; sourceTree = "<group>"; };
 		5B9F8EE92052A7F30072BFC9 /* MatchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MatchViewController.swift; sourceTree = "<group>"; };
@@ -127,6 +129,7 @@
 			isa = PBXGroup;
 			children = (
 				5B591F52205A993B0052CADF /* MyPostViewController.swift */,
+				5B6C1655205BFD7F005A411F /* MyPostTableViewCell.swift */,
 			);
 			path = MyPost;
 			sourceTree = "<group>";
@@ -463,6 +466,7 @@
 				5B9F8EEC2052AEED0072BFC9 /* MatchTableViewCell.swift in Sources */,
 				5B794DC92035C461006BC0CE /* UserRequester.swift in Sources */,
 				BBD66E29201799450070DFC4 /* KeyboardRespondableViewController.swift in Sources */,
+				5B6C1656205BFD7F005A411F /* MyPostTableViewCell.swift in Sources */,
 				5B174F47203C3E7B0046D2C7 /* StartUpViewController.swift in Sources */,
 				BBD66E312017A5D10070DFC4 /* ProfileHobbyView.swift in Sources */,
 			);

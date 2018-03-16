@@ -138,13 +138,29 @@ class MyPostViewController: UIViewController {
 
 extension MyPostViewController : UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return myPostDatas.count;
+        return self.myPostDatas.count;
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell =  UITableViewCell(style:.default , reuseIdentifier:"cell");
+        let cell = tableView.dequeueReusableCell(withIdentifier: "MyPostTableViewCell") as! MyPostTableViewCell?
         
-        return cell
+        cell!.configure(with:self.myPostDatas[indexPath.row])
+        
+        return cell!
+    }
+    
+    public func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
+        
+        guard let urlString = self.myPostDatas[indexPath.row].link
+            , let url = URL(string: urlString)
+            , UIApplication.shared.canOpenURL(url) else {
+                print("linkなし")
+                return;
+        }
+        
+        // ブラウザ起動
+        UIApplication.shared.open(url, options: [:], completionHandler:nil)
     }
     
     
