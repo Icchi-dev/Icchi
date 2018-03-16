@@ -15,10 +15,11 @@ class StartUpViewController: UIViewController {
         case error
         case progress
     }
-    private var fetchUserResult = FetchResult.progress;
-    private var fetchItemResult = FetchResult.progress;
-    private var fetchPostResult = FetchResult.progress;
-    private var fetchParameterResult = FetchResult.progress;
+    private var fetchUserResult = FetchResult.progress
+    private var fetchItemResult = FetchResult.progress
+    private var fetchPostResult = FetchResult.progress
+    private var fetchYahooNewsResult = FetchResult.progress
+    private var fetchParameterResult = FetchResult.progress
     
     
     override func viewDidLoad() {
@@ -57,6 +58,12 @@ class StartUpViewController: UIViewController {
             else      {self.fetchPostResult = FetchResult.error}
             self.checkResult()
         }
+        // ヤフーニュース取得
+        YahooNewsRequester.sharedManager.fetch() { (result) in
+            if result {self.fetchYahooNewsResult = FetchResult.ok}
+            else      {self.fetchYahooNewsResult = FetchResult.error}
+            self.checkResult()
+        }
         // パラメータ一覧取得
         ParameterRequester.sharedManager.fetch() { (result) in
             if result {self.fetchParameterResult = FetchResult.ok}
@@ -72,6 +79,7 @@ class StartUpViewController: UIViewController {
         if (self.fetchUserResult == .progress
             || self.fetchItemResult == .progress
             || self.fetchPostResult == .progress
+            || self.fetchYahooNewsResult == .progress
             || self.fetchParameterResult == .progress) {
             return
         }
@@ -80,6 +88,7 @@ class StartUpViewController: UIViewController {
         if (self.fetchUserResult == .error
             || self.fetchItemResult == .error
             || self.fetchPostResult == .error
+            || self.fetchYahooNewsResult == .error
             || self.fetchParameterResult == .error) {
             
             let alert = UIAlertController(title:"エラー", message:"通信に失敗しました", preferredStyle:.alert)
