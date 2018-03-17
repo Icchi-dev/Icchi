@@ -108,13 +108,13 @@ class User {
 				$newUserData->id = $userId;
 				$newUserData->email = $user->email;
 				$newUserData->password = $user->password;
-				$newUserData->name = $user->name;
-				$newUserData->age = $user->age;
-				$newUserData->gender = $user->gender;
-				$newUserData->likes = $user->likes;
-				$newUserData->hates = $user->hates;
-				$newUserData->image = $user->image;
-				$newUserData->fbLink = $user->fbLink;
+				$newUserData->name = $name;
+				$newUserData->age = $age;
+				$newUserData->gender = $gender;
+				$newUserData->likes = $likes;
+				$newUserData->hates = $hates;
+				$newUserData->image = $image;
+				$newUserData->fbLink = $fbLink;
 				$user = $newUserData;
 			}
 		}
