@@ -284,21 +284,26 @@ public class ProfileFragment extends BaseFragment {
         AlertUtility.showAlert(getActivity(), "エラー", "通信に失敗しました", "OK", null);
     }
 
-    public void addItemId(String itemId, boolean isLike) {
+    public boolean addItemId(String itemId, boolean isLike) {
 
         if (isLike) {
-            if (!tmpUserData.likes.contains(itemId)) {
+            if (tmpUserData.hates.contains(itemId)) {
+                return false;
+            } else if (!tmpUserData.likes.contains(itemId)) {
                 tmpUserData.likes.add(itemId);
             }
         } else {
-            if (!tmpUserData.hates.contains(itemId)) {
+            if (tmpUserData.likes.contains(itemId)) {
+                return false;
+            } else if (!tmpUserData.hates.contains(itemId)) {
                 tmpUserData.hates.add(itemId);
             }
         }
 
         View view = getView();
-        if (view == null) return;
-
-        setProfile(view, tmpUserData);
+        if (view != null) {
+            setProfile(view, tmpUserData);
+        }
+        return true;
     }
 }
