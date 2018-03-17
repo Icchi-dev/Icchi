@@ -1,13 +1,17 @@
 package leapfrog_inc.icchi.Fragment.Profile;
 
+import android.animation.ObjectAnimator;
 import android.content.DialogInterface;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.HorizontalScrollView;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -17,6 +21,7 @@ import org.w3c.dom.Text;
 import leapfrog_inc.icchi.Activity.MainActivity;
 import leapfrog_inc.icchi.Fragment.BaseFragment;
 import leapfrog_inc.icchi.Fragment.FragmentController;
+import leapfrog_inc.icchi.Function.CommonUtility;
 import leapfrog_inc.icchi.Function.SaveData;
 import leapfrog_inc.icchi.Http.Requester.AccountRequester;
 import leapfrog_inc.icchi.Http.Requester.ItemRequester;
@@ -36,6 +41,8 @@ public class ProfileFragment extends BaseFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstance) {
 
         View view = inflater.inflate(R.layout.fragment_profile, null);
+
+        initLayout(view);
 
         UserRequester.UserData userData = UserRequester.getInstance().query(SaveData.getInstance().userId);
         if (userData != null) {
@@ -83,6 +90,42 @@ public class ProfileFragment extends BaseFragment {
         });
 
         return view;
+    }
+
+    private void initLayout(View view) {
+
+        final int contentsWidth = CommonUtility.getWindowSize(getActivity()).x - (int)(CommonUtility.getDeviceDensity(getActivity()) * (float)50);
+
+        LinearLayout likeBaseLayout = (LinearLayout)view.findViewById(R.id.likeBaseLayout);
+        ViewGroup.LayoutParams likeParams = likeBaseLayout.getLayoutParams();
+        likeParams.width = contentsWidth;
+        likeBaseLayout.setLayoutParams(likeParams);
+
+        LinearLayout hateBaseLayout = (LinearLayout)view.findViewById(R.id.hateBaseLayout);
+        ViewGroup.LayoutParams hateParams = hateBaseLayout.getLayoutParams();
+        hateParams.width = contentsWidth;
+        hateBaseLayout.setLayoutParams(hateParams);
+
+        ((HorizontalScrollView)view.findViewById(R.id.horizontalScrollView)).setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View view, MotionEvent motionEvent) {
+                if (motionEvent.getAction() == MotionEvent.ACTION_UP) {
+                    int targetX = 0;
+                    if (view.getScrollX() > contentsWidth / 2) {
+                        targetX = contentsWidth;
+                    }
+                    final int fTargetX = targetX;
+                    final HorizontalScrollView scrollView = (HorizontalScrollView)view;
+                    scrollView.post(new Runnable() {
+                        @Override
+                        public void run() {
+                            scrollView.smoothScrollTo(fTargetX, 0);
+                        }
+                    });
+                }
+                return false;
+            }
+        });
     }
 
     private void setProfile(View view, UserRequester.UserData userData) {
@@ -241,21 +284,26 @@ public class ProfileFragment extends BaseFragment {
         AlertUtility.showAlert(getActivity(), "エラー", "通信に失敗しました", "OK", null);
     }
 
-    public void addItemId(String itemId, boolean isLike) {
+    public boolean addItemId(String itemId, boolean isLike) {
 
         if (isLike) {
-            if (!tmpUserData.likes.contains(itemId)) {
+            if (tmpUserData.hates.contains(itemId)) {
+                return false;
+            } else if (!tmpUserData.likes.contains(itemId)) {
                 tmpUserData.likes.add(itemId);
             }
         } else {
-            if (!tmpUserData.hates.contains(itemId)) {
+            if (tmpUserData.likes.contains(itemId)) {
+                return false;
+            } else if (!tmpUserData.hates.contains(itemId)) {
                 tmpUserData.hates.add(itemId);
             }
         }
 
         View view = getView();
-        if (view == null) return;
-
-        setProfile(view, tmpUserData);
+        if (view != null) {
+            setProfile(view, tmpUserData);
+        }
+        return true;
     }
 }

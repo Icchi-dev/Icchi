@@ -148,6 +148,12 @@ public class ProfileAddFragment extends BaseFragment {
         if (editText == null) return;
 
         String itemName = editText.getText().toString();
+
+        if (itemName.length() > 10) {
+            AlertUtility.showAlert(getActivity(), "エラー", "10文字以内で入力してください", "OK", null);
+            return;
+        }
+
         if (itemName.length() > 0) {
 
             ((MainActivity)getActivity()).startLoading();
@@ -182,9 +188,19 @@ public class ProfileAddFragment extends BaseFragment {
     private void notifyToProfile(String itemId) {
 
         ProfileFragment profileFragment = (ProfileFragment) FragmentController.getInstance().getPreviousFragment();
-        profileFragment.addItemId(itemId, mIsLike);
+        boolean result = profileFragment.addItemId(itemId, mIsLike);
 
-        FragmentController.getInstance().pop(FragmentController.AnimationType.horizontal);
+        if (result) {
+            FragmentController.getInstance().pop(FragmentController.AnimationType.horizontal);
+        } else {
+            String message = "";
+            if (mIsLike) {
+                message = "\"嫌い\"に登録されたコンテンツです";
+            } else {
+                message = "\"好き\"に登録されたコンテンツです";
+            }
+            AlertUtility.showAlert(getActivity(), "エラー", message, "OK", null);
+        }
     }
 
     public static class ProfileAddAdapter extends ArrayAdapter<String> {
