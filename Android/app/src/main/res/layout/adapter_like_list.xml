@@ -32,22 +32,24 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="名前"
-                android:textSize="14dp"
-                android:textColor="#666"
+                android:textSize="12dp"
+                android:textColor="#999"
                 android:layout_marginTop="6dp"/>
             <TextView
                 android:id="@+id/likeTextView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="犬、猫、馬"
+                android:textSize="16dp"
                 android:lines="1"
                 android:textColor="#333"
-                android:layout_marginTop="8dp"/>
+                android:layout_marginTop="3dp"/>
         </LinearLayout>
-
     </LinearLayout>
 
-
-
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="10dp"
+        android:background="#fff"/>
 
 </LinearLayout>

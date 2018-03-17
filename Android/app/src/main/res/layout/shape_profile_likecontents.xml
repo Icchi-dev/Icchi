@@ -5,5 +5,5 @@
     android:layout_height="match_parent">
 
     <solid android:color="#f55" />
-    <corners android:radius="22dp" />
+    <corners android:radius="20dp" />
 </shape>

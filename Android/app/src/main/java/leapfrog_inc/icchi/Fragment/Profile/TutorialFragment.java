@@ -26,7 +26,7 @@ import leapfrog_inc.icchi.R;
 public class TutorialFragment extends BaseFragment {
 
     private int pageIndex = 0;
-    String[] questions = {"好きな\nアーティストは？", "質問2", "質問3", "質問4", "質問5", "質問6", "質問7", "質問8", "質問9", "質問10"};
+    String[] questions = {"趣味は？", "好きな\nアーティストは？", "好きな食べ物は？", "好きな言葉は？", "集めているものは？", "好きなスポーツは？", "好きなお笑い芸人は？", "今欲しいものは？", "特技は？", "好きな漫画・アニメは？", "怖いものは？", "嫌いな食べ物は？", "嫌いな言葉は？", "嫌いな時間や状況は？", "苦手なことは？", "嫌いな強化は？"};
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstance) {

@@ -44,8 +44,8 @@
         android:layout_marginTop="30dp"
         android:layout_marginLeft="30dp"
         android:layout_marginRight="30dp"
-        android:text="他のユーザーは好きな物をたくさん\n登録しています"
-        android:textSize="16dp"
+        android:text="他のユーザーは好きな物を\nたくさん登録しています"
+        android:textSize="14dp"
         android:textStyle="bold"
         android:textColor="#333"
         android:gravity="center" />
