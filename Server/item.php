@@ -41,6 +41,12 @@ class Item {
 	}
 
 	static function append($itemName) {
+
+		$existItemId = Item::searchItem($itemName);
+		if ($existItemId != -1) {
+			return $existItemId;
+		}
+
 		$allItems = Item::readAll();
 		$newItemId = 0;
 		if (count($allItems) > 0) {
@@ -51,6 +57,16 @@ class Item {
 		file_put_contents(Item::FILE_NAME, $newLine, FILE_APPEND);
 
 		return (string)$newItemId;
+	}
+
+	static function searchItem($itemName) {
+		$allItems = Item::readAll();
+		foreach($allItems as $item) {
+			if (strcmp($item->name, $itemName) == 0) {
+				return $item->id;
+			}
+		}
+		return -1;
 	}
 }
 
