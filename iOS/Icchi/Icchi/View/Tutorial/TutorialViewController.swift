@@ -16,16 +16,22 @@ class TutorialViewController: UIViewController {
 
     private var currentQuestionIndex = 0
     private var questions = [
-        "好きなアーティストは？",
-        "質問2",
-        "質問3",
-        "質問4",
-        "質問5",
-        "質問6",
-        "質問7",
-        "質問8",
-        "質問9",
-        "質問10",
+        "趣味は？"
+        , "好きな\nアーティストは？"
+        , "好きな食べ物は？"
+        , "好きな言葉は？"
+        , "集めているものは？"
+        , "好きなスポーツは？"
+        , "好きなお笑い芸人は？"
+        , "今欲しいものは？"
+        , "特技は？"
+        , "好きな漫画・アニメは？"
+        , "怖いものは？"
+        , "嫌いな食べ物は？"
+        , "嫌いな言葉は？"
+        , "嫌いな時間や状況は？"
+        , "苦手なことは？"
+        , "嫌いな強化は？"
     ]
     
     override func viewDidLoad() {
@@ -47,13 +53,13 @@ class TutorialViewController: UIViewController {
         self.currentQuestionIndex += 1
         let nextQuestion = self.questions[self.currentQuestionIndex]
         
-        UIView.animate(withDuration: 0.15, animations: {
+        UIView.animate(withDuration: 0.2, animations: {
             self.contentsView.alpha = 0
         }, completion: { [weak self] _ in            
             self?.questionLabel.text = nextQuestion
             self?.textField.text = ""
             
-            UIView.animate(withDuration: 0.15, animations: {
+            UIView.animate(withDuration: 0.2, animations: {
                 self?.contentsView.alpha = 1
             })
         })

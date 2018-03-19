@@ -181,8 +181,10 @@ class ProfileViewController: UIViewController {
     }
     
     private func refreshScrollSize() -> Void {
+        self.view.layoutIfNeeded()
+        
         let height = self.likeContentsView.frame.size.height > self.hateContentsView.frame.size.height ? self.likeContentsView.frame.size.height : self.hateContentsView.frame.size.height
-        self.contentsHeightConstraint.constant = height
+        self.contentsHeightConstraint.constant = height + 10
         
         self.view.layoutIfNeeded()
     }
