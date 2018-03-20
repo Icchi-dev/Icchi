@@ -53,13 +53,18 @@ class MyPostViewController: UIViewController {
         
         // データ取得&表示更新
         refresh();
-        self.refreshControl.endRefreshing()
     }
     
     // データ取得&表示更新
     func refresh() {
         PostRequester.sharedManager.fetch {[weak self] _ in
-            self?.setTableView()
+            DispatchQueue.main.asyncAfter(deadline: .now() + 1, execute: {
+                
+                if let _ = self?.refreshControl.isRefreshing {
+                    self?.refreshControl.endRefreshing()
+                }
+                self?.setTableView()
+            })
         }
     }
     
