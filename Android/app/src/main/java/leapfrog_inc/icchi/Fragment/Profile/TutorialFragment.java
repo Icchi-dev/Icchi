@@ -26,7 +26,7 @@ import leapfrog_inc.icchi.R;
 public class TutorialFragment extends BaseFragment {
 
     private int pageIndex = 0;
-    String[] questions = {"趣味は？", "好きな\nアーティストは？", "好きな食べ物は？", "好きな言葉は？", "集めているものは？", "好きなスポーツは？", "好きなお笑い芸人は？", "今欲しいものは？", "特技は？", "好きな漫画・アニメは？", "怖いものは？", "嫌いな食べ物は？", "嫌いな言葉は？", "嫌いな時間や状況は？", "苦手なことは？", "嫌いな強化は？"};
+    String[] questions = {"趣味は？", "好きな\nアーティストは？", "好きな食べ物は？", "好きな言葉は？", "集めているものは？", "好きなスポーツは？", "好きなお笑い芸人は？", "今欲しいものは？", "特技は？", "好きな漫画・アニメは？", "怖いものは？", "嫌いな食べ物は？", "嫌いな言葉は？", "嫌いな時間や状況は？", "苦手なことは？", "嫌いな教科は？"};
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstance) {
@@ -51,7 +51,7 @@ public class TutorialFragment extends BaseFragment {
             }
         });
 
-        ((TextView)view.findViewById(R.id.questionTextView)).setText(questions[0]);
+        setQuestion(view);
 
         return view;
     }
@@ -81,7 +81,7 @@ public class TutorialFragment extends BaseFragment {
                     View view = getView();
                     if (view == null) return;
 
-                    ((TextView)view.findViewById(R.id.questionTextView)).setText(questions[pageIndex]);
+                    setQuestion(view);
                     ((EditText)view.findViewById(R.id.answerEditText)).setText("");
 
                     animateAlpha(alphaLayout, true, new AnimationDidEndCallback() {
@@ -98,6 +98,22 @@ public class TutorialFragment extends BaseFragment {
             LikeListFragment fragment = new LikeListFragment();
             FragmentController.getInstance().stack(fragment, FragmentController.AnimationType.horizontal);
         }
+    }
+
+    private void setQuestion(View view) {
+
+        TextView typeTextView = (TextView)view.findViewById(R.id.typeTextView);
+        TextView countTextView = (TextView)view.findViewById(R.id.countTextView);
+        TextView questionTextView = (TextView)view.findViewById(R.id.questionTextView);
+
+        if (pageIndex < 10) {
+            typeTextView.setText("『好き』を登録するための質問");
+            countTextView.setText(String.format("%d / 10", pageIndex + 1));
+        } else {
+            typeTextView.setText("『嫌い』を登録するための質問");
+            countTextView.setText(String.format("%d / 6", pageIndex - 9));
+        }
+        questionTextView.setText(questions[pageIndex]);
     }
 
     private void animateAlpha(LinearLayout layout, boolean visible, final AnimationDidEndCallback callback) {
