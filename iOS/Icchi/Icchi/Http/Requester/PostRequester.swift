@@ -45,7 +45,7 @@ class PostRequester {
             let values = try decoder.container(keyedBy: CodingKeys.self)
             title = try? values.decode(String.self, forKey: .title)
             source = try? values.decode(String.self, forKey: .source)
-            relates = try? values.decode([String].self, forKey: .relates)
+            relates = try? values.decode(String.self, forKey: .relates).components(separatedBy: "-")
             sumbnail = try? values.decode(String.self, forKey: .sumbnail)
             link = try? values.decode(String.self, forKey: .link)
         }

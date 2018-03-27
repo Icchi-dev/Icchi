@@ -27,10 +27,13 @@ class MyPostTableViewCell: UITableViewCell {
         
         if let sumbnail = with?.sumbnail, sumbnail.count > 0 {
             ImageStorage.shared.fetch(url: sumbnail, imageView: self.postImageView)
+            self.postImageWidth.constant = 80.0;
         }
         else {
             self.postImageWidth.constant = 0.0;
         }
+        
+        self.layoutIfNeeded()
     }
 
 

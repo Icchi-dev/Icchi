@@ -28,6 +28,7 @@ class MyPostViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        self.table.rowHeight = UITableViewAutomaticDimension
         self.table.refreshControl = self.refreshControl
         self.refreshControl.addTarget(self, action: #selector(MyPostViewController.refreshTableView(sender:)), for: .valueChanged)
         
