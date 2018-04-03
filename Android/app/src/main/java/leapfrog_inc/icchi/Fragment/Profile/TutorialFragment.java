@@ -35,6 +35,7 @@ public class TutorialFragment extends BaseFragment {
     private int likeCreateIndex = 0;
     private int hateCreateIndex = 0;
     private UserRequester.UserData tmpUserData;
+    private boolean mIsAnimating = false;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstance) {
@@ -44,6 +45,9 @@ public class TutorialFragment extends BaseFragment {
         ((Button)view.findViewById(R.id.nextButton)).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
+                if (mIsAnimating) return;
+
                 if (checkText()) {
                     toNext();
                 } else {
@@ -55,6 +59,7 @@ public class TutorialFragment extends BaseFragment {
         ((Button)view.findViewById(R.id.skipButton)).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                if (mIsAnimating) return;
                 toNext();
             }
         });
@@ -93,7 +98,11 @@ public class TutorialFragment extends BaseFragment {
         pageIndex += 1;
 
         if (pageIndex < questions.length) {
+
+            mIsAnimating = true;
+
             final LinearLayout alphaLayout = (LinearLayout)view.findViewById(R.id.alphaLayout);
+
             animateAlpha(alphaLayout, false, new AnimationDidEndCallback() {
                 @Override
                 public void didFinish() {
@@ -105,7 +114,9 @@ public class TutorialFragment extends BaseFragment {
 
                     animateAlpha(alphaLayout, true, new AnimationDidEndCallback() {
                         @Override
-                        public void didFinish() {}
+                        public void didFinish() {
+                            mIsAnimating = false;
+                        }
                     });
                 }
             });
@@ -176,10 +187,14 @@ public class TutorialFragment extends BaseFragment {
                 if (result) {
                     boolean isLike = (likeCreateIndex < likeAnswers.size());
                     if (isLike) {
-                        tmpUserData.likes.add(text);
+                        if (!tmpUserData.likes.contains(text)) {
+                            tmpUserData.likes.add(text);
+                        }
                         likeCreateIndex++;
                     } else {
-                        tmpUserData.hates.add(text);
+                        if (!tmpUserData.hates.contains(text)) {
+                            tmpUserData.hates.add(text);
+                        }
                         hateCreateIndex++;
                     }
                     // 次の通信を行う
