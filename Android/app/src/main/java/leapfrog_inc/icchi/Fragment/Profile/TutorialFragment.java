@@ -187,13 +187,13 @@ public class TutorialFragment extends BaseFragment {
                 if (result) {
                     boolean isLike = (likeCreateIndex < likeAnswers.size());
                     if (isLike) {
-                        if (!tmpUserData.likes.contains(text)) {
-                            tmpUserData.likes.add(text);
+                        if (!tmpUserData.likes.contains(itemId)) {
+                            tmpUserData.likes.add(itemId);
                         }
                         likeCreateIndex++;
                     } else {
-                        if (!tmpUserData.hates.contains(text)) {
-                            tmpUserData.hates.add(text);
+                        if (!tmpUserData.hates.contains(itemId)) {
+                            tmpUserData.hates.add(itemId);
                         }
                         hateCreateIndex++;
                     }

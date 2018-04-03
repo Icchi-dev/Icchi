@@ -26,6 +26,7 @@ import leapfrog_inc.icchi.Fragment.Match.MatchFragment;
 import leapfrog_inc.icchi.Function.CommonUtility;
 import leapfrog_inc.icchi.Function.SaveData;
 import leapfrog_inc.icchi.Http.External.YahooNewsRequester;
+import leapfrog_inc.icchi.Http.Requester.ItemRequester;
 import leapfrog_inc.icchi.Http.Requester.PostRequester;
 import leapfrog_inc.icchi.Http.Requester.UserRequester;
 import leapfrog_inc.icchi.Parts.PicassoUtility;
@@ -105,16 +106,22 @@ public class MyPostFragment extends BaseFragment {
 
         // Yahooニュースの取得結果
         ArrayList<YahooNewsRequester.YahooNewsData> yahooList = YahooNewsRequester.getInstance().getDataList();
-        for (int i = 0; i < 5; i++) {       // TODO: 表示条件は後で検討
-            if (yahooList.size() > i) {
-                YahooNewsRequester.YahooNewsData yahooData = yahooList.get(i);
-                MyPostData myPostData = new MyPostData();
-                myPostData.title = yahooData.title;
-                myPostData.source = "Yahoo!ニュース";
-                myPostData.sumbnail = "";
-                myPostData.link = yahooData.link;
-                myPostDatas.add(myPostData);
+        for (int i = 0; i < yahooList.size(); i++) {
+            YahooNewsRequester.YahooNewsData yahooData = yahooList.get(i);
+            for (int j = 0; j < myUserData.likes.size(); j++) {
+                ItemRequester.ItemData itemData = ItemRequester.getInstance().query(myUserData.likes.get(j));
+                if (itemData == null) continue;
+                if (yahooData.title.contains(itemData.name)) {
+                    MyPostData myPostData = new MyPostData();
+                    myPostData.title = yahooData.title;
+                    myPostData.source = "Yahoo!ニュース";
+                    myPostData.sumbnail = "";
+                    myPostData.link = yahooData.link;
+                    myPostDatas.add(myPostData);
+                    break;
+                }
             }
+            if (myPostDatas.size() >= 16) break;
         }
 
         // MyPost APIの結果
