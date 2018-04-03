@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Icchi</string>
+    <string name="app_name">icchi</string>
     <string name="facebook_app_id">2026493020958333</string>
     <string name="fb_login_protocol_scheme">fb2026493020958333</string>
 </resources>
