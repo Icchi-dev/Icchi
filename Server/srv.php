@@ -49,7 +49,7 @@ function login() {
 	$password = $_POST["password"];
 
 	$userId = User::login($email, $password);
-	if (is_null($userId)) {
+	if (!is_null($userId)) {
 		echo(json_encode(Array("result" => "0",
 														"userId" => $userId)));
 	} else {
