@@ -14,7 +14,7 @@ class PostData {
 		if (count($datas) == 7) {
 		    $postData = new PostData();
 		    $postData->id = $datas[0];
-		    $postData->title = $datas[1];
+			$postData->title = $datas[1];
 			$postData->source = $datas[2];
 			$postData->relates = $datas[3];
 			$postData->sumbnail = $datas[4];
@@ -27,7 +27,7 @@ class PostData {
 }
 
 class Post {
-	const FILE_NAME = "data/post.txt";
+	const FILE_NAME = "../data/post.txt";
 
 	static function readAll() {
 
