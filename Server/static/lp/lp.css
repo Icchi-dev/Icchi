@@ -1,0 +1,49 @@
+
+body {
+  background: #fff;
+}
+
+body, div, span, td {
+  margin: 0;
+  padding: 0;
+  font-family: "ヒラギノ角ゴ Pro", "Hiragino Kaku Gothic Pro",Lucida Grande,"メイリオ", Meiryo, Tahoma, Verdana, Osaka, "ＭＳ Ｐゴシック", "MS PGothic", sans-serif;
+  font-size: 14px;
+  color: #333;
+}
+
+a {
+  text-decoration: none;
+  color: #333;
+}
+
+a:visited {
+  color: #333;
+}
+
+.root {
+  text-align: center;
+}
+
+.title {
+  margin: 30px 0 0 0;
+  font-size: 24px;
+}
+
+.ss {
+  width: 260px;
+}
+
+.privacypolicy_title {
+  margin: 60px 0 0 0;
+  font-size: 20px;
+}
+
+.privacypolicy {
+  width: 600px;
+  margin: 0 auto;
+}
+
+.privacypolicy_body {
+  margin: 30px 0 100px 0;
+  text-align: left;
+}
