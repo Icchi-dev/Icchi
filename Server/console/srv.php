@@ -2,17 +2,14 @@
 
 require "Account.php";
 require "post.php";
+require 'session.php';
 
 $command = $_POST["command"];
 
+sessionStart();
+
 if(strcmp($command, "webLogin") == 0) {
     webLogin();
-} else if(strcmp($command, "updateAccount") == 0) {
-	updateAccount();
-} else if(strcmp($command, "getUser") == 0) {
-	getUser();
-} else if (strcmp($command, "getItem") == 0) {
-	getItem();
 } else if(strcmp($command, "getPost") == 0) {
 	getPost();
 } else if(strcmp($command, "createItem") == 0) {
@@ -24,6 +21,30 @@ if(strcmp($command, "webLogin") == 0) {
   echo("unknown");
 }
 
+function sessionStart() {
+
+    $isLoging = Session::sessionExists();
+
+    if (!$isLogin) {
+        Session::start();
+    }
+}
+
+function setLogin($accountId) {
+
+    $loginKey = "loginKey";
+    session::set($loginKey, $accountId);
+}
+function isLogin() {
+
+    $loginKey = "loginKey";
+    $accountId = session::get($loginKey, "");
+    if ($accountId === "") {
+        return false;
+    }
+    return true;
+}
+
 function webLogin() {
 
     $id = $_POST["name"];
@@ -31,125 +52,38 @@ function webLogin() {
 
     $accountId = Account::login($id, $password);
     if (!is_null($accountId)) {
+        setLogin($accountId);
         echo(json_encode(Array("result" => "0")));
     } else {
+        setLogin("");
         echo(json_encode(Array("result" => "1")));
     }
 }
 
-
-function register() {
-
-	$email = $_POST["email"];
-	$password = $_POST["password"];
-	$name = $_POST["name"];
-	$image = $_POST["image"];
-	$fbLink = $_POST["fbLink"];
-
-	$userId = createUserId();
-
-	User::register($userId, $email, $password, $name, $image, $fbLink);
-	echo(json_encode(Array("result" => "0",
-													"userId" => $userId)));
-}
-
-function updateAccount() {
-
-	$userId = $_POST["userId"];
-	$name = $_POST["name"];
-	$age = $_POST["age"];
-	$gender = $_POST["gender"];
-	$likes = $_POST["likes"];
-	$hates = $_POST["hates"];
-	$image = $_POST["image"];
-	$fblink = $_POST["fbLink"];
-
-	User::update($userId, $name, $age, $gender, $likes, $hates, $image, $fbLink);
-	echo(json_encode(Array("result" => "0")));
-}
-
-function getUser() {
-
-	$users = User::readAll();
-	$userList = Array();
-	foreach ($users as $userData) {
-		$userList[] = Array("userId" => $userData->id,
-												"name" => $userData->name,
-												"age" => $userData->age,
-												"gender" => $userData->gender,
-												"likes" => $userData->likes,
-												"hates" => $userData->hates,
-												"image" => $userData->image,
-												"fbLink" => $userData->fbLink);
-	}
-	$ret = Array("result" => "0",
-							 "users" => $userList);
-	echo(json_encode($ret));
-}
-
-function getItem() {
-
-	$data = [];
-	$items = Item::readAll();
-	foreach($items as $item) {
-		$data[] = Array(
-			"itemId" => $item->id,
-			"name" => $item->name,
-			"kana" => $item->kana
-		);
-	}
-	echo(json_encode(Array("result" => "0",
-												"items" => $data)));
-}
-
 function getPost() {
+
+    if (!isLogin()) {
+        echo(json_encode(Array("result" => "1")));
+        return;
+    }
 
 	$posts = Post::readAll();
 	$postList = Array();
 	foreach ($posts as $postData) {
-		$postList[] = Array("title" => $postData->title,
-												"source" => $postData->source,
-												"relates" => $postData->relates,
-												"sumbnail" => $postData->sumbnail,
-												"link" => $postData->link);
+	    $postList[] = Array("id" => $postData->id,
+	                        "title" => $postData->title,
+                            "source" => $postData->source,
+                            "relates" => $postData->relates,
+                            "sumbnail" => $postData->sumbnail,
+                            "link" => $postData->link,
+                            "sortOrder" => $postData->sortOrder);
 	}
 	$ret = Array("result" => "0",
-							 "posts" => $postList);
+	               "posts" => $postList);
 	echo(json_encode($ret));
 }
 
-function createItem() {
 
-	$itemName = $_POST["itemName"];
-	$itemId = Item::append($itemName);
-	echo(json_encode(Array("result" => "0", "itemId" => $itemId)));
-}
-
-function getMatchParameter() {
-
-	$parameter = Parameter::read();
-	if (!is_null($parameter)) {
-		$ret = Array("result" => "0",
-								 "pointPerItem" => $parameter->pointPerItem,
-								 "pointPerMinorItem" => $parameter->pointPerMinorItem,
-								 "minorThreshold" => $parameter->minorThreshold);
-		echo(json_encode($ret));
-	} else {
-		echo(json_encode(Array("result" => "1")));
-	}
-}
-
-function createUserId() {
-
-	date_default_timezone_set('Asia/Tokyo');
-
-	static $chars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJLKMNOPQRSTUVWXYZ0123456789";
-	$str = "";
-  	for ($i = 0; $i < 8; $i++) {
-    	$str .= $chars[mt_rand(0, strlen($chars) - 1)];
-  	}
-	return date("YmdHis") . "_" . $str;
-}
 
 function decodeBase64($str) {
 	$val = str_replace(array("_", "-", " "), array("+", "/", "+"), $str);

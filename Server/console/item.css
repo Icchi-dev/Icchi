@@ -59,3 +59,9 @@ table tr:hover {
   background: #bbd4ee;
   cursor:pointer;
 }
+
+img{
+  background-color: gray;
+  width: 150px; height: 150px;
+  object-fit: contain;
+}
