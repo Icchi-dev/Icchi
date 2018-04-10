@@ -12,6 +12,9 @@ function getPost() {
 	      return;
 	  }
 
+	  $("#listheader").empty();
+	  $("#list").empty();
+
 	  $("#listheader").append(
 			  $("<tr></tr>")
 			  .append($("<td>NO</td>"))
@@ -20,7 +23,6 @@ function getPost() {
 			  .append($("<td>種別</td>"))
 			  .append($("<td>サムネイル</td>"))
 			  .append($("<td>リンク先</td>"))
-			  .append($("<td>表示順</td>"))
 			  .append($("<td>操作</td>"))
 			);
 
@@ -33,23 +35,15 @@ function getPost() {
 			        .append($("<td></td>").text(obj.source))
 			        .append($("<td></td>").text(obj.title))
 			        .append($("<td></td>").text(obj.relates))
-			        .append($("<td></td>").append("<img src="+obj.sumbnail+" width='150' height='100' />"))
+			        .append($("<td></td>").append("<img src="+obj.sumbnail+"/>"))
 			        .append($("<td></td>").append("<a href="+obj.link+" target='_blank'>リンク先</a>"))
-			        .append($("<td></td>").text(obj.sortOrder))
 			        .append($("<td></td>")
-    						.append("<button type='button' class='rowup'>↑</button>")
-    						.append("<button type='button' class='rowdown'>↓</button>")
-    						.append("<button type='button'>編集</button>")
-    						.append("<button type='button' class='rowdel'>削除</button>")
+    						.append("<button type='button' class='subbutton rowup'>↑</button>")
+    						.append("<button type='button' class='subbutton rowdown'>↓</button>")
+    						.append("<button type='button' class='subbutton'>編集</button>")
+    						.append("<button type='button' class='subbutton rowdel'>削除</button>")
     						)
 			        );
-
-//		  $('.bordered tr').mouseover(function(){
-//			    $(this).addClass('highlight');
-//			}).mouseout(function(){
-//			    $(this).removeClass('highlight');
-//			});
-//		  $(".zebra tr:even").addClass('alternate');
 	  }
 
 	  $('.rowup').click(function() {
@@ -75,4 +69,8 @@ function getPost() {
   });
 }
 
+function onClickCancel() {
+
+	getPost();
+}
 
