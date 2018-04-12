@@ -12,14 +12,14 @@ if(strcmp($command, "webLogin") == 0) {
     webLogin();
 } else if(strcmp($command, "getPost") == 0) {
 	getPost();
-} else if(strcmp($command, "createItem") == 0) {
-	createItem();
-} else if (strcmp($command, "getMatchParameter") == 0) {
-	getMatchParameter();
+} else if(strcmp($command, "sortOrderUp") == 0) {
+    sortOrderUp();
+} else if (strcmp($command, "sortOrderDown") == 0) {
+    sortOrderDown();
 } else {
-	login();
   echo("unknown");
 }
+
 
 function sessionStart() {
 
@@ -29,7 +29,6 @@ function sessionStart() {
         Session::start();
     }
 }
-
 function setLogin($accountId) {
 
     $loginKey = "loginKey";
@@ -82,6 +81,45 @@ function getPost() {
 	               "posts" => $postList);
 	echo(json_encode($ret));
 }
+
+function sortOrderUp() {
+
+    if (!isLogin()) {
+        echo(json_encode(Array("result" => "1")));
+        return;
+    }
+
+    $id = $_POST["id"];
+
+    if ($id == null || $id === "") {
+        return;
+    }
+
+    Post::setSortOrderUpById($id);
+
+    $ret = Array("result" => "0");
+    echo(json_encode($ret));
+}
+
+function sortOrderDown() {
+
+    if (!isLogin()) {
+        echo(json_encode(Array("result" => "1")));
+        return;
+    }
+
+    $id = $_POST["id"];
+
+    if ($id == null || $id === "") {
+        return;
+    }
+
+    Post::setSortOrderDownById($id);
+
+    $ret = Array("result" => "0");
+    echo(json_encode($ret));
+}
+
 
 
 

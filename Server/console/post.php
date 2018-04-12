@@ -42,10 +42,142 @@ class Post {
 						$postList[] = $postData;
 					}
 				}
+
+				// 配列をソート
+				usort($postList , "Post::cmp");
+
 				return $postList;
 			}
 		}
 		return [];
+	}
+
+	static function cmp($a, $b)
+	{
+	    $cmp = strcmp($a->sortOrder, $b->sortOrder);
+	    return $cmp;
+	}
+
+
+	static function writeAll($postList) {
+
+	    $str = "";
+	    foreach($postList as $postData) {
+
+	        $str .= $postData->id;
+	        $str .= ",";
+	        $str .= $postData->title;
+	        $str .= ",";
+	        $str .= $postData->source;
+	        $str .= ",";
+	        $str .= $postData->relates;
+	        $str .= ",";
+	        $str .= $postData->sumbnail;
+	        $str .= ",";
+	        $str .= $postData->link;
+	        $str .= ",";
+	        $str .= $postData->sortOrder;
+	        $str .= "\n";
+	    }
+	    file_put_contents(Post::FILE_NAME, $str);
+	}
+
+	static function register($id, $title, $source, $relates, $sumbnail, $link, $sortOrder) {
+
+	    $postData = $id . "," . $title . "," . $source . "," . $relates . ","
+	        . $sumbnail . "," . $link . "," . $sortOrder . "\n";
+	        file_put_contents(Post::FILE_NAME, $postData, FILE_APPEND);
+	}
+
+	static function update($id, $title, $source, $relates, $sumbnail, $link, $sortOrder) {
+
+	    $postList = Post::readAll();
+	    foreach ($postList as &$post) {
+	        if (strcmp($post->id, $id) == 0) {
+	            $postData = new PostData();
+	            $postData->id = $id;
+	            $postData->title = $title;
+	            $postData->source = $source;
+	            $postData->relates = $relates;
+	            $postData->sumbnail = $sumbnail;
+	            $postData->link = $link;
+	            $postData->sortOrder = $sortOrder;
+	            $post = $postData;
+	        }
+	    }
+	    Post::writeAll($postList);
+	}
+
+	// 指定するIDを一つ上のソート番号にする
+	static function setSortOrderUpById($id) {
+
+	    $orgSortOrder = 1;
+	    $upperSortOrder = 1;
+	    $upperId = 1;
+	    $postList = Post::readAll();
+	    foreach ($postList as &$post) {
+
+	        if (strcmp($post->id, $id) == 0) {
+
+	            $orgSortOrder = $post->sortOrder;
+	           break;
+	        }
+	        $upperId = $post->id;
+	        $upperSortOrder = $post->sortOrder;
+	    }
+
+	    if ($orgSortOrder != $upperSortOrder) {
+        	    Post::updateSortOrder($id, $upperSortOrder);
+        	    Post::updateSortOrder($upperId, $orgSortOrder);
+	    }
+	}
+
+	// 指定するIDを一つ下のソート番号にする
+	static function setSortOrderDownById($id) {
+
+	    $orgSortOrder = 1;
+	    $postList = Post::readAll();
+	    $reversed = array_reverse($postList);
+	    $end = $reversed[0];
+	    $downId = $end->id;
+	    $downrSortOrder = $end->sortOrder;
+
+	    foreach ($reversed as &$post) {
+
+	        if (strcmp($post->id, $id) == 0) {
+
+	            $orgSortOrder = $post->sortOrder;
+	            break;
+	        }
+	        $downId = $post->id;
+	        $downrSortOrder = $post->sortOrder;
+	    }
+
+	    if ($orgSortOrder != $downrSortOrder) {
+	        Post::updateSortOrder($id, $downrSortOrder);
+	        Post::updateSortOrder($downId, $orgSortOrder);
+	    }
+	}
+
+	static function updateSortOrder($id,$sortOrder) {
+
+	    $postList = Post::readAll();
+	    foreach ($postList as &$post) {
+
+	        $postData = new PostData();
+	        $postData->id = $post->id;
+	        $postData->title = $post->title;
+	        $postData->source = $post->source;
+	        $postData->relates = $post->relates;
+	        $postData->sumbnail = $post->sumbnail;
+	        $postData->link = $post->link;
+	        $postData->sortOrder = $post->sortOrder;
+	        if (strcmp($post->id, $id) == 0) {
+	            $postData->sortOrder = $sortOrder;
+	        }
+	        $post = $postData;
+	    }
+	    Post::writeAll($postList);
 	}
 }
 

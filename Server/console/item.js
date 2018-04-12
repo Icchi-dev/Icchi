@@ -1,4 +1,5 @@
 
+// 一覧取得
 function getPost() {
 
   var param = "command=getPost";
@@ -17,7 +18,6 @@ function getPost() {
 
 	  $("#listheader").append(
 			  $("<tr></tr>")
-			  .append($("<td>NO</td>"))
 			  .append($("<td>取得元</td>"))
 			  .append($("<td>タイトル</td>"))
 			  .append($("<td>種別</td>"))
@@ -31,17 +31,20 @@ function getPost() {
 		  var obj = json.posts[idx];
 		  $("#list").append(
 				    $("<tr></tr>")
-			        .append($("<td></td>").text(obj.id))
 			        .append($("<td></td>").text(obj.source))
 			        .append($("<td></td>").text(obj.title))
 			        .append($("<td></td>").text(obj.relates))
 			        .append($("<td></td>").append("<img src="+obj.sumbnail+"/>"))
 			        .append($("<td></td>").append("<a href="+obj.link+" target='_blank'>リンク先</a>"))
 			        .append($("<td></td>")
-    						.append("<button type='button' class='subbutton rowup'>↑</button>")
-    						.append("<button type='button' class='subbutton rowdown'>↓</button>")
-    						.append("<button type='button' class='subbutton'>編集</button>")
-    						.append("<button type='button' class='subbutton rowdel'>削除</button>")
+    						.append("<button type='button' class='subbutton'"
+    								+ " onclick='javascript:onSortOrderUp(" + obj.id + ");'>↑</button>")
+    						.append("<button type='button' class='subbutton'"
+    								+ " onclick='javascript:onSortOrderDown(" + obj.id + ");'>↓</button>")
+    						.append("<button type='button' class='subbutton "
+    								+ " onclick='javascript:onEdit(" + obj.id + ");'>編集</button>")
+    						.append("<button type='button' class='subbutton'"
+    								+ " onclick='javascript:onDelete(" + obj.id + ");'>削除</button>")
     						)
 			        );
 	  }
@@ -69,7 +72,52 @@ function getPost() {
   });
 }
 
-function onClickCancel() {
+
+//↑ボタン
+function onSortOrderUp(id) {
+
+var param = "command=sortOrderUp" + "&id=" + id;
+
+httpPost("srv.php", param, function(response){
+  var json = JSON.parse(response);
+
+  if	(json.result != "0") {
+      alert("ソート順変更に失敗しました");
+      return;
+  }
+
+  getPost();
+});
+}
+
+// ↓ボタン
+function onSortOrderDown(id) {
+
+	var param = "command=sortOrderDown" + "&id=" + id;
+
+	httpPost("srv.php", param, function(response){
+	  var json = JSON.parse(response);
+
+	  if	(json.result != "0") {
+	      alert("ソート順変更に失敗しました");
+	      return;
+	  }
+
+	  getPost();
+	});
+}
+// 編集
+function onEdit(id) {
+
+	getPost();
+}
+// 削除
+function onDelete(id) {
+
+	getPost();
+}
+// 新規追加
+function onClickAdd() {
 
 	getPost();
 }

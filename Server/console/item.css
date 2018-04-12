@@ -112,11 +112,11 @@ img{
 .title {
   color: #5e5e5e;
   font-size: 20px;
-  padding: 20px 0;
+  padding: 10px 0;
 }
 
 .buttons{
-  margin-top: 30px;
+  margin-top: 20px;
   margin-bottom: 30px;
   text-align: center;
   display: inline-block;
@@ -128,7 +128,7 @@ img{
   border: none;
   color: #fff;
   cursor: pointer;
-  width: 200px;
+  width: 300px;
   height: 50px;
   font-size: 18px;
   letter-spacing: 0.05em;
@@ -156,28 +156,10 @@ img{
   border: none;
   color: #fff;
   cursor: pointer;
-  width: 50px;
-  height: 30px;
-  font-size: 12px;
+  width: 70px;
+  height: 40px;
+  font-size: 16px;
   letter-spacing: 0.05em;
-  margin-left:10px;
-
+  margin-left:15px;
 }
 
-
-/*
-.button {
-  background: #f16272;
-  border: none;
-  color: #fff;
-  cursor: pointer;
-  width: 70%;
-  height: 50px;
-  font-size: 18px;
-  letter-spacing: 0.05em;
-  margin: 30px 0 30px 0;
-}
-
-.button:visited {
-  color: #fff;
-} */
