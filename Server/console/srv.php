@@ -12,11 +12,18 @@ if(strcmp($command, "webLogin") == 0) {
     webLogin();
 } else if(strcmp($command, "getPost") == 0) {
 	getPost();
-} else if(strcmp($command, "sortOrderUp") == 0) {
-    sortOrderUp();
-} else if (strcmp($command, "sortOrderDown") == 0) {
-    sortOrderDown();
-} else {
+} else if(strcmp($command, "postSortOrderUp") == 0) {
+    postSortOrderUp();
+} else if (strcmp($command, "postSortOrderDown") == 0) {
+    postSortOrderDown();
+} else if (strcmp($command, "postDelete") == 0) {
+    postDelete();
+} else if (strcmp($command, "getPostById") == 0) {
+    getPostById();
+}
+
+
+else {
   echo("unknown");
 }
 
@@ -82,7 +89,7 @@ function getPost() {
 	echo(json_encode($ret));
 }
 
-function sortOrderUp() {
+function postSortOrderUp() {
 
     if (!isLogin()) {
         echo(json_encode(Array("result" => "1")));
@@ -101,7 +108,7 @@ function sortOrderUp() {
     echo(json_encode($ret));
 }
 
-function sortOrderDown() {
+function postSortOrderDown() {
 
     if (!isLogin()) {
         echo(json_encode(Array("result" => "1")));
@@ -120,7 +127,58 @@ function sortOrderDown() {
     echo(json_encode($ret));
 }
 
+function postDelete() {
 
+    if (!isLogin()) {
+        echo(json_encode(Array("result" => "1")));
+        return;
+    }
+
+    $id = $_POST["id"];
+
+    if ($id == null || $id === "") {
+        return;
+    }
+
+    Post::delete($id);
+
+    $ret = Array("result" => "0");
+    echo(json_encode($ret));
+}
+
+function getPostById() {
+
+    if (!isLogin()) {
+        echo(json_encode(Array("result" => "1")));
+        return;
+    }
+
+    $id = $_POST["id"];
+
+    if ($id == null || $id === "") {
+        return;
+    }
+
+    $posts = Post::readAll();
+    $postData;
+    foreach ($posts as $postData) {
+
+        if (strcmp($post->id, $id) == 0) {
+            $postData = Array("id" => $postData->id,
+                "title" => $postData->title,
+                "source" => $postData->source,
+                "relates" => $postData->relates,
+                "sumbnail" => $postData->sumbnail,
+                "link" => $postData->link,
+                "sortOrder" => $postData->sortOrder);
+            break;
+        }
+    }
+
+    $ret = Array("result" => "0",
+        "post" => $postData);
+    echo(json_encode($ret));
+}
 
 
 function decodeBase64($str) {

@@ -52,6 +52,7 @@ class Post {
 		return [];
 	}
 
+	// ソートオーダーを昇順ソート
 	static function cmp($a, $b)
 	{
 	    $cmp = strcmp($a->sortOrder, $b->sortOrder);
@@ -159,6 +160,7 @@ class Post {
 	    }
 	}
 
+	// ソート番号だけ更新する
 	static function updateSortOrder($id,$sortOrder) {
 
 	    $postList = Post::readAll();
@@ -179,6 +181,33 @@ class Post {
 	    }
 	    Post::writeAll($postList);
 	}
+
+
+	// 指定するIDを削除
+	static function delete($id) {
+
+	    $postList = Post::readAll();
+
+	    $newPostList = [];
+
+	    foreach ($postList as &$post) {
+	        if (strcmp($post->id, $id) == 0) {
+	            continue;
+	        }
+            $postData = new PostData();
+            $postData->id = $post->id;
+            $postData->title = $post->title;
+            $postData->source = $post->source;
+            $postData->relates = $post->relates;
+            $postData->sumbnail = $post->sumbnail;
+            $postData->link = $post->link;
+            $postData->sortOrder = $post->sortOrder;
+            $newPostList[] = $postData;
+
+	    }
+	    Post::writeAll($newPostList);
+	}
+
 }
 
 

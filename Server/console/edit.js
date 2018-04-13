@@ -1,8 +1,10 @@
 
-// 一覧取得
-function getPost() {
+// post取得
+function getPostById() {
 
-  var param = "command=getPost";
+  var id = getParam()["id"];
+
+  var param = "command=getPostById&id=" + id;
 
   httpPost("srv.php", param, function(response){
 	  var json = JSON.parse(response);
@@ -31,9 +33,9 @@ function getPost() {
 		  var obj = json.posts[idx];
 		  $("#list").append(
 				    $("<tr></tr>")
-			        .append($("<td></td>").text(obj.source))
-			        .append($("<td></td>").text(obj.title))
-			        .append($("<td></td>").text(obj.relates))
+			        .append($("<td></td>").text(json.post.source))
+			        .append($("<td></td>").text(json.post.title))
+			        .append($("<td></td>").text(json.post.relates))
 			        .append($("<td></td>").append("<img src="+obj.sumbnail+"/>"))
 			        .append($("<td></td>").append("<a href="+obj.link+" target='_blank'>リンク先</a>"))
 			        .append($("<td></td>")
@@ -48,76 +50,56 @@ function getPost() {
     						)
 			        );
 	  }
+
+	  $('.rowup').click(function() {
+	   var $row = $(this).closest("tr");
+	   var $row_prev = $row.prev("tr");
+	   if($row.prev.length) {
+	       $row.insertBefore($row_prev);
+	   }
+	  });
+
+	  $('.rowdown').click(function() {
+		  var $row = $(this).closest("tr");
+		  var $row_next = $row.next("tr");
+		  if($row_next.length) {
+		      $row.insertAfter($row_next);
+		  }
+		 });
+
+	  $('.rowdel').click(function() {
+		  var row = $(this).closest("tr").remove();
+		  $(row).remove();
+		 });
   });
 }
 
+function getParam() {
 
-//↑ボタン
-function onSortOrderUp(id) {
-
-var param = "command=postSortOrderUp" + "&id=" + id;
-
-httpPost("srv.php", param, function(response){
-  var json = JSON.parse(response);
-
-  if	(json.result != "0") {
-      alert("ソート順変更に失敗しました");
-      return;
-  }
-
-  getPost();
-});
+    /* アドレスの「?」以降の引数(パラメータ)を取得 */
+    var pram=location.search;
+    /* 引数がない時は処理しない */
+    if (!pram) return false;
+    /* 先頭の?をカット */
+    pram=pram.substring(1);
+    /* 「&」で引数を分割して配列に */
+    var pair=pram.split("&");
+    var i=temp="";
+    var key=new Array();
+    for (i=0; i < pair.length; i++) {
+        /* 配列の値を「=」で分割 */
+        temp=pair[i].split("=");
+        keyName=temp[0];
+        keyValue=temp[1];
+        /* キーと値の連想配列を生成 */
+        key[keyName]=keyValue;
+    }
+    return key;
 }
 
-// ↓ボタン
-function onSortOrderDown(id) {
 
-	var param = "command=postSortOrderDown" + "&id=" + id;
+//キャンセル
+function onClickCancel() {
 
-	httpPost("srv.php", param, function(response){
-	  var json = JSON.parse(response);
-
-	  if	(json.result != "0") {
-	      alert("ソート順変更に失敗しました");
-	      return;
-	  }
-
-	  getPost();
-	});
+	location.href="item.html";
 }
-
-// 編集
-function onEdit(id) {
-
-	location.href="edit.html?id="+id;
-}
-
-// 削除
-function onDelete(id,title) {
-	var result = confirm("「" + title + "」を削除してよろしいですか？" );
-
-	if(result){
-		deleteRequest(id);
-	}
-}
-// 削除
-function deleteRequest(id) {
-	var param = "command=postDelete" + "&id=" + id;
-
-	httpPost("srv.php", param, function(response){
-	  var json = JSON.parse(response);
-
-	  if	(json.result != "0") {
-	      alert("削除に失敗しました");
-	      return;
-	  }
-
-	  getPost();
-	});
-}
-// 新規追加
-function onClickAdd() {
-
-	getPost();
-}
-
