@@ -109,6 +109,23 @@ class Post {
 	    Post::writeAll($postList);
 	}
 
+  static function edit($id, $title, $source, $sumbnail, $link) {
+
+      $postList = Post::readAll();
+      foreach ($postList as &$post) {
+          if (strcmp($post->id, $id) == 0) {
+              $postData = new PostData();
+              $postData->id = $id;
+              $postData->title = $title;
+              $postData->source = $source;
+              $postData->sumbnail = $sumbnail;
+              $postData->link = $link;
+              $post = $postData;
+          }
+      }
+      Post::writeAll($postList);
+  }
+
 	// 指定するIDを一つ上のソート番号にする
 	static function setSortOrderUpById($id) {
 
@@ -208,6 +225,19 @@ class Post {
 	    Post::writeAll($newPostList);
 	}
 
+  static function nextPostId() {
+
+    $maxId = 0;
+
+    $postList = Post::readAll();
+    foreach ($postList as $post) {
+      $intId = intval($post->id);
+      if ($intId > $maxId) {
+        $maxId = $intId;
+      }
+    }
+    return strval($maxId + 1);
+  }
 }
 
 

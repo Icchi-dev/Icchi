@@ -34,7 +34,7 @@ function getPost() {
 			        .append($("<td></td>").text(obj.source))
 			        .append($("<td></td>").text(obj.title))
 			        .append($("<td></td>").text(obj.relates))
-			        .append($("<td></td>").append("<img src="+obj.sumbnail+"/>"))
+			        .append($("<td></td>").append("<img src='" + obj.sumbnail + "'/>"))
 			        .append($("<td></td>").append("<a href="+obj.link+" target='_blank'>リンク先</a>"))
 			        .append($("<td></td>")
     						.append("<button type='button' class='subbutton'"
@@ -118,6 +118,5 @@ function deleteRequest(id) {
 // 新規追加
 function onClickAdd() {
 
-	getPost();
+  location.href = "edit.html?id=-";
 }
-

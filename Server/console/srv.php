@@ -12,6 +12,10 @@ if(strcmp($command, "webLogin") == 0) {
     webLogin();
 } else if(strcmp($command, "getPost") == 0) {
 	getPost();
+} else if (strcmp($command, "setPost") == 0) {
+  setPost();
+} else if (strcmp($command, "createPost") == 0) {
+  createPost();
 } else if(strcmp($command, "postSortOrderUp") == 0) {
     postSortOrderUp();
 } else if (strcmp($command, "postSortOrderDown") == 0) {
@@ -89,6 +93,39 @@ function getPost() {
 	echo(json_encode($ret));
 }
 
+function setPost() {
+
+  // TODO: セッション管理
+
+  $id = $_POST["id"];
+  $title = $_POST["title"];
+  $source = $_POST["source"];
+  $sumbnail = $_POST["sumbnail"];
+  $link = $_POST["link"];
+
+  if ($id == null || $id === "") {
+    // TODO:
+    echo("");
+    return;
+  }
+  POST::edit($id, $title, $source, $sumbnail, $link);
+  $ret = Array("result" => "0");
+  echo(json_encode($ret));
+}
+
+function createPost() {
+
+  $id = POST::nextPostId();
+  $title = $_POST["title"];
+  $source = $_POST["source"];
+  $sumbnail = $_POST["sumbnail"];
+  $link = $_POST["link"];
+
+  POST::register($id, $title, $source, "", $sumbnail, $link, "0");
+  $ret = Array("result" => "0");
+  echo(json_encode($ret));
+}
+
 function postSortOrderUp() {
 
     if (!isLogin()) {
@@ -99,7 +136,9 @@ function postSortOrderUp() {
     $id = $_POST["id"];
 
     if ($id == null || $id === "") {
-        return;
+      // TODO:
+      echo("");
+      return;
     }
 
     Post::setSortOrderUpById($id);
@@ -148,36 +187,37 @@ function postDelete() {
 
 function getPostById() {
 
-    if (!isLogin()) {
-        echo(json_encode(Array("result" => "1")));
-        return;
+  if (!isLogin()) {
+    echo(json_encode(Array("result" => "1")));
+    return;
+  }
+
+  $id = $_POST["id"];
+
+  if ($id == null || $id === "") {
+    echo("");   // TODO: どうしよう・・
+    return;
+  }
+
+  $posts = Post::readAll();
+
+  foreach($posts as $postData) {
+    if (strcmp($postData->id, $id) == 0) {
+      $retData = Array("id" => $postData->id,
+                       "title" => $postData->title,
+                       "source" => $postData->source,
+                       "relates" => $postData->relates,
+                       "sumbnail" => $postData->sumbnail,
+                       "link" => $postData->link,
+                       "sortOrder" => $postData->sortOrder);
+      $ret = Array("result" => "0",
+                   "post" => $retData);
+      echo(json_encode($ret));
+      return;
     }
+  }
 
-    $id = $_POST["id"];
-
-    if ($id == null || $id === "") {
-        return;
-    }
-
-    $posts = Post::readAll();
-    $postData;
-    foreach ($posts as $postData) {
-
-        if (strcmp($post->id, $id) == 0) {
-            $postData = Array("id" => $postData->id,
-                "title" => $postData->title,
-                "source" => $postData->source,
-                "relates" => $postData->relates,
-                "sumbnail" => $postData->sumbnail,
-                "link" => $postData->link,
-                "sortOrder" => $postData->sortOrder);
-            break;
-        }
-    }
-
-    $ret = Array("result" => "0",
-        "post" => $postData);
-    echo(json_encode($ret));
+  echo("");   // TODO: どうしよう・・
 }
 
 

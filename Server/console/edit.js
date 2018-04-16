@@ -4,6 +4,10 @@ function getPostById() {
 
   var id = getParam()["id"];
 
+  if (id == "-") {   // 新規作成の場合
+    return;
+  }
+
   var param = "command=getPostById&id=" + id;
 
   httpPost("srv.php", param, function(response){
@@ -22,55 +26,24 @@ function getPostById() {
 			  $("<tr></tr>")
 			  .append($("<td>取得元</td>"))
 			  .append($("<td>タイトル</td>"))
-			  .append($("<td>種別</td>"))
 			  .append($("<td>サムネイル</td>"))
 			  .append($("<td>リンク先</td>"))
 			  .append($("<td>操作</td>"))
 			);
 
-	  for(var idx=0; idx < json.posts.length; idx++) {
+    var id = json.post.id;
+    var title = json.post.title;
+    var source = json.post.source;
+    var relates = json.post.relates;
+    var sumbnail = json.post.sumbnail;
+    var link = json.post.link;
+    var sortOrder = json.post.sortOrder;
 
-		  var obj = json.posts[idx];
-		  $("#list").append(
-				    $("<tr></tr>")
-			        .append($("<td></td>").text(json.post.source))
-			        .append($("<td></td>").text(json.post.title))
-			        .append($("<td></td>").text(json.post.relates))
-			        .append($("<td></td>").append("<img src="+obj.sumbnail+"/>"))
-			        .append($("<td></td>").append("<a href="+obj.link+" target='_blank'>リンク先</a>"))
-			        .append($("<td></td>")
-    						.append("<button type='button' class='subbutton'"
-    								+ " onclick='javascript:onSortOrderUp(" + obj.id + ");'>↑</button>")
-    						.append("<button type='button' class='subbutton'"
-    								+ " onclick='javascript:onSortOrderDown(" + obj.id + ");'>↓</button>")
-    						.append("<button type='button' class='subbutton'"
-    								+ " onclick='javascript:onEdit(" + obj.id + ");'>編集</button>")
-    						.append("<button type='button' class='subbutton' "
-    								+ " onclick='javascript:onDelete(" + obj.id + ", \" " + obj.title + " \" );'>削除</button>")
-    						)
-			        );
-	  }
+    document.getElementById("source").value = source;
+    document.getElementById("title").value = title;
+    document.getElementById("sumbnail").value = sumbnail;
+    document.getElementById("link").value = link;
 
-	  $('.rowup').click(function() {
-	   var $row = $(this).closest("tr");
-	   var $row_prev = $row.prev("tr");
-	   if($row.prev.length) {
-	       $row.insertBefore($row_prev);
-	   }
-	  });
-
-	  $('.rowdown').click(function() {
-		  var $row = $(this).closest("tr");
-		  var $row_next = $row.next("tr");
-		  if($row_next.length) {
-		      $row.insertAfter($row_next);
-		  }
-		 });
-
-	  $('.rowdel').click(function() {
-		  var row = $(this).closest("tr").remove();
-		  $(row).remove();
-		 });
   });
 }
 
@@ -97,6 +70,35 @@ function getParam() {
     return key;
 }
 
+// 編集完了
+function onClickEditEnd() {
+
+  var id = getParam()["id"];
+  var title = document.getElementById("title").value;
+  var source = document.getElementById("source").value;
+  var sumbnail = document.getElementById("sumbnail").value;
+  var link = document.getElementById("link").value;
+
+  var params = "";
+  if (id == "-") {    // 新規作成
+    params = "command=createPost";
+  } else {            // 編集
+    params = "command=setPost";
+  }
+  params += ("&id=" + id + "&title=" + title + "&source=" + source + "&sumbnail=" + sumbnail + "&link=" + link);
+
+  httpPost("srv.php", params, function(response){
+    var json = JSON.parse(response);
+
+    if	(json.result == "0") {
+        alert("完了");
+        location.href = 'item.html';
+        return;
+    } else {
+      alert("失敗");
+    }
+  });
+}
 
 //キャンセル
 function onClickCancel() {
