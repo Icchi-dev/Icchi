@@ -115,7 +115,8 @@ function getPost() {
 												"source" => $postData->source,
 												"relates" => $postData->relates,
 												"sumbnail" => $postData->sumbnail,
-												"link" => $postData->link);
+												"link" => $postData->link,
+											  "order" => $postData->sortOrder);
 	}
 	$ret = Array("result" => "0",
 							 "posts" => $postList);
