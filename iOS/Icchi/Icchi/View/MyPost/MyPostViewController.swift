@@ -98,16 +98,27 @@ class MyPostViewController: UIViewController {
         
         // Yahooニュースの取得結果
         let yahooList = YahooNewsRequester.sharedManager.mNewsList
-        for i in 0...5 where i < yahooList.count {
-            let yahooData = yahooList[i]
+        for yahooData in yahooList
+            where myPostDatas.count < 16 {
             
-            var myPostData = MyPostData()
-            myPostData.title = yahooData.title;
-            myPostData.source = "Yahoo!ニュース";
-            myPostData.sumbnail = "";
-            myPostData.link = yahooData.link;
-            
-            myPostDatas.append(myPostData)
+            if let likes = myUserData.likes {
+                for likeCd in likes {
+                    if let itemData = ItemRequester.sharedManager.query(likeCd)
+                        , let yahooTitle = yahooData.title
+                        , let itemDataName = itemData.name
+                        , yahooTitle.contains(itemDataName){
+                        
+                        var myPostData = MyPostData()
+                        myPostData.title = yahooData.title;
+                        myPostData.source = "Yahoo!ニュース";
+                        myPostData.sumbnail = "";
+                        myPostData.link = yahooData.link;
+                        
+                        myPostDatas.append(myPostData)
+                        break;
+                    }
+                }
+            }
         }
         
         // MyPost APIの結果
