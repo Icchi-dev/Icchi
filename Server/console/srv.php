@@ -97,8 +97,9 @@ function createPost() {
   $source = $_POST["source"];
   $sumbnail = $_POST["sumbnail"];
   $link = $_POST["link"];
+  $sortOrder = POST::nextSortOrder();
 
-  POST::register($id, $title, $source, "", $sumbnail, $link, "0");
+  POST::register($id, $title, $source, "", $sumbnail, $link, $sortOrder);
   $ret = Array("result" => "0");
   echo(json_encode($ret));
 }

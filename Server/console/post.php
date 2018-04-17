@@ -85,6 +85,8 @@ class Post {
 
 	static function register($id, $title, $source, $relates, $sumbnail, $link, $sortOrder) {
 
+    DebugSave($sortOrder);
+
 	    $postData = $id . "," . $title . "," . $source . "," . $relates . ","
 	        . $sumbnail . "," . $link . "," . $sortOrder . "\n";
 	        file_put_contents(Post::FILE_NAME, $postData, FILE_APPEND);
@@ -237,6 +239,20 @@ class Post {
       }
     }
     return strval($maxId + 1);
+  }
+
+  static function nextSortOrder() {
+
+    $maxOrder = 0;
+
+    $postList = Post::readAll();
+    foreach ($postList as $post) {
+      $intOrder = intval($post->sortOrder);
+      if ($intOrder > $maxOrder) {
+        $maxOrder = $intOrder;
+      }
+    }
+    return strval($maxOrder + 1);
   }
 }
 

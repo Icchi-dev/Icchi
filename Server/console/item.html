@@ -9,34 +9,33 @@
   <link rel="stylesheet" type="text/css" href="common.css">
   <link rel="stylesheet" type="text/css" href="item.css">
 
-<!-- json parse -->
-<script type="text/javascript"
-  src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
+  <!-- json parse -->
+  <script type="text/javascript" src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
 
   <script type="text/javascript" src="common.js"></script>
   <script type="text/javascript" src="item.js"></script>
 
 </head>
-<body  class="root" onLoad="getPost()" >
+<body class="root" onLoad="getPost()" >
 
-   <div class="title">
-     icchi管理画面
-   </div>
-  <table class="bordered">
+  <div class="title">
+    icchi管理画面
+  </div>
+  <table>
     <colgroup>
-        <col style="width:10%;">
-        <col style="width:35%;">
-        <col style="width:5%;">
-        <col style="width:10%;">
-        <col style="width:10%;">
-        <col style="width:30%;">
+      <col style="width:15%;">
+      <col style="width:45%;">
+      <col style="width:10%;">
+      <col style="width:10%;">
+      <col style="width:20%;">
     </colgroup>
 	  <thead id="listheader"></thead>
 	  <tbody id="list"></tbody>
   </table>
-   <div class="buttons">
-	<button class="button add" onclick="javascript:onClickAdd();">新規追加</button>
-   </div>
+  <div class="buttons">
+    <button class="button add" onclick="javascript:onClickAdd();">新規追加</button>
+  </div>
+
 
 </body>
 </html>

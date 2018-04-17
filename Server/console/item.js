@@ -18,35 +18,30 @@ function getPost() {
 
 	  $("#listheader").append(
 			  $("<tr></tr>")
-			  .append($("<td>取得元</td>"))
-			  .append($("<td>タイトル</td>"))
-			  .append($("<td>種別</td>"))
-			  .append($("<td>サムネイル</td>"))
-			  .append($("<td>リンク先</td>"))
-			  .append($("<td>操作</td>"))
+			  .append($("<th>取得元</th>"))
+			  .append($("<th>タイトル</th>"))
+			  .append($("<th>サムネイル</th>"))
+			  .append($("<th>リンク先</th>"))
+			  .append($("<th>操作</th>"))
 			);
 
 	  for(var idx=0; idx < json.posts.length; idx++) {
 
 		  var obj = json.posts[idx];
 		  $("#list").append(
-				    $("<tr></tr>")
-			        .append($("<td></td>").text(obj.source))
-			        .append($("<td></td>").text(obj.title))
-			        .append($("<td></td>").text(obj.relates))
-			        .append($("<td></td>").append("<img src='" + obj.sumbnail + "'/>"))
-			        .append($("<td></td>").append("<a href="+obj.link+" target='_blank'>リンク先</a>"))
-			        .append($("<td></td>")
-    						.append("<button type='button' class='subbutton'"
-    								+ " onclick='javascript:onSortOrderUp(" + obj.id + ");'>↑</button>")
-    						.append("<button type='button' class='subbutton'"
-    								+ " onclick='javascript:onSortOrderDown(" + obj.id + ");'>↓</button>")
-    						.append("<button type='button' class='subbutton'"
-    								+ " onclick='javascript:onEdit(" + obj.id + ");'>編集</button>")
-    						.append("<button type='button' class='subbutton' "
-    								+ " onclick='javascript:onDelete(" + obj.id + ", \" " + obj.title + " \" );'>削除</button>")
-    						)
-			        );
+			  $("<tr></tr>")
+	       .append($("<td></td>").text(obj.source))
+			   .append($("<td></td>").text(obj.title))
+			   .append($("<td></td>").append("<img src='" + obj.sumbnail + "' onerror=\"this.src='img/item_noimg.png'\"/>"))
+			   .append($("<td></td>").append("<a href='" + obj.link + "' target='_blank'><img class='item_link' src='img/item_link.png'></a>"))
+			   .append($("<td></td>")
+         .append("<a href='javascript:onSortOrderUp(" + obj.id + ");'><img class='configbutton' src='img/item_up.png'></a>")
+         .append("<a href='javascript:onSortOrderDown(" + obj.id + ");'><img class='configbutton' src='img/item_down.png'></a>")
+         .append("<a href='javascript:onEdit(" + obj.id + ");'><img class='configbutton' src='img/item_edit.png'></a>")
+         .append("<a href='javascript:onDelete(" + obj.id + ", \"" + obj.title + "\");'><img class='configbutton' src='img/item_delete.png'></a>")
+    		)
+		  );
+
 	  }
   });
 }
