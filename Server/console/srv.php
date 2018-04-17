@@ -24,26 +24,12 @@ if(strcmp($command, "webLogin") == 0) {
     postDelete();
 } else if (strcmp($command, "getPostById") == 0) {
     getPostById();
+} else if (strcmp($command, "logout") == 0) {
+    Session::destory();
 }
-
 
 else {
   echo("unknown");
-}
-
-function setLogin($accountId) {
-
-    $loginKey = "loginKey";
-    session::set($loginKey, $accountId);
-}
-function isLogin() {
-
-    $loginKey = "loginKey";
-    $accountId = session::get($loginKey, "");
-    if ($accountId === "") {
-        return false;
-    }
-    return true;
 }
 
 function webLogin() {
@@ -53,17 +39,17 @@ function webLogin() {
 
     $accountId = Account::login($id, $password);
     if (!is_null($accountId)) {
-        setLogin($accountId);
+        Session::setLogin($accountId);
         echo(json_encode(Array("result" => "0")));
     } else {
-        setLogin("");
+        Session::setLogin("");
         echo(json_encode(Array("result" => "1")));
     }
 }
 
 function getPost() {
 
-    if (!isLogin()) {
+    if (!Session::isLogin()) {
         echo(json_encode(Array("result" => "1")));
         return;
     }
@@ -119,7 +105,7 @@ function createPost() {
 
 function postSortOrderUp() {
 
-    if (!isLogin()) {
+    if (!Session::isLogin()) {
         echo(json_encode(Array("result" => "1")));
         return;
     }
@@ -140,7 +126,7 @@ function postSortOrderUp() {
 
 function postSortOrderDown() {
 
-    if (!isLogin()) {
+    if (!Session::isLogin()) {
         echo(json_encode(Array("result" => "1")));
         return;
     }
@@ -159,7 +145,7 @@ function postSortOrderDown() {
 
 function postDelete() {
 
-    if (!isLogin()) {
+    if (!Session::isLogin()) {
         echo(json_encode(Array("result" => "1")));
         return;
     }
@@ -178,7 +164,7 @@ function postDelete() {
 
 function getPostById() {
 
-  if (!isLogin()) {
+    if (!Session::isLogin()) {
     echo(json_encode(Array("result" => "1")));
     return;
   }
@@ -210,6 +196,7 @@ function getPostById() {
 
   echo("");   // TODO: どうしよう・・
 }
+
 
 
 function decodeBase64($str) {

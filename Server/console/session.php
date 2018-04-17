@@ -14,9 +14,25 @@ class Session {
     }
 
     // セッション終了処理
-    static public function endProc(){
+    static public function destory(){
         Session::clear();
         session_destroy();
+    }
+
+    // ログイン設定
+    static public function setLogin($loginId) {
+        $loginKey = "loginKey";
+        session::set($loginKey, $loginId);
+    }
+
+    // ログイン済み確認
+    static public function isLogin() {
+        $loginKey = "loginKey";
+        $loginId = session::get($loginKey, "");
+        if (strlen($loginId) <= 0) {
+            return false;
+        }
+        return true;
     }
 
     //　session変数設定
