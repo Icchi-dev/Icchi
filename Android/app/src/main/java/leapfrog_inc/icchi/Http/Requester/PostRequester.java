@@ -4,6 +4,8 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 
 import leapfrog_inc.icchi.Function.Constants;
 import leapfrog_inc.icchi.Http.HttpManager;
@@ -21,7 +23,7 @@ public class PostRequester {
         public ArrayList<String> relates;
         public String sumbnail;
         public String link;
-
+        public int order;
 
         static public PostData create(JSONObject json) {
 
@@ -31,7 +33,7 @@ public class PostRequester {
                 String[] relates = json.getString("relates").split("-");
                 String sumbnail = json.getString("sumbnail");
                 String link = json.getString("link");
-
+                int order = Integer.parseInt(json.getString("order"));
                 PostData postData = new PostData();
                 postData.title = title;
                 postData.source = source;
@@ -41,6 +43,7 @@ public class PostRequester {
                 }
                 postData.sumbnail = sumbnail;
                 postData.link = link;
+                postData.order = order;
 
                 return postData;
 
@@ -78,7 +81,20 @@ public class PostRequester {
                                     dataList.add(postData);
                                 }
                             }
+                            Collections.sort(dataList, new Comparator<PostData>() {
+                                @Override
+                                public int compare(PostData p1, PostData p2) {
+                                    if (p1.order == p2.order) {
+                                        return 0;
+                                    } else if (p1.order > p2.order) {
+                                        return 1;
+                                    } else {
+                                        return -1;
+                                    }
+                                }
+                            });
                             mDataList = dataList;
+
                             callback.didReceiveData(true);
                             return;
                         }
