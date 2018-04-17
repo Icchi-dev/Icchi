@@ -6,7 +6,7 @@ require 'session.php';
 
 $command = $_POST["command"];
 
-sessionStart();
+Session::start();
 
 if(strcmp($command, "webLogin") == 0) {
     webLogin();
@@ -31,15 +31,6 @@ else {
   echo("unknown");
 }
 
-
-function sessionStart() {
-
-    $isLoging = Session::sessionExists();
-
-    if (!$isLogin) {
-        Session::start();
-    }
-}
 function setLogin($accountId) {
 
     $loginKey = "loginKey";

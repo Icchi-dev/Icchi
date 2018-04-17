@@ -3,14 +3,6 @@
 // セッション管理クラス
 class Session {
 
-    // セッション存在チェック
-    static public function sessionExists(){
-        if(isset($_COOKIE[session_name()])){
-            return true;
-        }
-        return false;
-    }
-
     // セッション開始
     static public function start(){
         session_start();
@@ -21,20 +13,9 @@ class Session {
         session_regenerate_id(true);
     }
 
-    // クッキー削除要求処理
-    static public function delCookie(){
-        if($this->sessionExists()){
-            $params = session_get_cookie_params();
-            setcookie(session_name(), '', time() -4200,
-                $params['path'], $params['domain'],
-                $params['secure'], $params['httponly']);
-        }
-    }
-
     // セッション終了処理
     static public function endProc(){
-        $this->clear();
-        $this->delCookie();
+        Session::clear();
         session_destroy();
     }
 
