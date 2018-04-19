@@ -31,6 +31,22 @@ class ItemRequester {
         var kana:String? = nil
     }
     
+    // レスポンスデータ型
+    private struct createResult : Codable {
+        var result:Bool
+        var itemId:String?
+        private enum CodingKeys: String, CodingKey {
+            case result
+            case itemId
+        }
+        init(from decoder: Decoder) throws {
+            let values = try decoder.container(keyedBy: CodingKeys.self)
+            result = NSString(string:try values.decode(String.self, forKey: .result)).isEqual(to: "0")
+            itemId = try values.decode(String.self, forKey: .itemId)
+        }
+    }
+    
+    
     // シングルトン
     static let sharedManager = ItemRequester()
     private init() {
@@ -79,4 +95,42 @@ class ItemRequester {
     func query(_ itemId:String) -> ItemData? {
         return mDataList.first(where: { return $0.itemId == itemId})
     }
+    
+    /** データID取得 */
+    func queryId(_ itemName:String) -> String? {
+        let data = mDataList.first(where: { return $0.name == itemName})
+        return data?.itemId
+    }
+    
+    /** データ作成 */
+    func creteItem(_ itemName:String, completion: @escaping ((Bool, String?) -> ())) {
+        
+        // リクエストデータ作成
+        let params = ["command": "createItem"
+                        ,"itemName": "itemName"]
+        // リクエスト実施
+        HttpManager.post(url: Constants.ServerApiUrl, params: params) { (result:Bool, data:Data?) in
+            
+            // レスポンスチェック
+            guard result, let data = data else {
+                // 失敗
+                completion(false, nil)
+                return
+            }
+            
+            do {
+                // レスポンス取得
+                let result = try JSONDecoder().decode(createResult.self, from: data)
+                
+                // 成功
+                completion(result.result, result.itemId)
+            }
+            catch let error {
+                // 失敗
+                print("ItemRequester decode error = \(error)")
+                completion(false, nil)
+            }
+        }
+    }
+    
 }
