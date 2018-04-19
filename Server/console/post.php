@@ -122,6 +122,7 @@ class Post {
               $postData->source = $source;
               $postData->sumbnail = $sumbnail;
               $postData->link = $link;
+              $postData->sortOrder = $post->sortOrder;
               $post = $postData;
           }
       }
