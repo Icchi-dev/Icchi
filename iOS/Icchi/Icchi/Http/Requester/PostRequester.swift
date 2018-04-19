@@ -32,6 +32,7 @@ class PostRequester {
         var relates:[String]? = nil
         var sumbnail:String? = nil
         var link:String? = nil
+        var order:String? = nil
         
         private enum CodingKeys: String, CodingKey {
             case title
@@ -39,6 +40,7 @@ class PostRequester {
             case relates
             case sumbnail
             case link
+            case order
         }
         
         init(from decoder: Decoder) throws {
@@ -48,6 +50,7 @@ class PostRequester {
             relates = try? values.decode(String.self, forKey: .relates).components(separatedBy: "-")
             sumbnail = try? values.decode(String.self, forKey: .sumbnail)
             link = try? values.decode(String.self, forKey: .link)
+            order = try? values.decode(String.self, forKey: .order)
         }
     }
     
@@ -80,7 +83,7 @@ class PostRequester {
                 
                 // ポストデータ配列を登録
                 if let posts = result.posts {
-                    self.postDatas = posts
+                    self.postDatas = posts.sorted(by: { Int($0.order ?? "0")! < Int($1.order ?? "0")! })
                 }
                 
                 // 成功
