@@ -1,8 +1,8 @@
 <?php
 
-require "Account.php";
+require "account.php";
 require "post.php";
-require 'session.php';
+require "session.php";
 
 $command = $_POST["command"];
 
