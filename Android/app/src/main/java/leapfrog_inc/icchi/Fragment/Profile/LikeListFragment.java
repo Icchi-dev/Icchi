@@ -82,14 +82,14 @@ public class LikeListFragment extends BaseFragment {
                 CheckBox checkBox = (CheckBox)view.findViewById(R.id.checkBox);
                 if (checkBox.isChecked()) {
                     checkBox.setChecked(false);
-                    if (mCheckList.contains(i)) mCheckList.remove(i);
+                    if (mCheckList.contains(i)) mCheckList.remove((Integer) i);
                 } else {
                     checkBox.setChecked(true);
-                    if (!mCheckList.contains(i)) mCheckList.add(i);
+                    if (!mCheckList.contains(i)) mCheckList.add((Integer)i);
                 }
             }
         });
-    }
+                }
 
     // ユーザ情報を更新してプロフィール画面へ遷移する
     private void gotoProfile() {
@@ -98,8 +98,9 @@ public class LikeListFragment extends BaseFragment {
         ArrayList<UserRequester.UserData> userList = UserRequester.getInstance().getDataList();
 
         for (int i = 0; i < mCheckList.size(); i++) {
-            if (i < userList.size()) {
-                UserRequester.UserData userData = userList.get(i);
+            int uesrIndex = userList.size() - 1 - mCheckList.get(i);
+            if (uesrIndex < userList.size()) {
+                UserRequester.UserData userData = userList.get(uesrIndex);
                 for (int j = 0; j < userData.likes.size(); j++) {
                     if (!myUserData.likes.contains(userData.likes.get(j))) {
                         myUserData.likes.add(userData.likes.get(j));
