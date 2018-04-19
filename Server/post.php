@@ -1,21 +1,25 @@
 <?php
 
 class PostData {
+    public $id;
 	public $title;
 	public $source;
 	public $relates;
 	public $sumbnail;
 	public $link;
+	public $sortOrder;
 
 	static function initFromFileString($line) {
 		$datas = explode(",", $line);
-		if (count($datas) == 5) {
-			$postData = new PostData();
-			$postData->title = $datas[0];
-			$postData->source = $datas[1];
-			$postData->relates = $datas[2];
-			$postData->sumbnail = $datas[3];
-			$postData->link = $datas[4];
+		if (count($datas) == 7) {
+		    $postData = new PostData();
+		    $postData->id = $datas[0];
+		    $postData->title = $datas[1];
+			$postData->source = $datas[2];
+			$postData->relates = $datas[3];
+			$postData->sumbnail = $datas[4];
+			$postData->link = $datas[5];
+			$postData->sortOrder = $datas[6];
 			return $postData;
 		}
 		return null;

@@ -1,0 +1,41 @@
+<html>
+<head>
+  <meta http-equiv="Pragma" content="no-cache">
+  <meta http-equiv="Cache-Control" content="no-cache">
+  <meta http-equiv="Expires" content="0">
+  <meta charset="utf-8">
+  <title>Icchi管理画面</title>
+
+  <link rel="stylesheet" type="text/css" href="common.css">
+  <link rel="stylesheet" type="text/css" href="item.css">
+
+  <!-- json parse -->
+  <script type="text/javascript" src="https://code.jquery.com/jquery-1.9.1.min.js"></script>
+
+  <script type="text/javascript" src="common.js"></script>
+  <script type="text/javascript" src="item.js"></script>
+
+</head>
+<body class="root" onLoad="getPost()" >
+
+  <div class="title">
+    icchi管理画面
+  </div>
+  <table>
+    <colgroup>
+      <col style="width:15%;">
+      <col style="width:45%;">
+      <col style="width:10%;">
+      <col style="width:10%;">
+      <col style="width:20%;">
+    </colgroup>
+	  <thead id="listheader"></thead>
+	  <tbody id="list"></tbody>
+  </table>
+  <div class="buttons">
+    <button class="button add" onclick="javascript:onClickAdd();">新規追加</button>
+  </div>
+
+
+</body>
+</html>
