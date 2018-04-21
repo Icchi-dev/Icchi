@@ -63,6 +63,7 @@ public class FacebookManager {
 
             UserRequester.UserData userData = new UserRequester.UserData();
             userData.name = this.name;
+            userData.fbId = this.id;
             userData.image = "https://graph.facebook.com/" + this.id + "/picture";
             userData.fbLink = this.link;
 

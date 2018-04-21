@@ -21,6 +21,7 @@ import java.util.ArrayList;
 
 import leapfrog_inc.icchi.Fragment.BaseFragment;
 import leapfrog_inc.icchi.Fragment.FragmentController;
+import leapfrog_inc.icchi.Function.SaveData;
 import leapfrog_inc.icchi.Http.Requester.UserRequester;
 import leapfrog_inc.icchi.Parts.PicassoUtility;
 import leapfrog_inc.icchi.R;
@@ -41,7 +42,10 @@ public class MatchFragment extends BaseFragment {
 
         ArrayList<UserRequester.UserData> userList = UserRequester.getInstance().getDataList();
         for (int i = 0; i < userList.size(); i++) {
-            adapter.add(userList.get(i));
+            UserRequester.UserData userData = userList.get(i);
+            if (!userData.userId.equals(SaveData.getInstance().userId)) {
+                adapter.add(userList.get(i));
+            }
         }
         adapter.notifyDataSetChanged();
         listView.setAdapter(adapter);

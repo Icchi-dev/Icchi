@@ -25,14 +25,14 @@ public class LoadingFragment extends BaseFragment {
         LoadingFragment fragment = new LoadingFragment();
         FragmentTransaction transaction = mainActivity.getSupportFragmentManager().beginTransaction();
         transaction.add(R.id.loadingContainer, fragment);
-        transaction.commit();
+        transaction.commitAllowingStateLoss();
         return fragment;
     }
 
     public void stop(MainActivity mainActivity) {
         FragmentTransaction transaction = mainActivity.getSupportFragmentManager().beginTransaction();
         transaction.remove(this);
-        transaction.commit();
+        transaction.commitAllowingStateLoss();
     }
 
     @Override

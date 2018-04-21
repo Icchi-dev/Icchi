@@ -5,8 +5,8 @@ package leapfrog_inc.icchi.Function;
  */
 
 public class Constants {
-//    public static String ServerRootUrl = "http://lfrogs.sakura.ne.jp/icchi/srv.php";
-    public static String ServerRootUrl = "http://10.0.2.2/icchi/srv.php";
+    public static String ServerRootUrl = "http://lfrogs.sakura.ne.jp/icchi/srv.php";
+//    public static String ServerRootUrl = "http://10.0.2.2/icchi/srv.php";
     public static int HttpConnectTimeout = 10000;
     public static int HttpReadTimeout = 10000;
 

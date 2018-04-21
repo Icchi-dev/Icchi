@@ -70,7 +70,10 @@ public class LikeListFragment extends BaseFragment {
 
         ArrayList<UserRequester.UserData> userList = UserRequester.getInstance().getDataList();
         for (int i = userList.size() - 1; i >= 0; i--) {
-            adapter.add(userList.get(i));
+            UserRequester.UserData userData = userList.get(i);
+            if (!SaveData.getInstance().userId.equals(userData.userId)) {
+                adapter.add(userData);
+            }
         }
         adapter.notifyDataSetChanged();
         listView.setAdapter(adapter);

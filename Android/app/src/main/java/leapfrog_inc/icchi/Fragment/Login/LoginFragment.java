@@ -60,7 +60,7 @@ public class LoginFragment extends BaseFragment {
                 ((MainActivity)getActivity()).startLoading();
 
                 UserRequester.UserData userData = fbUserData.toUserData();
-                AccountRequester.register("", "", userData.name, userData.image, userData.fbLink, new AccountRequester.RegisterCallback() {
+                AccountRequester.register("", "", userData.name, userData.fbId, userData.image, userData.fbLink, new AccountRequester.RegisterCallback() {
                     @Override
                     public void didReceive(boolean result, String userId) {
 
