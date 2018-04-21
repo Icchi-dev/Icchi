@@ -38,11 +38,12 @@ function register() {
 	$fbLink = $_POST["fbLink"];
 
 	$userId = User::fbIdToUserId($fbId);
+
 	if (is_null($userId)) {
 		$userId = createUserId();
+		User::register($userId, $email, $password, $name, $fbId, $image, $fbLink);
 	}
 
-	User::register($userId, $email, $password, $name, $fbId, $image, $fbLink);
 	echo(json_encode(Array("result" => "0",
 													"userId" => $userId)));
 }
