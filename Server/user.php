@@ -9,6 +9,7 @@ class UserData {
 	public $gender;
 	public $likes;
 	public $hates;
+	public $fbId;
 	public $image;
 	public $fbLink;
 
