@@ -123,6 +123,7 @@ public class UserRequester {
         public GenderType gender = null;
         public ArrayList<String> likes = new ArrayList<String>();
         public ArrayList<String> hates = new ArrayList<String>();
+        public String fbId = "";
         public String image = "";
         public String fbLink = "";
 
@@ -135,6 +136,7 @@ public class UserRequester {
                 String gender = json.getString("gender");
                 String[] likes = json.getString("likes").split("-");
                 String[] hates = json.getString("hates").split("-");
+                String fbId = json.getString("fbId");
                 String image = json.getString("image");
                 String fbLink = json.getString("fbLink");
 
@@ -158,6 +160,7 @@ public class UserRequester {
                     }
                 }
 
+                userData.fbId = fbId;
                 userData.image = image;
                 userData.fbLink = fbLink;
 

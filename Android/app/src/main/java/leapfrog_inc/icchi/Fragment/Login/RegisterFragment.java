@@ -63,7 +63,7 @@ public class RegisterFragment extends BaseFragment {
 
         ((MainActivity)getActivity()).startLoading();
 
-        AccountRequester.register(email, password, name, "", "", new AccountRequester.RegisterCallback() {
+        AccountRequester.register(email, password, name, "", "", "", new AccountRequester.RegisterCallback() {
             @Override
             public void didReceive(boolean result, String userId) {
 
