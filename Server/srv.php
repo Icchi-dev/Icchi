@@ -33,12 +33,16 @@ function register() {
 	$email = $_POST["email"];
 	$password = $_POST["password"];
 	$name = $_POST["name"];
+	$fbId = $_POST["fbId"];
 	$image = $_POST["image"];
 	$fbLink = $_POST["fbLink"];
 
-	$userId = createUserId();
+	$userId = User::fbIdToUserId($fbId);
+	if (is_null($userId)) {
+		$userId = createUserId();
+	}
 
-	User::register($userId, $email, $password, $name, $image, $fbLink);
+	User::register($userId, $email, $password, $name, $fbId, $image, $fbLink);
 	echo(json_encode(Array("result" => "0",
 													"userId" => $userId)));
 }
@@ -65,10 +69,11 @@ function updateAccount() {
 	$gender = $_POST["gender"];
 	$likes = $_POST["likes"];
 	$hates = $_POST["hates"];
+	$fbId = $_POST["fbId"];
 	$image = $_POST["image"];
 	$fblink = $_POST["fbLink"];
 
-	User::update($userId, $name, $age, $gender, $likes, $hates, $image, $fbLink);
+	User::update($userId, $name, $age, $gender, $likes, $hates, $fbId, $image, $fbLink);
 	echo(json_encode(Array("result" => "0")));
 }
 
@@ -83,6 +88,7 @@ function getUser() {
 												"gender" => $userData->gender,
 												"likes" => $userData->likes,
 												"hates" => $userData->hates,
+												"fbId" => $userData->fbId,
 												"image" => $userData->image,
 												"fbLink" => $userData->fbLink);
 	}

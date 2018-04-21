@@ -14,7 +14,7 @@ class UserData {
 
 	static function initFromFileString($line) {
 		$datas = explode(",", $line);
-		if (count($datas) == 10) {
+		if (count($datas) == 11) {
 			$userData = new UserData();
 			$userData->id = $datas[0];
 			$userData->email = $datas[1];
@@ -24,8 +24,9 @@ class UserData {
 			$userData->gender = $datas[5];
 			$userData->likes = $datas[6];
 			$userData->hates = $datas[7];
-			$userData->image = $datas[8];
-			$userData->fbLink = $datas[9];
+			$userData->fbId = $datas[8];
+			$userData->image = $datas[9];
+			$userData->fbLink = $datas[10];
 			return $userData;
 		}
 		return null;
@@ -74,6 +75,8 @@ class User {
 			$str .= ",";
 			$str .= $user->hates;
 			$str .= ",";
+			$str .= $user->fbId;
+			$str .= ",";
 			$str .= $user->image;
 			$str .= ",";
 			$str .= $user->fbLink;
@@ -82,9 +85,24 @@ class User {
 		file_put_contents(User::FILE_NAME, $str);
 	}
 
-	static function register($userId, $email, $password, $name, $image, $fbLink) {
+	// FacebookID -> UserId変換
+	static function fbIdToUserId($fbId) {
 
-		$userData = $userId . "," . $email . "," . $password . "," . $name . ",,,,," . $image . "," . $fbLink . "\n";
+		if ((is_null($fbId)) || (strlen($fbId) == 0)) {
+			return null;
+		}
+		$users = User::readAll();
+		foreach ($users as $user) {
+			if (strcmp($user->fbId, $fbId) == 0) {
+				return $user->id;
+			}
+		}
+		return null;
+	}
+
+	static function register($userId, $email, $password, $name, $fbId, $image, $fbLink) {
+
+		$userData = $userId . "," . $email . "," . $password . "," . $name . ",,,,," . $fbId . "," . $image . "," . $fbLink . "\n";
 		file_put_contents(User::FILE_NAME, $userData, FILE_APPEND);
 	}
 
@@ -99,7 +117,7 @@ class User {
 		return null;
 	}
 
-	static function update($userId, $name, $age, $gender, $likes, $hates, $image, $fbLink) {
+	static function update($userId, $name, $age, $gender, $likes, $hates, $fbId, $image, $fbLink) {
 
 		$users = User::readAll();
 		foreach ($users as &$user) {
@@ -113,6 +131,7 @@ class User {
 				$newUserData->gender = $gender;
 				$newUserData->likes = $likes;
 				$newUserData->hates = $hates;
+				$newUserData->fbId = $fbId;
 				$newUserData->image = $image;
 				$newUserData->fbLink = $fbLink;
 				$user = $newUserData;
