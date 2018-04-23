@@ -55,7 +55,16 @@ class Post {
 	// ソートオーダーを昇順ソート
 	static function cmp($a, $b)
 	{
-	    $cmp = strcmp($a->sortOrder, $b->sortOrder);
+	    $aval = intval($a->sortOrder);
+	    $bval = intval($b->sortOrder);
+
+	    $cmp = 0;
+	    if($aval<$bval) {
+	        $cmp = -1;
+	    }
+	    else if($aval>$bval) {
+	        $cmp = 1;
+	    }
 	    return $cmp;
 	}
 
