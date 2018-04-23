@@ -16,11 +16,37 @@
   <script type="text/javascript" src="item.js"></script>
 
 </head>
-<body class="root" onLoad="getPost()" >
+<body class="root" onLoad="load()" >
 
   <div class="title">
     icchi管理画面
   </div>
+
+  <div class="item_title">一致度算出パラメータ管理</div>
+  <table>
+    <colgroup>
+      <col style="width:28%;">
+      <col style="width:28%;">
+      <col style="width:28%;">
+      <col style="width:16%;">
+    </colgroup>
+    <tr>
+      <thead>
+        <th>1項目一致の加算分(%)</th>
+        <th>マイナー項目一致の加算分(%)</th>
+        <th>マイナー項目閾値(%)</th>
+        <th></th>
+      </thead>
+    </tr>
+    <tr>
+      <td><input type="text" id="pointPerItem"></td>
+      <td><input type="text" id="pointPerMinorItem"></td>
+      <td><input type="text" id="minorThreshold"></td>
+      <td><button class="parameter_button" onclick="javascript:onClickParameter();">更新</button></td>
+    </tr>
+  </table>
+
+  <div class="item_title">マイポスト管理</div>
   <table>
     <colgroup>
       <col style="width:15%;">

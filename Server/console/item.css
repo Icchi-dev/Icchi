@@ -46,9 +46,50 @@ img{
 }
 
 .title {
+  width: 100%;
+  background: #292929;
+  color: #fff;
+  font-size: 14px;
+  padding: 7px 0;
+}
+
+.score_title {
   color: #5e5e5e;
   font-size: 20px;
-	margin: 50px 0 30px 0;
+  margin: 30px 0 0 0;
+}
+
+input {
+  font-size: 14px;
+  border: none;
+  color: #666;
+  width:70%;
+  height:32px;
+  text-align: center;
+  border-radius:16px;
+  -webkit-border-radius:16px;
+  -moz-border-radius:16px;
+  border: 1px solid #ddd;
+}
+
+input:focus {
+  outline: none;
+}
+
+.parameter_button {
+  background: #f16272;
+  border: none;
+  color: #fff;
+  cursor: pointer;
+  width: 60%;
+  height: 34px;
+  font-size: 14px;
+}
+
+.item_title {
+  color: #5e5e5e;
+  font-size: 20px;
+  margin: 50px 0 0 0;
 }
 
 .buttons{
@@ -69,7 +110,6 @@ img{
   font-size: 18px;
   letter-spacing: 0.05em;
   margin-left:30px;
-
 }
 
 .buttonContainer {

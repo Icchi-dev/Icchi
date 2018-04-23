@@ -3,6 +3,7 @@
 require "account.php";
 require "post.php";
 require "session.php";
+require "parameter.php";
 
 $command = $_POST["command"];
 
@@ -26,6 +27,8 @@ if(strcmp($command, "webLogin") == 0) {
     getPostById();
 } else if (strcmp($command, "logout") == 0) {
     Session::destory();
+} else if (strcmp($command, "postParameter") == 0) {
+    postParameter();
 }
 
 else {
@@ -72,8 +75,6 @@ function getPost() {
 
 function setPost() {
 
-  // TODO: セッション管理
-
   $id = $_POST["id"];
   $title = $_POST["title"];
   $source = $_POST["source"];
@@ -81,7 +82,6 @@ function setPost() {
   $link = $_POST["link"];
 
   if ($id == null || $id === "") {
-    // TODO:
     echo("");
     return;
   }
@@ -114,7 +114,6 @@ function postSortOrderUp() {
     $id = $_POST["id"];
 
     if ($id == null || $id === "") {
-      // TODO:
       echo("");
       return;
     }
@@ -173,7 +172,7 @@ function getPostById() {
   $id = $_POST["id"];
 
   if ($id == null || $id === "") {
-    echo("");   // TODO: どうしよう・・
+    echo("");
     return;
   }
 
@@ -195,10 +194,18 @@ function getPostById() {
     }
   }
 
-  echo("");   // TODO: どうしよう・・
+  echo("");
 }
 
+function postParameter() {
 
+  $pointPerItem = $_POST["pointPerItem"];
+  $pointPerMinorItem = $_POST["pointPerMinorItem"];
+  $minorThreshold = $_POST["minorThreshold"];
+  Parameter::write($pointPerItem, $pointPerMinorItem, $minorThreshold);
+  $ret = Array("result" => "0");
+  echo(json_encode($ret));
+}
 
 function decodeBase64($str) {
 	$val = str_replace(array("_", "-", " "), array("+", "/", "+"), $str);

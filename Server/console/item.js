@@ -1,4 +1,10 @@
 
+function load() {
+
+  getPost();
+  fetchParameter();
+}
+
 // 一覧取得
 function getPost() {
 
@@ -114,4 +120,46 @@ function deleteRequest(id) {
 function onClickAdd() {
 
   location.href = "edit.html?id=-";
+}
+
+// 一致度パラメータの取得
+function fetchParameter() {
+
+  var param = "command=getMatchParameter";
+
+  httpPost("../srv.php", param, function(response){
+	  var json = JSON.parse(response);
+    if (json.result != "0") {
+      return;
+    }
+    var pointPerItem = json.pointPerItem;
+    var pointPerMinorItem = json.pointPerMinorItem;
+    var minorThreshold = json.minorThreshold;
+    document.getElementById("pointPerItem").value = pointPerItem;
+    document.getElementById("pointPerMinorItem").value = pointPerMinorItem;
+    document.getElementById("minorThreshold").value = minorThreshold;
+  });
+}
+
+// 一致度パラメータの更新
+function onClickParameter() {
+
+  var pointPerItem = document.getElementById("pointPerItem").value;
+  var pointPerMinorItem = document.getElementById("pointPerMinorItem").value;
+  var minorThreshold = document.getElementById("minorThreshold").value;
+  if ((!isNumber(pointPerItem)) || (!isNumber(pointPerMinorItem)) || (!isNumber(minorThreshold))) {
+    alert("不正な入力値です");
+    return;
+  }
+
+  var param = "command=postParameter&pointPerItem=" + pointPerItem + "&pointPerMinorItem=" + pointPerMinorItem + "&minorThreshold=" + minorThreshold;
+  httpPost("srv.php", param, function(response) {
+    alert("更新しました");
+  });
+}
+
+function isNumber(str) {
+
+var pattern = /^([1-9]\d*|0)$/;
+return pattern.test(str)
 }
