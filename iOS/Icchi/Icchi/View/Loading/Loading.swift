@@ -25,7 +25,7 @@ class Loading: UIView {
         guard let window = UIApplication.shared.keyWindow else {
             return
         }
-        if !(window.subviews.flatMap { $0 as? Loading }).isEmpty {
+        if !(window.subviews.compactMap { $0 as? Loading }).isEmpty {
             return
         }
         guard let loadingView = UINib(nibName: "Loading", bundle: nil).instantiate(withOwner: self, options: nil).first as? Loading else {
@@ -40,7 +40,7 @@ class Loading: UIView {
         guard let window = UIApplication.shared.keyWindow else {
             return
         }
-        let loadingViews = window.subviews.flatMap { $0 as? Loading }
+        let loadingViews = window.subviews.compactMap { $0 as? Loading }
         loadingViews.forEach { $0.removeFromSuperview() }
     }
 }

@@ -20,41 +20,33 @@ class MatchViewController: UIViewController {
         let logoTap = UITapGestureRecognizer(target:self, action:#selector(self.onTapLogo(_:)))
         self.logo!.addGestureRecognizer(logoTap)
     }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
     
     // ロゴタップ
     @objc func onTapLogo(_ sender: UITapGestureRecognizer) {
         self.pop(animationType: .horizontal)
     }
-
 }
 
 extension MatchViewController:UITableViewDelegate, UITableViewDataSource {
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return UserRequester.sharedManager.mDataList.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        let cell = tableView.dequeueReusableCell(withIdentifier: "MatchTableViewCell") as! MatchTableViewCell?
-        
-        cell!.configure(with:UserRequester.sharedManager.mDataList[indexPath.row])
-
-        return cell!
+        let cell = tableView.dequeueReusableCell(withIdentifier: "MatchTableViewCell") as! MatchTableViewCell
+        cell.configure(with:UserRequester.sharedManager.mDataList[indexPath.row])
+        return cell
     }
     
     public func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
         
-        guard let urlString = UserRequester.sharedManager.mDataList[indexPath.row].fbLink
-            , let url = URL(string: urlString)
-            , UIApplication.shared.canOpenURL(url) else {
-                print("fbLinkなし")
-            return;
+        guard let urlString = UserRequester.sharedManager.mDataList[indexPath.row].fbLink,
+            let url = URL(string: urlString),
+            UIApplication.shared.canOpenURL(url) else {
+            return
         }
         
         // ブラウザ起動

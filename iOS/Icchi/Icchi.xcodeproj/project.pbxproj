@@ -298,9 +298,9 @@
 		BBF7B09D20174E0000964E95 /* Icchi */ = {
 			isa = PBXGroup;
 			children = (
-				5B794DC62035C42B006BC0CE /* Http */,
 				BBF7B09E20174E0000964E95 /* AppDelegate.swift */,
 				BB6BBA0720176CEB00CC4179 /* View */,
+				5B794DC62035C42B006BC0CE /* Http */,
 				BB6BBA1220176D7C00CC4179 /* Function */,
 				BB6BBA1720176E4A00CC4179 /* Extension */,
 				BBF7B0A220174E0000964E95 /* Main.storyboard */,

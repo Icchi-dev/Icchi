@@ -205,8 +205,8 @@ class TutorialViewController: UIViewController {
                 saveData.isInitialized = true
                 saveData.save()
     
-                // 他の人はこんな物を登録しています画面へ遷移
-                // todo
+                let myPageViewController = self.viewController(storyboard: "Main", identifier: "MyPageViewController") as! MyPageViewController
+                self.stack(viewController: myPageViewController, animationType: .vertical)
             }
             else {
                 

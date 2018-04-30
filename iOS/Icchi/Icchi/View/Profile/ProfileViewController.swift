@@ -11,7 +11,6 @@ import UIKit
 class ProfileViewController: UIViewController {
     
     private var tmpUserData: UserRequester.UserData?
-    @IBOutlet weak var logo: UIImageView!
     
     @IBOutlet weak var name: UITextField!
     @IBOutlet weak var age: UILabel!
@@ -30,11 +29,7 @@ class ProfileViewController: UIViewController {
         if let userData = UserRequester.sharedManager.query(SaveData.shared.userId) {
             self.tmpUserData = userData
         }
-        
-        // ロゴタップ
-        let logoTap = UITapGestureRecognizer(target:self, action:#selector(self.onTapLogo(_:)))
-        self.logo!.addGestureRecognizer(logoTap)
-        
+                
         // 年齢タップ
         let ageTapGesture = UITapGestureRecognizer(target: self, action: #selector(self.onTapAge(_:)))
         self.age!.addGestureRecognizer(ageTapGesture)
@@ -74,11 +69,6 @@ class ProfileViewController: UIViewController {
     // キーボードリターン
     @IBAction func onDidEndOnExit(_ sender: Any) {
         self.view.endEditing(true)
-    }
-    
-    // ロゴタップ
-    @objc func onTapLogo(_ sender: UITapGestureRecognizer) {
-        self.onClickMenu()
     }
     
     // 年齢タップ
@@ -221,36 +211,8 @@ class ProfileViewController: UIViewController {
             self.tmpUserData?.hates = hates
         }
     }
-    
-    private func onClickMenu() {
-        
-        self.tmpUserData?.name = self.name.text
-        
-        Loading.start()
-        
-        AccountRequester.sharedManager.update(userData: self.tmpUserData) { [weak self] result in
-            if result {
-                UserRequester.sharedManager.fetch(completion: { [weak self] (result) in
-                    Loading.stop()
-                    if result {
-                        self?.pop(animationType: .horizontal)
-                    }
-                    else {
-                        self?.showAlert(title: "エラー", message: "通信に失敗しました", actions: [AlertAction(title:"OK")])
-                    }
-                })
-            }
-            else {
-                Loading.stop()
-                self?.showAlert(title: "エラー", message: "通信に失敗しました", actions: [AlertAction(title:"OK")])
-            }
-            
-        }
-        
-        self.pop(animationType: .horizontal)
-    }
 
-    public func addItemId(itemId:String? , isLike:Bool) {
+    public func addItemId(itemId: String?, isLike: Bool) {
         
         guard let itemId = itemId else {
             return;
@@ -277,4 +239,26 @@ class ProfileViewController: UIViewController {
         self.setProfile(userData: self.tmpUserData)
     }
     
+    @IBAction func onTapLogo(_ sender: Any) {
+        
+        self.tmpUserData?.name = self.name.text
+        
+        Loading.start()
+        
+        AccountRequester.sharedManager.update(userData: self.tmpUserData) { [weak self] result in
+            if result {
+                UserRequester.sharedManager.fetch(completion: { [weak self] (result) in
+                    Loading.stop()
+                    if result {
+                        self?.pop(animationType: .horizontal)
+                    } else {
+                        self?.showAlert(title: "エラー", message: "通信に失敗しました", actions: [AlertAction(title:"OK")])
+                    }
+                })
+            } else {
+                Loading.stop()
+                self?.showAlert(title: "エラー", message: "通信に失敗しました", actions: [AlertAction(title:"OK")])
+            }
+        }
+    }
 }

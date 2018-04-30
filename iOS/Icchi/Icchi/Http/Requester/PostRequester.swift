@@ -89,9 +89,8 @@ class PostRequester {
                 // 成功
                 completion(result.result)
             }
-            catch let error {
+            catch {
                 // 失敗
-                print("PostRequester decode error = \(error)")
                 completion(false)
             }
         }

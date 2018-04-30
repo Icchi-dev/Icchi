@@ -25,20 +25,21 @@ class YahooNewsRequester: NSObject {
     private var pubDateOn = false;
     
     // データ配列
-    public var mNewsList:[YahooNewsData] = []
-    public var mRssIndex:Int = 0;
+    public var mNewsList: [YahooNewsData] = []
+    public var mRssIndex: Int = 0;
     
     // rss
-    var rssType:[String] = [
-        "https://headlines.yahoo.co.jp/rss/all-dom.xml"
-        ,"https://headlines.yahoo.co.jp/rss/all-dom.xml"
-        ,"https://headlines.yahoo.co.jp/rss/all-c_int.xml"
-        ,"https://headlines.yahoo.co.jp/rss/all-bus.xml"
-        ,"https://headlines.yahoo.co.jp/rss/all-c_ent.xml"
-        ,"https://headlines.yahoo.co.jp/rss/all-c_spo.xml"
-        ,"https://headlines.yahoo.co.jp/rss/all-c_sci.xml"
-        ,"https://headlines.yahoo.co.jp/rss/all-c_life.xml"
-        ,"https://headlines.yahoo.co.jp/rss/all-loc.xml"]
+    var rssType: [String] = [
+        "https://headlines.yahoo.co.jp/rss/all-dom.xml",
+        "https://headlines.yahoo.co.jp/rss/all-dom.xml",
+        "https://headlines.yahoo.co.jp/rss/all-c_int.xml",
+        "https://headlines.yahoo.co.jp/rss/all-bus.xml",
+        "https://headlines.yahoo.co.jp/rss/all-c_ent.xml",
+        "https://headlines.yahoo.co.jp/rss/all-c_spo.xml",
+        "https://headlines.yahoo.co.jp/rss/all-c_sci.xml",
+        "https://headlines.yahoo.co.jp/rss/all-c_life.xml",
+        "https://headlines.yahoo.co.jp/rss/all-loc.xml"
+    ]
     
     // シングルトン
     static let sharedManager = YahooNewsRequester()
@@ -95,16 +96,16 @@ extension YahooNewsRequester :XMLParserDelegate {
     
     // 解析開始
     public func parserDidStartDocument(_ parser: XMLParser) {
-        print("XML解析開始")
+
     }
+
     // XML解析終了
     public func parserDidEndDocument(_ parser: XMLParser) {
-        print("XML解析終了")
         
     }
     // エラーが発生
     public func parser(_ parser: XMLParser, parseErrorOccurred parseError: Error) {
-        print("XML解析エラー:" + parseError.localizedDescription)
+
     }
     
     // タグの始まり

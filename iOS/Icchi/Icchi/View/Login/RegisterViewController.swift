@@ -10,9 +10,9 @@ import UIKit
 
 class RegisterViewController: KeyboardRespondableViewController, UITextFieldDelegate {
 
-    @IBOutlet weak var textMail: UITextField!
-    @IBOutlet weak var textPass: UITextField!
-    @IBOutlet weak var textName: UITextField!
+    @IBOutlet private weak var textMail: UITextField!
+    @IBOutlet private weak var textPass: UITextField!
+    @IBOutlet private weak var textName: UITextField!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -20,12 +20,6 @@ class RegisterViewController: KeyboardRespondableViewController, UITextFieldDele
         self.textMail.delegate = self
         self.textPass.delegate = self
         self.textName.delegate = self
-        // Do any additional setup after loading the view.
-    }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
     }
     
     // ログインボタンタップ
@@ -54,7 +48,7 @@ class RegisterViewController: KeyboardRespondableViewController, UITextFieldDele
     // キーボードが出ている状態で、キーボード以外をタップしたらキーボードを閉じる
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         // 非表示にする
-        [self.textMail,self.textPass,self.textName].forEach({ textField in
+        [self.textMail, self.textPass, self.textName].forEach({ textField in
             if textField!.isFirstResponder {
                 textField!.resignFirstResponder()
             }
@@ -64,13 +58,12 @@ class RegisterViewController: KeyboardRespondableViewController, UITextFieldDele
     // 登録
     func register() {
         
-        let email = self.textMail!.text!
-        let password = self.textPass!.text!
-        let name = self.textName!.text!
+        let email = self.textMail.text ?? ""
+        let password = self.textPass.text ?? ""
+        let name = self.textName.text ?? ""
         
         // 入力チェック
         guard !email.isEmpty && !password.isEmpty && !name.isEmpty else {
-            
             let action = AlertAction(title:"OK")
             self.showAlert(title: "エラー", message: "入力エラー", actions: [action])
             return;

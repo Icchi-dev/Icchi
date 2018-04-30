@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="oCX-lg-XUY">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="oCX-lg-XUY">
     <device id="retina5_5" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
         <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -1267,6 +1267,12 @@
                                             <constraint firstAttribute="height" constant="50" id="hzz-D9-MYD"/>
                                         </constraints>
                                     </imageView>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="x51-Ne-A0W">
+                                        <rect key="frame" x="0.0" y="0.0" width="80" height="50"/>
+                                        <connections>
+                                            <action selector="onTapLogo:" destination="Bt4-em-cAz" eventType="touchUpInside" id="2Co-zZ-NuX"/>
+                                        </connections>
+                                    </button>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="プロフィール" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8rB-yu-JuA">
                                         <rect key="frame" x="345" y="13.666666666666666" width="110.33333333333331" height="21.666666666666671"/>
                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="18"/>
@@ -1283,13 +1289,17 @@
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
+                                    <constraint firstItem="x51-Ne-A0W" firstAttribute="trailing" secondItem="Mrs-TB-Ndl" secondAttribute="trailing" id="FEq-BY-6KJ"/>
                                     <constraint firstItem="8rB-yu-JuA" firstAttribute="centerX" secondItem="Td3-D5-Ndy" secondAttribute="centerX" id="IEY-mk-vHb"/>
+                                    <constraint firstItem="x51-Ne-A0W" firstAttribute="bottom" secondItem="Mrs-TB-Ndl" secondAttribute="bottom" id="Mrm-Ew-YgU"/>
                                     <constraint firstItem="8rB-yu-JuA" firstAttribute="centerY" secondItem="Td3-D5-Ndy" secondAttribute="centerY" id="NfG-kb-xxb"/>
+                                    <constraint firstItem="x51-Ne-A0W" firstAttribute="top" secondItem="Mrs-TB-Ndl" secondAttribute="top" id="ahL-ie-kyP"/>
                                     <constraint firstAttribute="bottom" secondItem="dvB-cx-bkw" secondAttribute="bottom" id="cOM-mx-t5b"/>
                                     <constraint firstItem="Mrs-TB-Ndl" firstAttribute="leading" secondItem="Td3-D5-Ndy" secondAttribute="leading" id="elc-T0-GKz"/>
                                     <constraint firstAttribute="height" constant="50" id="ewg-rZ-iNG"/>
                                     <constraint firstItem="Mrs-TB-Ndl" firstAttribute="centerY" secondItem="Td3-D5-Ndy" secondAttribute="centerY" id="hoN-bb-dZu"/>
                                     <constraint firstAttribute="trailing" secondItem="dvB-cx-bkw" secondAttribute="trailing" id="scq-7V-33u"/>
+                                    <constraint firstItem="x51-Ne-A0W" firstAttribute="leading" secondItem="Mrs-TB-Ndl" secondAttribute="leading" id="wbM-TA-aul"/>
                                     <constraint firstItem="dvB-cx-bkw" firstAttribute="leading" secondItem="Td3-D5-Ndy" secondAttribute="leading" id="xWX-OS-MM4"/>
                                 </constraints>
                             </view>
@@ -1576,7 +1586,6 @@
                         <outlet property="hateContentsView" destination="4f0-v9-Rpl" id="46X-OC-VlL"/>
                         <outlet property="likeContentsStackView" destination="mcl-DB-Pfd" id="zaS-Oi-6AN"/>
                         <outlet property="likeContentsView" destination="fbs-YS-YJ0" id="pmp-Os-mQi"/>
-                        <outlet property="logo" destination="Mrs-TB-Ndl" id="wHn-lJ-K3k"/>
                         <outlet property="name" destination="RJn-4a-iI4" id="hKU-QZ-43t"/>
                     </connections>
                 </viewController>
