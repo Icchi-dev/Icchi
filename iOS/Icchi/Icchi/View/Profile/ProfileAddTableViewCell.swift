@@ -10,23 +10,11 @@ import UIKit
 
 class ProfileAddTableViewCell: UITableViewCell {
 
-    @IBOutlet weak var title: UILabel!
-    
-    override func awakeFromNib() {
-        super.awakeFromNib()
-        // Initialization code
-    }
-
-    override func setSelected(_ selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
-
-        // Configure the view for the selected state
-    }
+    @IBOutlet private weak var title: UILabel!
     
     public func configure(with:ItemRequester.ItemData?, isLike:Bool) {
         self.title.text = with?.name
         self.backgroundColor = isLike ? UIColor.likeRed : UIColor.hateBlue
         self.layer.cornerRadius = 20
     }
-
 }

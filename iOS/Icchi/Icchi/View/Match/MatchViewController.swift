@@ -9,20 +9,8 @@
 import UIKit
 
 class MatchViewController: UIViewController {
-
-    @IBOutlet weak var logo: UIImageView!
-    @IBOutlet weak var table: UITableView!
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        
-        // ロゴタップ
-        let logoTap = UITapGestureRecognizer(target:self, action:#selector(self.onTapLogo(_:)))
-        self.logo!.addGestureRecognizer(logoTap)
-    }
-    
-    // ロゴタップ
-    @objc func onTapLogo(_ sender: UITapGestureRecognizer) {
+    @IBAction func onTapLogo(_ sender: Any) {
         self.pop(animationType: .horizontal)
     }
 }

@@ -10,37 +10,37 @@ import UIKit
 
 class TutorialViewController: UIViewController {
 
-    @IBOutlet weak var typeTextView: UILabel!
-    @IBOutlet weak var countTextView: UILabel!
+    @IBOutlet private weak var typeTextView: UILabel!
+    @IBOutlet private weak var countTextView: UILabel!
     @IBOutlet private weak var contentsView: UIView!
     @IBOutlet private weak var questionLabel: UILabel!
     @IBOutlet private weak var textField: UITextField!
 
     private var pageIndex = 0
     private var questions = [
-        "趣味は？"
-        , "好きな\nアーティストは？"
-        , "好きな食べ物は？"
-        , "好きな言葉は？"
-        , "集めているものは？"
-        , "好きなスポーツは？"
-        , "好きなお笑い芸人は？"
-        , "今欲しいものは？"
-        , "特技は？"
-        , "好きな漫画・アニメは？"
-        , "怖いものは？"
-        , "嫌いな食べ物は？"
-        , "嫌いな言葉は？"
-        , "嫌いな時間や状況は？"
-        , "苦手なことは？"
-        , "嫌いな教科は？"
+        "趣味は？",
+        "好きな\nアーティストは？",
+        "好きな食べ物は？",
+        "好きな言葉は？",
+        "集めているものは？",
+        "好きなスポーツは？",
+        "好きなお笑い芸人は？",
+        "今欲しいものは？",
+        "特技は？",
+        "好きな漫画・アニメは？",
+        "怖いものは？",
+        "嫌いな食べ物は？",
+        "嫌いな言葉は？",
+        "嫌いな時間や状況は？",
+        "苦手なことは？",
+        "嫌いな教科は？"
     ]
     
-    private var likeAnswers:[String] = []
-    private var hateAnswers:[String] = []
+    private var likeAnswers: [String] = []
+    private var hateAnswers: [String] = []
     private var likeCreateIndex = 0
     private var hateCreateIndex = 0
-    private var tmpUserData:UserRequester.UserData? = nil
+    private var tmpUserData: UserRequester.UserData? = nil
     private var mIsAnimating = false
     
     @IBAction func didEndEditTextField(_ sender: Any) {

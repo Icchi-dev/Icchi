@@ -12,9 +12,9 @@ class ProfileViewController: UIViewController {
     
     private var tmpUserData: UserRequester.UserData?
     
-    @IBOutlet weak var name: UITextField!
-    @IBOutlet weak var age: UILabel!
-    @IBOutlet weak var gender: UILabel!
+    @IBOutlet private weak var name: UITextField!
+    @IBOutlet private weak var age: UILabel!
+    @IBOutlet private weak var gender: UILabel!
     
     @IBOutlet private weak var likeContentsStackView: UIStackView!
     @IBOutlet private weak var hateContentsStackView: UIStackView!
@@ -29,16 +29,8 @@ class ProfileViewController: UIViewController {
         if let userData = UserRequester.sharedManager.query(SaveData.shared.userId) {
             self.tmpUserData = userData
         }
-                
-        // 年齢タップ
-        let ageTapGesture = UITapGestureRecognizer(target: self, action: #selector(self.onTapAge(_:)))
-        self.age!.addGestureRecognizer(ageTapGesture)
-        
-        // 性別タップ
-        let sexTapGesture = UITapGestureRecognizer(target: self, action: #selector(self.onTapSex(_:)))
-        self.gender!.addGestureRecognizer(sexTapGesture)
-        
     }
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
@@ -49,89 +41,6 @@ class ProfileViewController: UIViewController {
         super.viewDidAppear(animated)
 
         self.refreshScrollSize()
-    }
-    
-    
-    private func stackAddViewController(isLike: Bool) {
-        let addViewController = self.viewController(storyboard: "Main", identifier: "ProfileAddViewController") as! ProfileAddViewController
-        addViewController.set(isLike: isLike, exceptItemIdList: isLike ? self.tmpUserData?.likes : self.tmpUserData?.hates)
-        self.stack(viewController: addViewController, animationType: .horizontal)
-    }
-    
-    @IBAction func onTapAddLike(_ sender: Any) {
-        self.stackAddViewController(isLike: true)
-    }
-    
-    @IBAction func onTapAddHate(_ sender: Any) {
-        self.stackAddViewController(isLike: false)
-    }
-    
-    // キーボードリターン
-    @IBAction func onDidEndOnExit(_ sender: Any) {
-        self.view.endEditing(true)
-    }
-    
-    // 年齢タップ
-    @objc func onTapAge(_ sender: UITapGestureRecognizer) {
-        var alertActions:[AlertAction] = []
-        
-        let items:[String] = [
-            UserRequester.AgeType.u20.display(),
-            UserRequester.AgeType.s20.display(),
-            UserRequester.AgeType.s30.display(),
-            UserRequester.AgeType.s40.display(),
-            UserRequester.AgeType.s50.display(),
-            UserRequester.AgeType.o60.display()
-        ];
-        
-        items.forEach { (item) in
-            let action = AlertAction(title: item, action: { (title:String) in
-                self.age.text = title
-                self.age.textColor = UIColor.black
-                
-                let items:[UserRequester.AgeType] = [
-                    UserRequester.AgeType.u20,
-                    UserRequester.AgeType.s20,
-                    UserRequester.AgeType.s30,
-                    UserRequester.AgeType.s40,
-                    UserRequester.AgeType.s50,
-                    UserRequester.AgeType.o60
-                ];
-                
-                self.tmpUserData?.age = items.first(where: {return $0.display() == title})
-            })
-            alertActions.append(action)
-        }
-        let cancelAction = AlertAction(title: "キャンセル")
-        alertActions.append(cancelAction)
-        self.showAlert(title: "年齢", message: nil, actions: alertActions)
-    }
-    
-    // 性別タップ
-    @objc func onTapSex(_ sender: UITapGestureRecognizer) {
-        var alertActions:[AlertAction] = []
-        
-        let items:[String] = [
-            UserRequester.GenderType.male.display(),
-            UserRequester.GenderType.female.display(),
-            ];
-        
-        items.forEach { (item) in
-            let action = AlertAction(title: item, action: { (title:String) in
-                self.gender.text = title
-                self.gender.textColor = UIColor.black
-                
-                let items:[UserRequester.GenderType] = [
-                    UserRequester.GenderType.male,
-                    UserRequester.GenderType.female,
-                    ];
-                self.tmpUserData?.gender = items.first(where: {return $0.display() == title})
-            })
-            alertActions.append(action)
-        }
-        let cancelAction = AlertAction(title: "キャンセル")
-        alertActions.append(cancelAction)
-        self.showAlert(title: "性別", message: nil, actions: alertActions)
     }
     
     private func setProfile(userData:UserRequester.UserData?) {
@@ -168,6 +77,88 @@ class ProfileViewController: UIViewController {
         }
         
         self.refreshScrollSize()
+    }
+    
+    private func stackAddViewController(isLike: Bool) {
+        let addViewController = self.viewController(storyboard: "Main", identifier: "ProfileAddViewController") as! ProfileAddViewController
+        addViewController.set(isLike: isLike, exceptItemIdList: isLike ? self.tmpUserData?.likes : self.tmpUserData?.hates)
+        self.stack(viewController: addViewController, animationType: .horizontal)
+    }
+    
+    @IBAction func onTapAddLike(_ sender: Any) {
+        self.stackAddViewController(isLike: true)
+    }
+    
+    @IBAction func onTapAddHate(_ sender: Any) {
+        self.stackAddViewController(isLike: false)
+    }
+    
+    // キーボードリターン
+    @IBAction func onDidEndOnExit(_ sender: Any) {
+        self.view.endEditing(true)
+    }
+    
+    @IBAction func onTapAge(_ sender: Any) {
+        
+        var alertActions:[AlertAction] = []
+        
+        let items:[String] = [
+            UserRequester.AgeType.u20.display(),
+            UserRequester.AgeType.s20.display(),
+            UserRequester.AgeType.s30.display(),
+            UserRequester.AgeType.s40.display(),
+            UserRequester.AgeType.s50.display(),
+            UserRequester.AgeType.o60.display()
+        ];
+        
+        items.forEach { (item) in
+            let action = AlertAction(title: item, action: { (title:String) in
+                self.age.text = title
+                self.age.textColor = UIColor.black
+                
+                let items:[UserRequester.AgeType] = [
+                    UserRequester.AgeType.u20,
+                    UserRequester.AgeType.s20,
+                    UserRequester.AgeType.s30,
+                    UserRequester.AgeType.s40,
+                    UserRequester.AgeType.s50,
+                    UserRequester.AgeType.o60
+                ];
+                
+                self.tmpUserData?.age = items.first(where: {return $0.display() == title})
+            })
+            alertActions.append(action)
+        }
+        let cancelAction = AlertAction(title: "キャンセル")
+        alertActions.append(cancelAction)
+        self.showAlert(title: "年齢", message: nil, actions: alertActions)
+    }
+    
+    @IBAction func onTapGender(_ sender: Any) {
+        
+        var alertActions:[AlertAction] = []
+        
+        let items:[String] = [
+            UserRequester.GenderType.male.display(),
+            UserRequester.GenderType.female.display(),
+            ];
+        
+        items.forEach { (item) in
+            let action = AlertAction(title: item, action: { (title:String) in
+                self.gender.text = title
+                self.gender.textColor = UIColor.black
+                
+                let items:[UserRequester.GenderType] = [
+                    UserRequester.GenderType.male,
+                    UserRequester.GenderType.female,
+                    ];
+                self.tmpUserData?.gender = items.first(where: {return $0.display() == title})
+            })
+            alertActions.append(action)
+        }
+        let cancelAction = AlertAction(title: "キャンセル")
+        alertActions.append(cancelAction)
+        self.showAlert(title: "性別", message: nil, actions: alertActions)
     }
     
     private func refreshScrollSize() -> Void {

@@ -9,8 +9,6 @@
 import UIKit
 
 class ProfileAddViewController: UIViewController {
-
-    @IBOutlet weak var logo: UIImageView!
     
     @IBOutlet weak var contentsBaseLayout: UIView!
     @IBOutlet weak var isLikeTextView: UILabel!
@@ -31,11 +29,6 @@ class ProfileAddViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        // ロゴタップ
-        let logoTap = UITapGestureRecognizer(target:self, action:#selector(self.onTapLogo(_:)))
-        self.logo!.addGestureRecognizer(logoTap)
-        
         
         if self.isLike {
             isLikeTextView.text = "好き"
@@ -66,11 +59,6 @@ class ProfileAddViewController: UIViewController {
         resetTableView(search:self.searchEditText.text)
     }
     
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        
-    }
-    
     func resetTableView(search:String?) {
         
         if let search = search, search.count > 0 {
@@ -87,11 +75,9 @@ class ProfileAddViewController: UIViewController {
         resetTableView(search:self.searchEditText.text)
     }
     
-    // ロゴタップ
-    @objc func onTapLogo(_ sender: UITapGestureRecognizer) {
+    @IBAction func onTapLogo(_ sender: Any) {
         self.pop(animationType: .horizontal)
     }
-    
 }
 
 extension ProfileAddViewController:UITableViewDelegate, UITableViewDataSource {
