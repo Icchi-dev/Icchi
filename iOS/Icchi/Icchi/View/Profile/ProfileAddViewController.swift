@@ -17,7 +17,8 @@ class ProfileAddViewController: UIViewController {
     
     @IBOutlet weak var grassImageView: UIImageView!
     
-    @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var collectionView: UICollectionView!
+    
     var itemDatas:[ItemRequester.ItemData]?
     
     private var isLike:Bool = true
@@ -64,7 +65,7 @@ class ProfileAddViewController: UIViewController {
         if let search = search, search.count > 0 {
             self.itemDatas = ItemRequester.sharedManager.mDataList.filter({return $0.name?.contains(search) ?? false})
         }
-        self.tableView.reloadData()
+        self.collectionView.reloadData()
     }
     
     @IBAction func onDidEndExit(_ sender: Any) {
@@ -80,47 +81,51 @@ class ProfileAddViewController: UIViewController {
     }
 }
 
-extension ProfileAddViewController:UITableViewDelegate, UITableViewDataSource {
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+extension ProfileAddViewController:UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
+    
+    func numberOfSections(in collectionView: UICollectionView) -> Int {
         return 1
     }
-    func numberOfSections(in tableView: UITableView) -> Int {
+    
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return self.itemDatas?.count ?? 0
     }
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "ProfileAddTableViewCell", for: indexPath) as! ProfileAddTableViewCell
-        cell.selectionStyle = UITableViewCellSelectionStyle.none
-        
-        cell.configure(with: self.itemDatas?[indexPath.section], isLike:self.isLike)
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier:"ProfileAddCollectionViewCell", for:indexPath) as! ProfileAddCollectionViewCell
+
+        //cell.selectionStyle = UITableViewCellSelectionStyle.none
+        cell.configure(with: self.itemDatas?[indexPath.row], isLike:self.isLike)
         return cell
+        
     }
     
-    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return 5
-    }
-    func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
-        return 5
-    }
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         
-        let selectData = self.itemDatas?[indexPath.section]
-        
+        let selectData = self.itemDatas?[indexPath.row]
+
         if let profile = self.parent as? ProfileViewController {
             profile.addItemId(itemId: selectData?.itemId, isLike: self.isLike)
         }
-        
+
         self.pop(animationType: .horizontal)
     }
-    
-    public func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        let v = UIView()
-        v.backgroundColor = UIColor.clear
-        return v
+
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+
+        let selectData = self.itemDatas?[indexPath.row]
+
+        return self.newSize(selectData?.name);
+    }
+
+    public func newSize(_ name:String?) -> CGSize {
+        
+        let label = UILabel()
+        label.text = name!
+        label.font = UIFont.boldSystemFont(ofSize: 20)
+        let newSize = label.sizeThatFits(CGSize(width:400, height:300))
+        return CGSize(width:newSize.width + 53, height:50)
     }
     
-    public func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
-        let v = UIView()
-        v.backgroundColor = UIColor.clear
-        return v
-    }
 }
