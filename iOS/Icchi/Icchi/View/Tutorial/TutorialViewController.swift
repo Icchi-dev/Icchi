@@ -205,8 +205,8 @@ class TutorialViewController: UIViewController {
                 saveData.isInitialized = true
                 saveData.save()
     
-                let myPageViewController = self.viewController(storyboard: "Main", identifier: "MyPageViewController") as! MyPageViewController
-                self.stack(viewController: myPageViewController, animationType: .vertical)
+                let likeListViewController = self.viewController(storyboard: "Main", identifier: "LikeListViewController") as! LikeListViewController
+                self.stack(viewController: likeListViewController, animationType: .vertical)
             }
             else {
                 

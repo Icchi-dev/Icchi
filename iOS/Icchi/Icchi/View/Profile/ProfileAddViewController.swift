@@ -65,6 +65,9 @@ class ProfileAddViewController: UIViewController {
         if let search = search, search.count > 0 {
             self.itemDatas = ItemRequester.sharedManager.mDataList.filter({return $0.name?.contains(search) ?? false})
         }
+        else {
+            self.itemDatas = ItemRequester.sharedManager.mDataList
+        }
         self.collectionView.reloadData()
     }
     
@@ -95,7 +98,6 @@ extension ProfileAddViewController:UICollectionViewDataSource, UICollectionViewD
 
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier:"ProfileAddCollectionViewCell", for:indexPath) as! ProfileAddCollectionViewCell
 
-        //cell.selectionStyle = UITableViewCellSelectionStyle.none
         cell.configure(with: self.itemDatas?[indexPath.row], isLike:self.isLike)
         return cell
         

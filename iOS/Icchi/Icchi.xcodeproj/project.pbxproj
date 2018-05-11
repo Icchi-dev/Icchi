@@ -30,6 +30,7 @@
 		5BF22E9720A5B1DF0054FA11 /* ProfileAddCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BF22E9520A5B1DE0054FA11 /* ProfileAddCollectionViewCell.swift */; };
 		5BF22E9820A5B1DF0054FA11 /* CollectionViewFlowLayoutLeftAlign.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BF22E9620A5B1DF0054FA11 /* CollectionViewFlowLayoutLeftAlign.swift */; };
 		5BF22E9A20A5B2160054FA11 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5BF22E9920A5B2140054FA11 /* Assets.xcassets */; };
+		5BF22E9C20A5B6330054FA11 /* LikeListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BF22E9B20A5B6320054FA11 /* LikeListViewController.swift */; };
 		BB6BBA0A20176D0E00CC4179 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB6BBA0920176D0E00CC4179 /* LoginViewController.swift */; };
 		BB6BBA0F20176D5200CC4179 /* MyPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB6BBA0E20176D5100CC4179 /* MyPageViewController.swift */; };
 		BB6BBA1120176D5600CC4179 /* TutorialViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB6BBA1020176D5600CC4179 /* TutorialViewController.swift */; };
@@ -76,6 +77,7 @@
 		5BF22E9520A5B1DE0054FA11 /* ProfileAddCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ProfileAddCollectionViewCell.swift; path = icchi/View/Profile/ProfileAddCollectionViewCell.swift; sourceTree = SOURCE_ROOT; };
 		5BF22E9620A5B1DF0054FA11 /* CollectionViewFlowLayoutLeftAlign.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CollectionViewFlowLayoutLeftAlign.swift; path = icchi/View/Profile/CollectionViewFlowLayoutLeftAlign.swift; sourceTree = SOURCE_ROOT; };
 		5BF22E9920A5B2140054FA11 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Assets.xcassets; path = icchi/Assets.xcassets; sourceTree = SOURCE_ROOT; };
+		5BF22E9B20A5B6320054FA11 /* LikeListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LikeListViewController.swift; path = icchi/View/Tutorial/LikeListViewController.swift; sourceTree = SOURCE_ROOT; };
 		7CBF87828A2E52901754E087 /* Pods-Icchi.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Icchi.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Icchi/Pods-Icchi.debug.xcconfig"; sourceTree = "<group>"; };
 		900095789B8231EC9494EBD8 /* Pods_Icchi.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Icchi.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		BB6BBA0920176D0E00CC4179 /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
@@ -223,6 +225,7 @@
 		BB6BBA0C20176D3000CC4179 /* Tutorial */ = {
 			isa = PBXGroup;
 			children = (
+				5BF22E9B20A5B6320054FA11 /* LikeListViewController.swift */,
 				BB6BBA1020176D5600CC4179 /* TutorialViewController.swift */,
 			);
 			path = Tutorial;
@@ -457,6 +460,7 @@
 				5BF22E9720A5B1DF0054FA11 /* ProfileAddCollectionViewCell.swift in Sources */,
 				BBE8920B20189FFC004EE765 /* ProfileAddViewController.swift in Sources */,
 				5BE222C4203EEF890016B40B /* Loading.swift in Sources */,
+				5BF22E9C20A5B6330054FA11 /* LikeListViewController.swift in Sources */,
 				BB6BBA1120176D5600CC4179 /* TutorialViewController.swift in Sources */,
 				BB6BBA1D20176EA300CC4179 /* CALayer+Border.swift in Sources */,
 				5B25BBA92056A5DC001408DF /* CircleImageView.swift in Sources */,
