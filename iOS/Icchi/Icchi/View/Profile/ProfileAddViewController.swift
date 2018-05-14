@@ -57,26 +57,44 @@ class ProfileAddViewController: UIViewController {
             
             return !exceptItemIdList.contains(itemId)
         })
-        resetTableView(search:self.searchEditText.text)
+        resetCollectionView(search:self.searchEditText.text)
     }
     
-    func resetTableView(search:String?) {
+    func resetCollectionView(search:String?) {
+
+        var shuffledItemDatas = ItemRequester.sharedManager.mDataList
+        shuffledItemDatas = shuffledItemDatas.shuffled
         
+        var itemDatas:[ItemRequester.ItemData] = []
+        
+        // 検索文字列あり
         if let search = search, search.count > 0 {
-            self.itemDatas = ItemRequester.sharedManager.mDataList.filter({return $0.name?.contains(search) ?? false})
+            
+            // 検索にヒットしたアイテムを全て表示
+            shuffledItemDatas.filter({return $0.name?.contains(search) ?? false
+                ||  $0.kana?.contains(search) ?? false}).forEach {
+                    itemDatas.append($0)
+            }
         }
-        else {
-            self.itemDatas = ItemRequester.sharedManager.mDataList
+        
+        // 最初の10件を表示する
+        for i in 0...9 where i<shuffledItemDatas.count {
+            itemDatas.append(shuffledItemDatas[i])
         }
+        
+        // 表示対象に登録
+        self.itemDatas = itemDatas
+        
+        // 再表示
         self.collectionView.reloadData()
     }
     
     @IBAction func onDidEndExit(_ sender: Any) {
-        resetTableView(search:self.searchEditText.text)
+        resetCollectionView(search:self.searchEditText.text)
     }
     
     @IBAction func onSearchEditChanged(_ sender: Any) {
-        resetTableView(search:self.searchEditText.text)
+        resetCollectionView(search:self.searchEditText.text)
     }
     
     @IBAction func onTapLogo(_ sender: Any) {
@@ -127,7 +145,7 @@ extension ProfileAddViewController:UICollectionViewDataSource, UICollectionViewD
         label.text = name!
         label.font = UIFont.boldSystemFont(ofSize: 20)
         let newSize = label.sizeThatFits(CGSize(width:400, height:300))
-        return CGSize(width:newSize.width + 53, height:50)
+        return CGSize(width:newSize.width + 40, height:50)
     }
     
 }
