@@ -2,27 +2,37 @@ package leapfrog_inc.icchi.Fragment.Profile;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.ContactsContract;
+import android.util.TypedValue;
+import android.view.Gravity;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.HorizontalScrollView;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.facebook.common.Common;
+
 import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.Collections;
 
 import leapfrog_inc.icchi.Fragment.BaseFragment;
 import leapfrog_inc.icchi.Fragment.FragmentController;
 import leapfrog_inc.icchi.Fragment.Match.MatchFragment;
+import leapfrog_inc.icchi.Function.CommonUtility;
 import leapfrog_inc.icchi.Function.SaveData;
 import leapfrog_inc.icchi.Http.Requester.AccountRequester;
 import leapfrog_inc.icchi.Http.Requester.ItemRequester;
@@ -44,12 +54,14 @@ public class LikeListFragment extends BaseFragment {
 
         View view = inflater.inflate(R.layout.fragment_like_list, null);
 
-        initListView(view);
+        initContents(view);
 
         ((Button)view.findViewById(R.id.okButton)).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-            gotoProfile();
+                // プロフィール画面へ
+                ProfileFragment fragment = new ProfileFragment();
+                FragmentController.getInstance().stack(fragment, FragmentController.AnimationType.horizontal);
             }
         });
 
@@ -63,106 +75,114 @@ public class LikeListFragment extends BaseFragment {
         return view;
     }
 
-    private void initListView(View view) {
+    private int getContentsWidth() {
+        return CommonUtility.getWindowSize(getActivity()).x - (int)(CommonUtility.getDeviceDensity(getActivity()) * (float)50);
+    }
 
-        ListView listView = (ListView)view.findViewById(R.id.listView);
-        LikeListAdapter adapter = new LikeListAdapter(getActivity());
+    private int getTextViewWidth(String text) {
+        return (int)(CommonUtility.getDeviceDensity(getActivity()) * 14 * text.length()) + 40;
+    }
 
-        ArrayList<UserRequester.UserData> userList = UserRequester.getInstance().getDataList();
-        for (int i = userList.size() - 1; i >= 0; i--) {
-            UserRequester.UserData userData = userList.get(i);
-            if (!SaveData.getInstance().userId.equals(userData.userId)) {
-                adapter.add(userData);
-            }
-        }
-        adapter.notifyDataSetChanged();
-        listView.setAdapter(adapter);
+    private void initContents(View view) {
 
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        addItems((LinearLayout)view.findViewById(R.id.likeBaseLayout), true);
+        addItems((LinearLayout)view.findViewById(R.id.hateBaseLayout), false);
+        
+        ((HorizontalScrollView)view.findViewById(R.id.horizontalScrollView)).setOnTouchListener(new View.OnTouchListener() {
             @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-
-                CheckBox checkBox = (CheckBox)view.findViewById(R.id.checkBox);
-                if (checkBox.isChecked()) {
-                    checkBox.setChecked(false);
-                    if (mCheckList.contains(i)) mCheckList.remove((Integer) i);
-                } else {
-                    checkBox.setChecked(true);
-                    if (!mCheckList.contains(i)) mCheckList.add((Integer)i);
-                }
-            }
-        });
-                }
-
-    // ユーザ情報を更新してプロフィール画面へ遷移する
-    private void gotoProfile() {
-
-        UserRequester.UserData myUserData = UserRequester.getInstance().query(SaveData.getInstance().userId);
-        ArrayList<UserRequester.UserData> userList = UserRequester.getInstance().getDataList();
-
-        for (int i = 0; i < mCheckList.size(); i++) {
-            int uesrIndex = userList.size() - 1 - mCheckList.get(i);
-            if (uesrIndex < userList.size()) {
-                UserRequester.UserData userData = userList.get(uesrIndex);
-                for (int j = 0; j < userData.likes.size(); j++) {
-                    if (!myUserData.likes.contains(userData.likes.get(j))) {
-                        myUserData.likes.add(userData.likes.get(j));
+            public boolean onTouch(View view, MotionEvent motionEvent) {
+                if (motionEvent.getAction() == MotionEvent.ACTION_UP) {
+                    int targetX = 0;
+                    int contentsWidth = getContentsWidth();
+                    if (view.getScrollX() > contentsWidth / 2) {
+                        targetX = contentsWidth;
                     }
+                    final int fTargetX = targetX;
+                    final HorizontalScrollView scrollView = (HorizontalScrollView)view;
+                    scrollView.post(new Runnable() {
+                        @Override
+                        public void run() {
+                            scrollView.smoothScrollTo(fTargetX, 0);
+                        }
+                    });
                 }
-            }
-        }
-
-        AccountRequester.update(myUserData, new AccountRequester.UpdateCallback() {
-            @Override
-            public void didReceive(boolean result) {
-                if (result) {
-                    // プロフィール画面へ
-                    ProfileFragment fragment = new ProfileFragment();
-                    FragmentController.getInstance().stack(fragment, FragmentController.AnimationType.horizontal);
-                } else {
-                    AlertUtility.showAlert(getActivity(), "エラー", "通信に失敗しました", "OK", null);
-                }
+                return false;
             }
         });
     }
 
-    public static class LikeListAdapter extends ArrayAdapter<UserRequester.UserData> {
+    private void addItems(LinearLayout baseLayout, boolean isLike) {
 
-        LayoutInflater mInflater;
-        Context mContext;
+        ViewGroup.LayoutParams likeParams = baseLayout.getLayoutParams();
+        likeParams.width = getContentsWidth();
+        baseLayout.setLayoutParams(likeParams);
 
-        public LikeListAdapter(Context context){
-            super(context, 0);
-            mInflater = LayoutInflater.from(context);
-            mContext = context;
-        }
-
-        @Override
-        public View getView(int position, View convertView, ViewGroup parent) {
-
-            convertView = mInflater.inflate(R.layout.adapter_like_list, parent, false);
-
-            UserRequester.UserData userData = getItem(position);
-
-            PicassoUtility.getPicassoRoundImage(mContext, userData.image, (ImageView)convertView.findViewById(R.id.faceImageView));
-            ((TextView)convertView.findViewById(R.id.nameTextView)).setText(userData.name);
-
-            StringBuffer likesString = new StringBuffer();
-            for (int i = 0; i < userData.likes.size(); i++) {
-                ItemRequester.ItemData itemData = ItemRequester.getInstance().query(userData.likes.get(i));
-                if (itemData != null) {
-                    if (i >= 1) {
-                        likesString.append("、");
+        ArrayList<String> itemIdList = new ArrayList<String>();
+        ArrayList<UserRequester.UserData> userList = UserRequester.getInstance().getDataList();
+        for (int i = 0; i < userList.size(); i++) {
+            UserRequester.UserData userData = userList.get(i);
+            ArrayList<String> userItemNos = null;
+            if (isLike) {
+                userItemNos = userData.likes;
+            } else {
+                userItemNos = userData.hates;
+            }
+            for (int j = 0; j < userItemNos.size(); j++) {
+                String itemId = userItemNos.get(j);
+                if (!itemIdList.contains(itemId)) {
+                    ItemRequester.ItemData itemData = ItemRequester.getInstance().query(itemId);
+                    if (itemData != null) {
+                        itemIdList.add(itemData.itemId);
                     }
-                    likesString.append(itemData.name);
                 }
             }
-            ((TextView)convertView.findViewById(R.id.likeTextView)).setText(likesString.toString());
+        }
+        Collections.shuffle(itemIdList);
 
-            boolean isChecked = LikeListFragment.mCheckList.contains(position);
-            ((CheckBox)convertView.findViewById(R.id.checkBox)).setChecked(isChecked);
+        LinearLayout lineLayout = null;
+        int currentOffset = 0;
 
-            return convertView;
+        for (int i = 0; i < itemIdList.size(); i++) {
+            if ((lineLayout == null) || (currentOffset == 0)) {
+                lineLayout = new LinearLayout(getActivity());
+                lineLayout.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT));
+                lineLayout.setOrientation(LinearLayout.HORIZONTAL);
+            }
+            ItemRequester.ItemData itemData = ItemRequester.getInstance().query(itemIdList.get(i));
+            String itemName = itemData.name;
+            TextView textView = new TextView(getActivity());
+            textView.setText(itemName);
+            textView.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 14);
+            textView.setTextColor(Color.WHITE);
+            if (isLike) {
+                textView.setBackgroundResource(R.layout.shape_profile_likecontents);
+            } else {
+                textView.setBackgroundResource(R.layout.shape_profile_hatecontents);
+            }
+            textView.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
+            int width = getTextViewWidth(itemName);
+            ViewGroup.MarginLayoutParams params = new ViewGroup.MarginLayoutParams(new LinearLayout.LayoutParams(width, (int)(CommonUtility.getDeviceDensity(getActivity()) * 30)));
+            int margin = (int)(CommonUtility.getDeviceDensity(getActivity()) * 8);
+            params.topMargin = margin;
+            params.leftMargin = margin;
+            textView.setLayoutParams(params);
+            textView.setGravity(Gravity.CENTER_VERTICAL);
+
+            lineLayout.addView(textView);
+
+            currentOffset += (width + margin);
+
+            if (i != itemIdList.size() - 1) {
+                String nextItemName = ItemRequester.getInstance().query(itemIdList.get(i + 1)).name;
+                int nextTextViewWidth = getTextViewWidth(nextItemName) + 2 * margin;
+                if (currentOffset + nextTextViewWidth > getContentsWidth()) {
+                    baseLayout.addView(lineLayout);
+                    currentOffset = 0;
+                }
+            } else {
+                baseLayout.addView(lineLayout);
+                currentOffset = 0;
+            }
         }
     }
 }

@@ -87,15 +87,27 @@
 
         </LinearLayout>
 
-        <ListView
-            android:id="@+id/listView"
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="みんなのワードランダム表示"
+            android:textSize="14dp"
+            android:textColor="#333"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="14dp"/>
+
+        <ScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="14dp"
             android:layout_marginLeft="20dp"
             android:layout_marginRight="20dp"
-            android:layout_marginBottom="20dp"
-            android:divider="@null"
-            android:scrollbars="none"/>
+            android:layout_marginBottom="20dp">
+            <LinearLayout
+                android:id="@+id/contentsLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"/>
+        </ScrollView>
     </LinearLayout>
 </LinearLayout>

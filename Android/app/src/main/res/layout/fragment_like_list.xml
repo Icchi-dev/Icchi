@@ -38,24 +38,88 @@
         android:background="#ececec"/>
 
     <TextView
-        android:id="@+id/questionTextView"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="30dp"
-        android:layout_marginLeft="30dp"
-        android:layout_marginRight="30dp"
-        android:text="他のユーザーは好きな物を\nたくさん登録しています"
+        android:text="他のユーザーが\n登録しているワード"
         android:textSize="14dp"
         android:textStyle="bold"
         android:textColor="#333"
-        android:gravity="center" />
+        android:textAlignment="center"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="30dp"/>
 
-    <ListView
-        android:id="@+id/listView"
+    <HorizontalScrollView
+        android:id="@+id/horizontalScrollView"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
-        android:layout_marginTop="20dp" />
+        android:scrollbars="none">
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+            <LinearLayout
+                android:id="@+id/likeBaseLayout"
+                android:layout_width="100dp"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:background="@layout/shape_profile_likebase"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginBottom="20dp">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="好き"
+                    android:textColor="@color/likeRed"
+                    android:textStyle="bold"
+                    android:textSize="14dp"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="14dp"/>
+                <ScrollView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp">
+                    <LinearLayout
+                        android:id="@+id/likeContentsLayout"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical" />
+                </ScrollView>
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/hateBaseLayout"
+                android:layout_width="100dp"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:background="@layout/shape_profile_hatebase"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginBottom="20dp">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="嫌い"
+                    android:textColor="@color/hateBlue"
+                    android:textStyle="bold"
+                    android:textSize="14dp"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="14dp"/>
+                <ScrollView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <LinearLayout
+                        android:id="@+id/hateContentsLayout"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical" />
+                </ScrollView>
+            </LinearLayout>
+        </LinearLayout>
+
+    </HorizontalScrollView>
 
     <Button
         android:id="@+id/okButton"

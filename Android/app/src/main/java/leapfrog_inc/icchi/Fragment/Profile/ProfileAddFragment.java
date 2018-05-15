@@ -6,6 +6,8 @@ import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.TypedValue;
+import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -21,6 +23,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 import leapfrog_inc.icchi.Activity.MainActivity;
 import leapfrog_inc.icchi.Fragment.BaseFragment;
@@ -54,7 +57,7 @@ public class ProfileAddFragment extends BaseFragment {
             }
         });
 
-        resetListView((ListView)view.findViewById(R.id.listView), "");
+        resetContents((LinearLayout)view.findViewById(R.id.contentsLayout), "");
 
         EditText searchEditText = (EditText)view.findViewById(R.id.searchEditText);
         searchEditText.addTextChangedListener(new TextWatcher() {
@@ -70,7 +73,7 @@ public class ProfileAddFragment extends BaseFragment {
                 ListView listView = (ListView)view.findViewById(R.id.listView);
                 String text = editable.toString();
                 if ((listView != null) && (text != null)) {
-                    resetListView(listView, text);
+                    resetContents((LinearLayout)view.findViewById(R.id.contentsLayout), text);
                 }
             }
         });
@@ -104,39 +107,87 @@ public class ProfileAddFragment extends BaseFragment {
         return view;
     }
 
-    private void resetListView(ListView listView, String text) {
+    private void resetContents(LinearLayout baseLayout, String text) {
 
-        ProfileAddAdapter adapter = new ProfileAddAdapter(getActivity(), mIsLike);
+        ArrayList<ItemRequester.ItemData> shuffledItemDatas = ItemRequester.getInstance().getDataList();
+        Collections.shuffle(shuffledItemDatas);
+        ArrayList<ItemRequester.ItemData> itemDatas = new ArrayList<ItemRequester.ItemData>();
 
-        ArrayList<ItemRequester.ItemData> itemDatas = ItemRequester.getInstance().getDataList();
-
-        if (text.length() == 0) {
-            for (int i = 0; i < 10; i++) {
-                if (itemDatas.size() > i) {
-                    adapter.add(itemDatas.get(i).name);
+        // 検索文字列あり
+        if (text.length() > 0) {
+            // 検索にヒットしたアイテムを全て表示
+            for (int i = 0; i < shuffledItemDatas.size(); i++) {
+                ItemRequester.ItemData itemData = shuffledItemDatas.get(i);
+                if ((itemData.name.indexOf(text) != -1) || (itemData.kana.indexOf(text) != -1)) {
+                    itemDatas.add(itemData);
                 }
             }
         } else {
-            for (int i = 0; i < itemDatas.size(); i++) {
-                ItemRequester.ItemData itemData = itemDatas.get(i);
-                if ((itemData.name.indexOf(text) != -1) || (itemData.kana.indexOf(text) != -1)) {
-                    adapter.add(itemDatas.get(i).name);
+            // ランダムに10個表示
+            for (int i = 0; i < 10; i++) {
+                if (shuffledItemDatas.size() > i) {
+                    itemDatas.add(shuffledItemDatas.get(i));
                 }
             }
         }
 
-        adapter.notifyDataSetChanged();
-        listView.setAdapter(adapter);
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                String itemName = (String)adapterView.getItemAtPosition(i);
-                String itemId = ItemRequester.getInstance().queryId(itemName);
-                if (itemId != null) {
-                    notifyToProfile(itemId);
-                }
+        LinearLayout lineLayout = null;
+        int currentOffset = 0;
+
+        for (int i = 0; i < itemDatas.size(); i++) {
+            if ((lineLayout == null) || (currentOffset == 0)) {
+                lineLayout = new LinearLayout(getActivity());
+                lineLayout.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT));
+                lineLayout.setOrientation(LinearLayout.HORIZONTAL);
             }
-        });
+            final ItemRequester.ItemData itemData = itemDatas.get(i);
+            String itemName = itemData.name;
+            TextView textView = new TextView(getActivity());
+            textView.setText(itemName);
+            textView.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 14);
+            textView.setTextColor(Color.WHITE);
+            if (mIsLike) {
+                textView.setBackgroundResource(R.layout.shape_profile_likecontents);
+            } else {
+                textView.setBackgroundResource(R.layout.shape_profile_hatecontents);
+            }
+            textView.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
+            int width = getTextViewWidth(itemName);
+            ViewGroup.MarginLayoutParams params = new ViewGroup.MarginLayoutParams(new LinearLayout.LayoutParams(width, (int)(CommonUtility.getDeviceDensity(getActivity()) * 30)));
+            int margin = (int)(CommonUtility.getDeviceDensity(getActivity()) * 8);
+            params.topMargin = margin;
+            params.leftMargin = margin;
+            textView.setLayoutParams(params);
+            textView.setGravity(Gravity.CENTER_VERTICAL);
+            textView.setClickable(true);
+            textView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    notifyToProfile(itemData.itemId);
+                }
+            });
+
+            lineLayout.addView(textView);
+
+            currentOffset += (width + margin);
+
+            if (i != itemDatas.size() - 1) {
+                String nextItemName = itemDatas.get(i + 1).name;
+                int nextTextViewWidth = getTextViewWidth(nextItemName) + 2 * margin;
+                int contentsWidth = (int)(CommonUtility.getWindowSize(getActivity()).x - CommonUtility.getDeviceDensity(getActivity()) * 100);
+                if (currentOffset + nextTextViewWidth > contentsWidth) {
+                    baseLayout.addView(lineLayout);
+                    currentOffset = 0;
+                }
+            } else {
+                baseLayout.addView(lineLayout);
+                currentOffset = 0;
+            }
+        }
+    }
+
+    private int getTextViewWidth(String text) {
+        return (int)(CommonUtility.getDeviceDensity(getActivity()) * 14 * text.length()) + 40;
     }
 
     private void createItem() {
@@ -200,35 +251,6 @@ public class ProfileAddFragment extends BaseFragment {
                 message = "\"好き\"に登録されたコンテンツです";
             }
             AlertUtility.showAlert(getActivity(), "エラー", message, "OK", null);
-        }
-    }
-
-    public static class ProfileAddAdapter extends ArrayAdapter<String> {
-
-        LayoutInflater mInflater;
-        Context mContext;
-        boolean mIsLike;
-
-        public ProfileAddAdapter(Context context, boolean isLike){
-            super(context, 0);
-            mInflater = LayoutInflater.from(context);
-            mContext = context;
-            mIsLike = isLike;
-        }
-
-        @Override
-        public View getView(int position, View convertView, ViewGroup parent) {
-
-            convertView = mInflater.inflate(R.layout.adapter_profileadd, parent, false);
-
-            if (!mIsLike) {
-                ((LinearLayout)convertView.findViewById(R.id.baseLayout)).setBackgroundResource(R.layout.shape_profileadd_content_hate);
-            }
-
-            String text = getItem(position);
-            ((TextView)convertView.findViewById(R.id.contentTextView)).setText(text);
-
-            return convertView;
         }
     }
 }
