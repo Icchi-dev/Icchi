@@ -1718,23 +1718,30 @@
                                                             <action selector="onSearchEditChanged:" destination="ERj-7i-nJ5" eventType="valueChanged" id="tMs-GL-TwF"/>
                                                         </connections>
                                                     </textField>
-                                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="profileadd_grass_like" translatesAutoresizingMaskIntoConstraints="NO" id="BZm-Lh-Klj">
-                                                        <rect key="frame" x="299" y="5" width="30" height="30"/>
+                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jqu-m0-cwA">
+                                                        <rect key="frame" x="289" y="-2" width="40" height="40"/>
                                                         <constraints>
-                                                            <constraint firstAttribute="width" constant="30" id="1QS-Pk-qdr"/>
-                                                            <constraint firstAttribute="height" constant="30" id="7x3-hw-NSW"/>
+                                                            <constraint firstAttribute="width" constant="40" id="2fA-XN-mY0"/>
+                                                            <constraint firstAttribute="height" constant="40" id="rqo-TV-nCS"/>
                                                         </constraints>
-                                                    </imageView>
+                                                        <fontDescription key="fontDescription" type="system" pointSize="30"/>
+                                                        <state key="normal" title="+">
+                                                            <color key="titleColor" red="0.96078431369999995" green="0.1450980392" blue="0.28627450980000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                        </state>
+                                                        <connections>
+                                                            <action selector="onTapAdd:" destination="ERj-7i-nJ5" eventType="touchUpInside" id="rxx-No-gO3"/>
+                                                        </connections>
+                                                    </button>
                                                 </subviews>
                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                 <constraints>
-                                                    <constraint firstItem="BZm-Lh-Klj" firstAttribute="centerY" secondItem="z4f-ga-wf7" secondAttribute="centerY" id="6rl-gU-Z5y"/>
+                                                    <constraint firstItem="jqu-m0-cwA" firstAttribute="centerY" secondItem="z4f-ga-wf7" secondAttribute="centerY" constant="-2" id="5G7-RJ-8ux"/>
                                                     <constraint firstItem="4EG-sk-dOf" firstAttribute="top" secondItem="z4f-ga-wf7" secondAttribute="top" id="8U1-t3-FmS"/>
                                                     <constraint firstAttribute="bottom" secondItem="4EG-sk-dOf" secondAttribute="bottom" id="AuO-2q-Y3v"/>
-                                                    <constraint firstItem="BZm-Lh-Klj" firstAttribute="leading" secondItem="4EG-sk-dOf" secondAttribute="trailing" constant="10" id="avC-Ng-gte"/>
-                                                    <constraint firstAttribute="trailing" secondItem="BZm-Lh-Klj" secondAttribute="trailing" constant="5" id="bJg-Gd-HPa"/>
+                                                    <constraint firstItem="jqu-m0-cwA" firstAttribute="leading" secondItem="4EG-sk-dOf" secondAttribute="trailing" id="aOW-lS-fc0"/>
                                                     <constraint firstItem="4EG-sk-dOf" firstAttribute="leading" secondItem="z4f-ga-wf7" secondAttribute="leading" constant="10" id="h4J-Dk-PBy"/>
                                                     <constraint firstAttribute="height" constant="40" id="wBW-nV-qRn"/>
+                                                    <constraint firstAttribute="trailing" secondItem="jqu-m0-cwA" secondAttribute="trailing" constant="5" id="zjx-3J-XiK"/>
                                                 </constraints>
                                                 <userDefinedRuntimeAttributes>
                                                     <userDefinedRuntimeAttribute type="number" keyPath="layer.borderWidth">
@@ -1846,9 +1853,9 @@
                         <viewLayoutGuide key="safeArea" id="vaa-Nv-Kha"/>
                     </view>
                     <connections>
+                        <outlet property="addButton" destination="jqu-m0-cwA" id="xsu-mW-AMi"/>
                         <outlet property="collectionView" destination="nq1-6D-RIJ" id="WoP-9V-srI"/>
                         <outlet property="contentsBaseLayout" destination="5aU-i4-RPw" id="K0D-Ii-dpH"/>
-                        <outlet property="grassImageView" destination="BZm-Lh-Klj" id="W4V-LP-sxV"/>
                         <outlet property="isLikeTextView" destination="4Xe-jc-QMf" id="E5K-YS-nyg"/>
                         <outlet property="searchEditText" destination="4EG-sk-dOf" id="xlt-4A-yhu"/>
                         <outlet property="searchLayout" destination="z4f-ga-wf7" id="rat-Uo-y0z"/>
@@ -1868,6 +1875,5 @@
         <image name="profile_age" width="50" height="50"/>
         <image name="profile_gender" width="50" height="50"/>
         <image name="profile_name" width="50" height="50"/>
-        <image name="profileadd_grass_like" width="80" height="77"/>
     </resources>
 </document>

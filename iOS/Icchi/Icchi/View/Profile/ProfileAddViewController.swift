@@ -15,7 +15,7 @@ class ProfileAddViewController: UIViewController {
     @IBOutlet weak var searchLayout: UIView!
     @IBOutlet weak var searchEditText: UITextField!
     
-    @IBOutlet weak var grassImageView: UIImageView!
+    @IBOutlet weak var addButton: UIButton!
     
     @IBOutlet weak var collectionView: UICollectionView!
     
@@ -36,14 +36,14 @@ class ProfileAddViewController: UIViewController {
             isLikeTextView.textColor = UIColor.likeRed
             contentsBaseLayout.layer.borderColor = UIColor.likeRed.cgColor
             searchLayout.layer.borderColor = UIColor.likeRed.cgColor
-            grassImageView.image = UIImage(named:"profileadd_grass_like")
+            addButton.setTitleColor(UIColor.likeRed, for: .normal)
         }
         else {
             isLikeTextView.text = "嫌い"
             isLikeTextView.textColor = UIColor.hateBlue
             contentsBaseLayout.layer.borderColor = UIColor.hateBlue.cgColor
             searchLayout.layer.borderColor = UIColor.hateBlue.cgColor
-            grassImageView.image = UIImage(named:"profileadd_grass_hate")
+            addButton.setTitleColor(UIColor.hateBlue, for: .normal)
         }
         
         self.itemDatas = ItemRequester.sharedManager.mDataList.filter({ (data) -> Bool in
@@ -89,17 +89,87 @@ class ProfileAddViewController: UIViewController {
         self.collectionView.reloadData()
     }
     
+    @IBAction func onSearchEditChanged(_ sender: Any) {
+        resetCollectionView(search:self.searchEditText.text)
+    }
+    
     @IBAction func onDidEndExit(_ sender: Any) {
         resetCollectionView(search:self.searchEditText.text)
     }
     
-    @IBAction func onSearchEditChanged(_ sender: Any) {
-        resetCollectionView(search:self.searchEditText.text)
+    @IBAction func onTapAdd(_ sender: Any) {
+        createItem()
     }
     
     @IBAction func onTapLogo(_ sender: Any) {
         self.pop(animationType: .horizontal)
     }
+    
+    private func createItem() {
+        
+        guard let addString = self.searchEditText.text else {
+            return
+        }
+
+        guard addString.count <= 10 else {
+            self.showAlert(title: "エラー", message: "10文字以内で入力してください", actions: [AlertAction(title:"OK")])
+            return
+        }
+        
+        if addString.count > 0 {
+            
+            Loading.start()
+            
+            ItemRequester.sharedManager.creteItem(addString, completion:{ (result, itemId) in
+                
+                if result, let itemId = itemId {
+                    
+                    ItemRequester.sharedManager.fetch(completion: { (result) in
+                        
+                        Loading.stop()
+                        
+                        if result {
+                            self.notifyToProfile(itemId:itemId)
+                        }
+                        else {
+                            
+                            let action = AlertAction(title:"OK")
+                            self.showAlert(title: "エラー", message: "通信に失敗しました", actions: [action])
+                        }
+                    })
+                }
+                else {
+                    
+                    Loading.stop()
+                    
+                    let action = AlertAction(title:"OK")
+                    self.showAlert(title: "エラー", message: "通信に失敗しました", actions: [action])
+                }
+            })
+        }
+    }
+    
+    private func notifyToProfile(itemId:String?) {
+    
+        if let profileViewController = self.parent as? ProfileViewController {
+        
+            let result = profileViewController.addItemId(itemId: itemId, isLike: isLike)
+            
+            if result  {
+                self.pop(animationType: .horizontal)
+            }
+            else {
+                var message = "\"好き\"に登録されたコンテンツです";
+                if isLike {
+                    message = "\"嫌い\"に登録されたコンテンツです";
+                }
+                
+                let action = AlertAction(title:"OK")
+                self.showAlert(title: "エラー", message: message, actions: [action])
+            }
+        }
+    }
+    
 }
 
 extension ProfileAddViewController:UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
@@ -124,12 +194,7 @@ extension ProfileAddViewController:UICollectionViewDataSource, UICollectionViewD
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         
         let selectData = self.itemDatas?[indexPath.row]
-
-        if let profile = self.parent as? ProfileViewController {
-            profile.addItemId(itemId: selectData?.itemId, isLike: self.isLike)
-        }
-
-        self.pop(animationType: .horizontal)
+        self.notifyToProfile(itemId: selectData?.itemId)
     }
 
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {

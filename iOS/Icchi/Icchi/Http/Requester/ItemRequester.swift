@@ -107,7 +107,7 @@ class ItemRequester {
         // リクエストデータ作成
         let params = [
             "command": "createItem",
-            "itemName": "itemName"
+            "itemName": itemName
         ]
         // リクエスト実施
         HttpManager.post(url: Constants.ServerApiUrl, params: params) { (result:Bool, data:Data?) in

@@ -203,19 +203,26 @@ class ProfileViewController: UIViewController {
         }
     }
 
-    public func addItemId(itemId: String?, isLike: Bool) {
+    public func addItemId(itemId: String?, isLike: Bool) -> Bool {
         
         guard let itemId = itemId else {
-            return;
+            return false
         }
         
         if isLike {
-            if let likes = self.tmpUserData?.likes, !likes.contains(itemId) {
+            
+            if let hates = self.tmpUserData?.hates, hates.contains(itemId) {
+                return false;
+            }
+            else if let likes = self.tmpUserData?.likes, !likes.contains(itemId) {
                 self.tmpUserData?.likes?.append(itemId)
             }
         }
         else {
-            if let hates = self.tmpUserData?.hates, !hates.contains(itemId) {
+            if let likes = self.tmpUserData?.likes, likes.contains(itemId) {
+                return false;
+            }
+            else if let hates = self.tmpUserData?.hates, !hates.contains(itemId) {
                 self.tmpUserData?.hates?.append(itemId)
             }
         }
@@ -227,7 +234,9 @@ class ProfileViewController: UIViewController {
             self.hateContentsStackView.removeArrangedSubview(subView)
             subView.removeFromSuperview()
         })
+        
         self.setProfile(userData: self.tmpUserData)
+        return true;
     }
     
     @IBAction func onTapLogo(_ sender: Any) {
