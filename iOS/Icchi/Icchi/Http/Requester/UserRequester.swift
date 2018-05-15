@@ -8,7 +8,6 @@
 
 import Foundation
 
-
 class UserRequester {
     
     // 年齢
@@ -117,23 +116,24 @@ class UserRequester {
 
         init(from decoder: Decoder) throws {
             let values = try decoder.container(keyedBy: CodingKeys.self)
-            userId = try? values.decode(String.self, forKey: .userId)
-            name = try? values.decode(String.self, forKey: .name)
-            age = AgeType(rawValue:try values.decode(String.self, forKey: .age))
-            gender = GenderType(rawValue:try values.decode(String.self, forKey: .gender))
-            likes = try? values.decode(String.self, forKey: .likes).components(separatedBy: "-")
-            hates = try? values.decode(String.self, forKey: .hates).components(separatedBy: "-")
-            image = try? values.decode(String.self, forKey: .image)
-            fbLink = try? values.decode(String.self, forKey: .fbLink)
-            name = name?.base64Decode()
+            self.userId = try? values.decode(String.self, forKey: .userId)
+            
+            let rawName = try? values.decode(String.self, forKey: .name)
+            self.name = rawName?.base64Decode()
+            
+            self.age = AgeType(rawValue:try values.decode(String.self, forKey: .age))
+            self.gender = GenderType(rawValue:try values.decode(String.self, forKey: .gender))
+            self.likes = try? values.decode(String.self, forKey: .likes).components(separatedBy: "-")
+            self.hates = try? values.decode(String.self, forKey: .hates).components(separatedBy: "-")
+            self.image = try? values.decode(String.self, forKey: .image)
+            self.fbLink = try? values.decode(String.self, forKey: .fbLink)
         }
-        
     }
     
     // シングルトン
     static let sharedManager = UserRequester()
-    private init() {
-    }
+    
+    private init() {}
     
     // ユーザーデータ配列
     fileprivate(set) var mDataList:[UserData] = []
@@ -170,9 +170,8 @@ class UserRequester {
                 // 成功
                 completion(result.result)
             }
-            catch let error {
+            catch {
                 // 失敗
-                print("UserRequester decode error = \(error)")
                 completion(false)
             }
         }

@@ -9,17 +9,16 @@
 import UIKit
 
 class ProfileAddViewController: UIViewController {
-
-    @IBOutlet weak var logo: UIImageView!
     
     @IBOutlet weak var contentsBaseLayout: UIView!
     @IBOutlet weak var isLikeTextView: UILabel!
     @IBOutlet weak var searchLayout: UIView!
     @IBOutlet weak var searchEditText: UITextField!
     
-    @IBOutlet weak var grassImageView: UIImageView!
+    @IBOutlet weak var addButton: UIButton!
     
-    @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var collectionView: UICollectionView!
+    
     var itemDatas:[ItemRequester.ItemData]?
     
     private var isLike:Bool = true
@@ -32,24 +31,19 @@ class ProfileAddViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        // ロゴタップ
-        let logoTap = UITapGestureRecognizer(target:self, action:#selector(self.onTapLogo(_:)))
-        self.logo!.addGestureRecognizer(logoTap)
-        
-        
         if self.isLike {
             isLikeTextView.text = "好き"
             isLikeTextView.textColor = UIColor.likeRed
             contentsBaseLayout.layer.borderColor = UIColor.likeRed.cgColor
             searchLayout.layer.borderColor = UIColor.likeRed.cgColor
-            grassImageView.image = UIImage(named:"profileadd_grass_like")
+            addButton.setTitleColor(UIColor.likeRed, for: .normal)
         }
         else {
             isLikeTextView.text = "嫌い"
             isLikeTextView.textColor = UIColor.hateBlue
             contentsBaseLayout.layer.borderColor = UIColor.hateBlue.cgColor
             searchLayout.layer.borderColor = UIColor.hateBlue.cgColor
-            grassImageView.image = UIImage(named:"profileadd_grass_hate")
+            addButton.setTitleColor(UIColor.hateBlue, for: .normal)
         }
         
         self.itemDatas = ItemRequester.sharedManager.mDataList.filter({ (data) -> Bool in
@@ -63,78 +57,160 @@ class ProfileAddViewController: UIViewController {
             
             return !exceptItemIdList.contains(itemId)
         })
-        resetTableView(search:self.searchEditText.text)
+        resetCollectionView(search:self.searchEditText.text)
     }
     
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
+    func resetCollectionView(search:String?) {
+
+        var shuffledItemDatas = ItemRequester.sharedManager.mDataList
+        shuffledItemDatas = shuffledItemDatas.shuffled
         
-    }
-    
-    func resetTableView(search:String?) {
+        var itemDatas:[ItemRequester.ItemData] = []
         
+        // 検索文字列あり
         if let search = search, search.count > 0 {
-            self.itemDatas = ItemRequester.sharedManager.mDataList.filter({return $0.name?.contains(search) ?? false})
+            
+            // 検索にヒットしたアイテムを全て表示
+            shuffledItemDatas.filter({return $0.name?.contains(search) ?? false
+                ||  $0.kana?.contains(search) ?? false}).forEach {
+                    itemDatas.append($0)
+            }
         }
-        self.tableView.reloadData()
-    }
-    
-    @IBAction func onDidEndExit(_ sender: Any) {
-        resetTableView(search:self.searchEditText.text)
+        
+        // 最初の10件を表示する
+        for i in 0...9 where i<shuffledItemDatas.count {
+            itemDatas.append(shuffledItemDatas[i])
+        }
+        
+        // 表示対象に登録
+        self.itemDatas = itemDatas
+        
+        // 再表示
+        self.collectionView.reloadData()
     }
     
     @IBAction func onSearchEditChanged(_ sender: Any) {
-        resetTableView(search:self.searchEditText.text)
+        resetCollectionView(search:self.searchEditText.text)
     }
     
-    // ロゴタップ
-    @objc func onTapLogo(_ sender: UITapGestureRecognizer) {
+    @IBAction func onDidEndExit(_ sender: Any) {
+        resetCollectionView(search:self.searchEditText.text)
+    }
+    
+    @IBAction func onTapAdd(_ sender: Any) {
+        createItem()
+    }
+    
+    @IBAction func onTapLogo(_ sender: Any) {
         self.pop(animationType: .horizontal)
+    }
+    
+    private func createItem() {
+        
+        guard let addString = self.searchEditText.text else {
+            return
+        }
+
+        guard addString.count <= 10 else {
+            self.showAlert(title: "エラー", message: "10文字以内で入力してください", actions: [AlertAction(title:"OK")])
+            return
+        }
+        
+        if addString.count > 0 {
+            
+            Loading.start()
+            
+            ItemRequester.sharedManager.creteItem(addString, completion:{ (result, itemId) in
+                
+                if result, let itemId = itemId {
+                    
+                    ItemRequester.sharedManager.fetch(completion: { (result) in
+                        
+                        Loading.stop()
+                        
+                        if result {
+                            self.notifyToProfile(itemId:itemId)
+                        }
+                        else {
+                            
+                            let action = AlertAction(title:"OK")
+                            self.showAlert(title: "エラー", message: "通信に失敗しました", actions: [action])
+                        }
+                    })
+                }
+                else {
+                    
+                    Loading.stop()
+                    
+                    let action = AlertAction(title:"OK")
+                    self.showAlert(title: "エラー", message: "通信に失敗しました", actions: [action])
+                }
+            })
+        }
+    }
+    
+    private func notifyToProfile(itemId:String?) {
+    
+        if let profileViewController = self.parent as? ProfileViewController {
+        
+            let result = profileViewController.addItemId(itemId: itemId, isLike: isLike)
+            
+            if result  {
+                self.pop(animationType: .horizontal)
+            }
+            else {
+                var message = "\"好き\"に登録されたコンテンツです";
+                if isLike {
+                    message = "\"嫌い\"に登録されたコンテンツです";
+                }
+                
+                let action = AlertAction(title:"OK")
+                self.showAlert(title: "エラー", message: message, actions: [action])
+            }
+        }
     }
     
 }
 
-extension ProfileAddViewController:UITableViewDelegate, UITableViewDataSource {
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+extension ProfileAddViewController:UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
+    
+    func numberOfSections(in collectionView: UICollectionView) -> Int {
         return 1
     }
-    func numberOfSections(in tableView: UITableView) -> Int {
+    
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return self.itemDatas?.count ?? 0
     }
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "ProfileAddTableViewCell", for: indexPath) as! ProfileAddTableViewCell
-        cell.selectionStyle = UITableViewCellSelectionStyle.none
-        
-        cell.configure(with: self.itemDatas?[indexPath.section], isLike:self.isLike)
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier:"ProfileAddCollectionViewCell", for:indexPath) as! ProfileAddCollectionViewCell
+
+        cell.configure(with: self.itemDatas?[indexPath.row], isLike:self.isLike)
         return cell
+        
     }
     
-    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return 5
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        
+        let selectData = self.itemDatas?[indexPath.row]
+        self.notifyToProfile(itemId: selectData?.itemId)
     }
-    func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
-        return 5
+
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+
+        let selectData = self.itemDatas?[indexPath.row]
+
+        return self.newSize(selectData?.name);
     }
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+
+    public func newSize(_ name:String?) -> CGSize {
         
-        let selectData = self.itemDatas?[indexPath.section]
-        
-        if let profile = self.parent as? ProfileViewController {
-            profile.addItemId(itemId: selectData?.itemId, isLike: self.isLike)
-        }
-        
-        self.pop(animationType: .horizontal)
+        let label = UILabel()
+        label.text = name!
+        label.font = UIFont.boldSystemFont(ofSize: 20)
+        let newSize = label.sizeThatFits(CGSize(width:400, height:300))
+        return CGSize(width:newSize.width + 40, height:50)
     }
     
-    public func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        let v = UIView()
-        v.backgroundColor = UIColor.clear
-        return v
-    }
-    
-    public func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
-        let v = UIView()
-        v.backgroundColor = UIColor.clear
-        return v
-    }
 }

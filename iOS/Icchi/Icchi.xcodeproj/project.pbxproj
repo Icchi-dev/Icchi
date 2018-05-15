@@ -27,6 +27,11 @@
 		5BE222C6203EF2210016B40B /* AccountRequester.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BE222C5203EF2210016B40B /* AccountRequester.swift */; };
 		5BED6FAD203AFDFD00874884 /* ItemRequester.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BED6FAC203AFDFD00874884 /* ItemRequester.swift */; };
 		5BED6FAF203B014100874884 /* PostRequester.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BED6FAE203B014100874884 /* PostRequester.swift */; };
+		5BF22E9720A5B1DF0054FA11 /* ProfileAddCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BF22E9520A5B1DE0054FA11 /* ProfileAddCollectionViewCell.swift */; };
+		5BF22E9820A5B1DF0054FA11 /* CollectionViewFlowLayoutLeftAlign.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BF22E9620A5B1DF0054FA11 /* CollectionViewFlowLayoutLeftAlign.swift */; };
+		5BF22E9A20A5B2160054FA11 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5BF22E9920A5B2140054FA11 /* Assets.xcassets */; };
+		5BF22E9C20A5B6330054FA11 /* LikeListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BF22E9B20A5B6320054FA11 /* LikeListViewController.swift */; };
+		5BFCEB8E20A9B39600427C6A /* Array+shuffle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BFCEB8D20A9B39600427C6A /* Array+shuffle.swift */; };
 		BB6BBA0A20176D0E00CC4179 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB6BBA0920176D0E00CC4179 /* LoginViewController.swift */; };
 		BB6BBA0F20176D5200CC4179 /* MyPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB6BBA0E20176D5100CC4179 /* MyPageViewController.swift */; };
 		BB6BBA1120176D5600CC4179 /* TutorialViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB6BBA1020176D5600CC4179 /* TutorialViewController.swift */; };
@@ -44,7 +49,6 @@
 		BBE8920B20189FFC004EE765 /* ProfileAddViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBE8920A20189FFC004EE765 /* ProfileAddViewController.swift */; };
 		BBF7B09F20174E0000964E95 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBF7B09E20174E0000964E95 /* AppDelegate.swift */; };
 		BBF7B0A420174E0000964E95 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BBF7B0A220174E0000964E95 /* Main.storyboard */; };
-		BBF7B0A620174E0000964E95 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BBF7B0A520174E0000964E95 /* Assets.xcassets */; };
 		BBF7B0A920174E0000964E95 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BBF7B0A720174E0000964E95 /* LaunchScreen.storyboard */; };
 		FA901E4062A075EA61155D12 /* Pods_Icchi.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 900095789B8231EC9494EBD8 /* Pods_Icchi.framework */; };
 /* End PBXBuildFile section */
@@ -71,6 +75,11 @@
 		5BE222C5203EF2210016B40B /* AccountRequester.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountRequester.swift; sourceTree = "<group>"; };
 		5BED6FAC203AFDFD00874884 /* ItemRequester.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemRequester.swift; sourceTree = "<group>"; };
 		5BED6FAE203B014100874884 /* PostRequester.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostRequester.swift; sourceTree = "<group>"; };
+		5BF22E9520A5B1DE0054FA11 /* ProfileAddCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ProfileAddCollectionViewCell.swift; path = icchi/View/Profile/ProfileAddCollectionViewCell.swift; sourceTree = SOURCE_ROOT; };
+		5BF22E9620A5B1DF0054FA11 /* CollectionViewFlowLayoutLeftAlign.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CollectionViewFlowLayoutLeftAlign.swift; path = icchi/View/Profile/CollectionViewFlowLayoutLeftAlign.swift; sourceTree = SOURCE_ROOT; };
+		5BF22E9920A5B2140054FA11 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Assets.xcassets; path = icchi/Assets.xcassets; sourceTree = SOURCE_ROOT; };
+		5BF22E9B20A5B6320054FA11 /* LikeListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LikeListViewController.swift; path = icchi/View/Tutorial/LikeListViewController.swift; sourceTree = SOURCE_ROOT; };
+		5BFCEB8D20A9B39600427C6A /* Array+shuffle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "Array+shuffle.swift"; path = "icchi/Extension/Array+shuffle.swift"; sourceTree = SOURCE_ROOT; };
 		7CBF87828A2E52901754E087 /* Pods-Icchi.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Icchi.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Icchi/Pods-Icchi.debug.xcconfig"; sourceTree = "<group>"; };
 		900095789B8231EC9494EBD8 /* Pods_Icchi.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Icchi.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		BB6BBA0920176D0E00CC4179 /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
@@ -91,7 +100,6 @@
 		BBF7B09B20174E0000964E95 /* Icchi.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Icchi.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BBF7B09E20174E0000964E95 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		BBF7B0A320174E0000964E95 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
-		BBF7B0A520174E0000964E95 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		BBF7B0A820174E0000964E95 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		BBF7B0AA20174E0000964E95 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -219,6 +227,7 @@
 		BB6BBA0C20176D3000CC4179 /* Tutorial */ = {
 			isa = PBXGroup;
 			children = (
+				5BF22E9B20A5B6320054FA11 /* LikeListViewController.swift */,
 				BB6BBA1020176D5600CC4179 /* TutorialViewController.swift */,
 			);
 			path = Tutorial;
@@ -227,6 +236,8 @@
 		BB6BBA0D20176D4600CC4179 /* Profile */ = {
 			isa = PBXGroup;
 			children = (
+				5BF22E9620A5B1DF0054FA11 /* CollectionViewFlowLayoutLeftAlign.swift */,
+				5BF22E9520A5B1DE0054FA11 /* ProfileAddCollectionViewCell.swift */,
 				BB6BBA1E20176FFF00CC4179 /* ProfileViewController.swift */,
 				BBD66E302017A5D10070DFC4 /* ProfileHobbyView.swift */,
 				BBD66E322017A5DB0070DFC4 /* ProfileHobbyView.xib */,
@@ -256,6 +267,7 @@
 				BB6BBA1C20176EA300CC4179 /* CALayer+Border.swift */,
 				BBD66E2A201799BB0070DFC4 /* UIView+Frame.swift */,
 				BBE8920820189DE9004EE765 /* UIColor+Original.swift */,
+				5BFCEB8D20A9B39600427C6A /* Array+shuffle.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -298,13 +310,13 @@
 		BBF7B09D20174E0000964E95 /* Icchi */ = {
 			isa = PBXGroup;
 			children = (
-				5B794DC62035C42B006BC0CE /* Http */,
 				BBF7B09E20174E0000964E95 /* AppDelegate.swift */,
 				BB6BBA0720176CEB00CC4179 /* View */,
+				5B794DC62035C42B006BC0CE /* Http */,
 				BB6BBA1220176D7C00CC4179 /* Function */,
 				BB6BBA1720176E4A00CC4179 /* Extension */,
+				5BF22E9920A5B2140054FA11 /* Assets.xcassets */,
 				BBF7B0A220174E0000964E95 /* Main.storyboard */,
-				BBF7B0A520174E0000964E95 /* Assets.xcassets */,
 				BBF7B0A720174E0000964E95 /* LaunchScreen.storyboard */,
 				BBF7B0AA20174E0000964E95 /* Info.plist */,
 			);
@@ -376,8 +388,8 @@
 				BBF7B0A920174E0000964E95 /* LaunchScreen.storyboard in Resources */,
 				5BE222C2203EEF720016B40B /* Loading.xib in Resources */,
 				BBD66E332017A5DB0070DFC4 /* ProfileHobbyView.xib in Resources */,
-				BBF7B0A620174E0000964E95 /* Assets.xcassets in Resources */,
 				BBF7B0A420174E0000964E95 /* Main.storyboard in Resources */,
+				5BF22E9A20A5B2160054FA11 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -448,8 +460,11 @@
 				5B8BBCB22036EF4A00B292E7 /* HttpManager.swift in Sources */,
 				BB6BBA1F20176FFF00CC4179 /* ProfileViewController.swift in Sources */,
 				BB6BBA1620176D9700CC4179 /* SaveData.swift in Sources */,
+				5BFCEB8E20A9B39600427C6A /* Array+shuffle.swift in Sources */,
+				5BF22E9720A5B1DF0054FA11 /* ProfileAddCollectionViewCell.swift in Sources */,
 				BBE8920B20189FFC004EE765 /* ProfileAddViewController.swift in Sources */,
 				5BE222C4203EEF890016B40B /* Loading.swift in Sources */,
+				5BF22E9C20A5B6330054FA11 /* LikeListViewController.swift in Sources */,
 				BB6BBA1120176D5600CC4179 /* TutorialViewController.swift in Sources */,
 				BB6BBA1D20176EA300CC4179 /* CALayer+Border.swift in Sources */,
 				5B25BBA92056A5DC001408DF /* CircleImageView.swift in Sources */,
@@ -467,6 +482,7 @@
 				5B794DC92035C461006BC0CE /* UserRequester.swift in Sources */,
 				BBD66E29201799450070DFC4 /* KeyboardRespondableViewController.swift in Sources */,
 				5B6C1656205BFD7F005A411F /* MyPostTableViewCell.swift in Sources */,
+				5BF22E9820A5B1DF0054FA11 /* CollectionViewFlowLayoutLeftAlign.swift in Sources */,
 				5B174F47203C3E7B0046D2C7 /* StartUpViewController.swift in Sources */,
 				BBD66E312017A5D10070DFC4 /* ProfileHobbyView.swift in Sources */,
 			);
@@ -629,8 +645,9 @@
 			baseConfigurationReference = 0625066F3426C500F447EA52 /* Pods-Icchi.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = E7F6AQV7VX;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Icchi/Library",
@@ -640,7 +657,8 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "Leapfrog-Inc.Icchi";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE_SPECIFIER = "";
+				PROVISIONING_PROFILE = "f943ce3b-8a16-455c-9c34-b53ef8e08c69";
+				PROVISIONING_PROFILE_SPECIFIER = "Icchi-adhoc-20180502";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = 1;
 			};

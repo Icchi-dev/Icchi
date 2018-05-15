@@ -24,7 +24,6 @@ class MyPostViewController: UIViewController {
     
     private var myPostDatas:[MyPostData] = []
     
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -37,11 +36,6 @@ class MyPostViewController: UIViewController {
         
         // データ取得&表示更新
         self.refresh()
-    }
-    
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
     }
     
     // ロゴタップ
@@ -58,13 +52,18 @@ class MyPostViewController: UIViewController {
     
     // データ取得&表示更新
     func refresh() {
+        
+        Loading.start()
+        
         PostRequester.sharedManager.fetch {[weak self] _ in
+            
+            Loading.stop()
+            self?.setTableView()
+            
             DispatchQueue.main.asyncAfter(deadline: .now() + 1, execute: {
-                
                 if let _ = self?.refreshControl.isRefreshing {
                     self?.refreshControl.endRefreshing()
                 }
-                self?.setTableView()
             })
         }
     }
@@ -103,10 +102,9 @@ class MyPostViewController: UIViewController {
             
             if let likes = myUserData.likes {
                 for likeCd in likes {
-                    if let itemData = ItemRequester.sharedManager.query(likeCd)
-                        , let yahooTitle = yahooData.title
-                        , let itemDataName = itemData.name
-                        , yahooTitle.contains(itemDataName){
+                    if let itemData = ItemRequester.sharedManager.query(likeCd),
+                        let yahooTitle = yahooData.title,
+                        let itemDataName = itemData.name, yahooTitle.contains(itemDataName) {
                         
                         var myPostData = MyPostData()
                         myPostData.title = yahooData.title;
@@ -154,31 +152,27 @@ class MyPostViewController: UIViewController {
 }
 
 extension MyPostViewController : UITableViewDelegate, UITableViewDataSource {
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return self.myPostDatas.count;
+        return self.myPostDatas.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "MyPostTableViewCell") as! MyPostTableViewCell?
-        
-        cell!.configure(with:self.myPostDatas[indexPath.row])
-        
-        return cell!
+        let cell = tableView.dequeueReusableCell(withIdentifier: "MyPostTableViewCell") as! MyPostTableViewCell
+        cell.configure(with:self.myPostDatas[indexPath.row])
+        return cell
     }
     
     public func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
         
-        guard let urlString = self.myPostDatas[indexPath.row].link
-            , let url = URL(string: urlString)
-            , UIApplication.shared.canOpenURL(url) else {
-                print("linkなし")
-                return;
+        guard let urlString = self.myPostDatas[indexPath.row].link,
+            let url = URL(string: urlString),
+            UIApplication.shared.canOpenURL(url) else {
+            return
         }
         
         // ブラウザ起動
         UIApplication.shared.open(url, options: [:], completionHandler:nil)
     }
-    
-    
 }

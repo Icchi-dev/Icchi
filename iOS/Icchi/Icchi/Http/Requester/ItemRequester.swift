@@ -83,9 +83,8 @@ class ItemRequester {
                 // 成功
                 completion(result.result)
             }
-            catch let error {
+            catch {
                 // 失敗
-                print("ItemRequester decode error = \(error)")
                 completion(false)
             }
         }
@@ -106,8 +105,10 @@ class ItemRequester {
     func creteItem(_ itemName:String, completion: @escaping ((Bool, String?) -> ())) {
         
         // リクエストデータ作成
-        let params = ["command": "createItem"
-                        ,"itemName": "itemName"]
+        let params = [
+            "command": "createItem",
+            "itemName": itemName
+        ]
         // リクエスト実施
         HttpManager.post(url: Constants.ServerApiUrl, params: params) { (result:Bool, data:Data?) in
             
@@ -125,9 +126,8 @@ class ItemRequester {
                 // 成功
                 completion(result.result, result.itemId)
             }
-            catch let error {
+            catch {
                 // 失敗
-                print("ItemRequester decode error = \(error)")
                 completion(false, nil)
             }
         }

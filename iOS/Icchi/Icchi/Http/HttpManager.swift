@@ -38,7 +38,6 @@ class HttpManager {
         let paramsData = paramsString.data(using: .utf8)
         
         // リクエスト実施
-        print("[POST]" + paramsString)
         HttpManager.request(url: url, method: "POST", body: paramsData, completion: completion)
     }
     
@@ -78,9 +77,6 @@ class HttpManager {
                 // レスポンス内容確認
                 if error == nil, let data = data {
                     
-                    if let str = String(data: data, encoding: .utf8) {
-                        print("[RESPONSE]" + str)
-                    }
                     // 成功＋受信データ
                     completion(true, data)
                 } else {

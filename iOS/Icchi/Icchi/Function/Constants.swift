@@ -12,6 +12,7 @@ struct Constants {
     
     static let HttpTimeOutInterval = TimeInterval(10)
     static let ServerApiUrl = "http://lfrogs.sakura.ne.jp/icchi/srv.php"
+//    static let ServerApiUrl = "http://localhost/icchi/srv.php"
     static let StringEncoding = String.Encoding.utf8
     
     struct UserDefaultsKey {

@@ -68,10 +68,8 @@ class ParameterRequester {
                 
                 // 成功
                 completion(result.result)
-            }
-            catch let error {
+            } catch {
                 // 失敗
-                print("ParameterRequester decode error = \(error)")
                 completion(false)
             }
         }

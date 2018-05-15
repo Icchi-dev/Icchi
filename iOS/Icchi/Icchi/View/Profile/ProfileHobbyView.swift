@@ -23,5 +23,4 @@ class ProfileHobbyView: UIView {
     @IBAction func onTapDelete(_ sender: Any) {
         self.didTapDelete?()
     }
-
 }
