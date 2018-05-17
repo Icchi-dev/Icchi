@@ -73,9 +73,8 @@ public class ProfileAddFragment extends BaseFragment {
                 View view = getView();
                 if (view == null) return;
 
-                ListView listView = (ListView)view.findViewById(R.id.listView);
                 String text = editable.toString();
-                if ((listView != null) && (text != null)) {
+                if (text != null) {
                     resetContents((LinearLayout)view.findViewById(R.id.contentsLayout), text);
                 }
             }
