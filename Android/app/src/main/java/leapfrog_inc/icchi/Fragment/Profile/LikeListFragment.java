@@ -1,5 +1,6 @@
 package leapfrog_inc.icchi.Fragment.Profile;
 
+import android.accounts.Account;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
@@ -29,6 +30,7 @@ import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Collections;
 
+import leapfrog_inc.icchi.Activity.MainActivity;
 import leapfrog_inc.icchi.Fragment.BaseFragment;
 import leapfrog_inc.icchi.Fragment.FragmentController;
 import leapfrog_inc.icchi.Fragment.Match.MatchFragment;
@@ -49,6 +51,9 @@ public class LikeListFragment extends BaseFragment {
 
     static ArrayList<Integer> mCheckList = new ArrayList<Integer>();
 
+    private ArrayList<String> mSelectedLikeItemNames = new ArrayList<String>();
+    private ArrayList<String> mSelectedHateItemNames = new ArrayList<String>();
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstance) {
 
@@ -59,9 +64,7 @@ public class LikeListFragment extends BaseFragment {
         ((Button)view.findViewById(R.id.okButton)).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                // プロフィール画面へ
-                ProfileFragment fragment = new ProfileFragment();
-                FragmentController.getInstance().stack(fragment, FragmentController.AnimationType.horizontal);
+                onTapOk();
             }
         });
 
@@ -73,6 +76,41 @@ public class LikeListFragment extends BaseFragment {
         });
 
         return view;
+    }
+
+    private void onTapOk() {
+
+        UserRequester.UserData myUserData = UserRequester.getInstance().query(SaveData.getInstance().userId);
+
+        for (int i = 0; i < mSelectedLikeItemNames.size(); i++) {
+            String itemId = ItemRequester.getInstance().queryId(mSelectedLikeItemNames.get(i));
+            if (itemId != null) {
+                myUserData.likes.add(itemId);
+            }
+        }
+        for (int i = 0; i < mSelectedHateItemNames.size(); i++) {
+            String itemId = ItemRequester.getInstance().queryId(mSelectedHateItemNames.get(i));
+            if (itemId != null) {
+                myUserData.hates.add(itemId);
+            }
+        }
+
+        ((MainActivity)getActivity()).startLoading();
+
+        AccountRequester.update(myUserData, new AccountRequester.UpdateCallback() {
+            @Override
+            public void didReceive(boolean result) {
+                ((MainActivity)getActivity()).stopLoading();
+
+                if (result) {
+                    // プロフィール画面へ
+                    ProfileFragment fragment = new ProfileFragment();
+                    FragmentController.getInstance().stack(fragment, FragmentController.AnimationType.horizontal);
+                } else {
+                    AlertUtility.showAlert(getActivity(), "エラー", "通信に失敗しました", "OK", null);
+                }
+            }
+        });
     }
 
     private int getContentsWidth() {
@@ -111,7 +149,7 @@ public class LikeListFragment extends BaseFragment {
         });
     }
 
-    private void addItems(LinearLayout baseLayout, boolean isLike) {
+    private void addItems(LinearLayout baseLayout, final boolean isLike) {
 
         ViewGroup.LayoutParams likeParams = baseLayout.getLayoutParams();
         likeParams.width = getContentsWidth();
@@ -168,6 +206,14 @@ public class LikeListFragment extends BaseFragment {
             textView.setLayoutParams(params);
             textView.setGravity(Gravity.CENTER_VERTICAL);
 
+            textView.setClickable(true);
+            textView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    didTapItem((TextView)view, isLike);
+                }
+            });
+
             lineLayout.addView(textView);
 
             currentOffset += (width + margin);
@@ -184,5 +230,29 @@ public class LikeListFragment extends BaseFragment {
                 currentOffset = 0;
             }
         }
+    }
+
+    private void didTapItem(TextView textView, boolean isLike) {
+
+        String itemName = textView.getText().toString();
+
+        if (isLike) {
+            if (mSelectedLikeItemNames.contains(itemName)) {
+                mSelectedLikeItemNames.remove(itemName);
+                textView.setBackgroundResource(R.layout.shape_profile_likecontents);
+            } else {
+                mSelectedLikeItemNames.add(itemName);
+                textView.setBackgroundResource(R.layout.shape_profile_selected_contents);
+            }
+        } else {
+            if (mSelectedHateItemNames.contains(itemName)) {
+                mSelectedHateItemNames.remove(itemName);
+                textView.setBackgroundResource(R.layout.shape_profile_hatecontents);
+            } else {
+                mSelectedHateItemNames.add(itemName);
+                textView.setBackgroundResource(R.layout.shape_profile_selected_contents);
+            }
+        }
+
     }
 }
