@@ -75,7 +75,18 @@ public class LikeListFragment extends BaseFragment {
             }
         });
 
+        ((ImageButton)view.findViewById(R.id.reloadButton)).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                reload();
+            }
+        });
+
         return view;
+    }
+
+    private void reload() {
+        initContents(getView());
     }
 
     private void onTapOk() {
@@ -151,6 +162,8 @@ public class LikeListFragment extends BaseFragment {
 
     private void addItems(LinearLayout baseLayout, final boolean isLike) {
 
+        baseLayout.removeAllViews();
+
         ViewGroup.LayoutParams likeParams = baseLayout.getLayoutParams();
         likeParams.width = getContentsWidth();
         baseLayout.setLayoutParams(likeParams);
@@ -177,6 +190,16 @@ public class LikeListFragment extends BaseFragment {
         }
         Collections.shuffle(itemIdList);
 
+        // 選択済みのアイテムを先頭にもってくる
+        ArrayList<String> selectedNames = (isLike) ? mSelectedLikeItemNames : mSelectedHateItemNames;
+        for (int i = 0; i < selectedNames.size(); i++) {
+            String itemId = ItemRequester.getInstance().queryId(selectedNames.get(i));
+            if (itemId != null) {
+                itemIdList.remove(itemId);
+                itemIdList.add(0, itemId);
+            }
+        }
+
         LinearLayout lineLayout = null;
         int currentOffset = 0;
 
@@ -192,10 +215,15 @@ public class LikeListFragment extends BaseFragment {
             textView.setText(itemName);
             textView.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 14);
             textView.setTextColor(Color.WHITE);
-            if (isLike) {
-                textView.setBackgroundResource(R.layout.shape_profile_likecontents);
+
+            if (selectedNames.contains(itemData.name)) {
+                textView.setBackgroundResource(R.layout.shape_profile_selected_contents);
             } else {
-                textView.setBackgroundResource(R.layout.shape_profile_hatecontents);
+                if (isLike) {
+                    textView.setBackgroundResource(R.layout.shape_profile_likecontents);
+                } else {
+                    textView.setBackgroundResource(R.layout.shape_profile_hatecontents);
+                }
             }
             textView.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
             int width = getTextViewWidth(itemName);
