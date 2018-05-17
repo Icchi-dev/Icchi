@@ -1,8 +1,10 @@
 package leapfrog_inc.icchi.Fragment.Profile;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.support.v4.app.FragmentActivity;
 import android.support.v4.content.ContextCompat;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -31,6 +33,7 @@ import leapfrog_inc.icchi.Fragment.FragmentController;
 import leapfrog_inc.icchi.Function.CommonUtility;
 import leapfrog_inc.icchi.Http.Requester.ItemRequester;
 import leapfrog_inc.icchi.Parts.AlertUtility;
+import leapfrog_inc.icchi.Parts.LoadingFragment;
 import leapfrog_inc.icchi.R;
 
 /**
@@ -96,6 +99,13 @@ public class ProfileAddFragment extends BaseFragment {
             }
         });
 
+        ((ImageButton)view.findViewById(R.id.reloadButton)).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                reload();
+            }
+        });
+
         if (!mIsLike) {
             ((TextView)view.findViewById(R.id.isLikeTextView)).setTextColor(Color.rgb(120, 120, 255));
             ((TextView)view.findViewById(R.id.isLikeTextView)).setText("嫌い");
@@ -107,7 +117,36 @@ public class ProfileAddFragment extends BaseFragment {
         return view;
     }
 
+    private void reload() {
+
+        ((MainActivity)getActivity()).startLoading();
+
+        ItemRequester.getInstance().fetch(new ItemRequester.ItemRequesterCallback() {
+            @Override
+            public void didReceiveData(boolean result) {
+
+                FragmentActivity activity = getActivity();
+                if ((activity != null) && (activity instanceof MainActivity)) {
+                    ((MainActivity)activity).stopLoading();
+                }
+
+                if (result) {
+                    resetContents((LinearLayout)getView().findViewById(R.id.contentsLayout), "");
+                } else {
+                    AlertUtility.showAlert(getActivity(), "エラー", "通信に失敗しました", "OK", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+
+                        }
+                    });
+                }
+            }
+        });
+    }
+
     private void resetContents(LinearLayout baseLayout, String text) {
+
+        baseLayout.removeAllViews();
 
         ArrayList<ItemRequester.ItemData> shuffledItemDatas = ItemRequester.getInstance().getDataList();
         Collections.shuffle(shuffledItemDatas);
@@ -123,11 +162,9 @@ public class ProfileAddFragment extends BaseFragment {
                 }
             }
         } else {
-            // ランダムに10個表示
-            for (int i = 0; i < 10; i++) {
-                if (shuffledItemDatas.size() > i) {
-                    itemDatas.add(shuffledItemDatas.get(i));
-                }
+            // ランダム表示
+            for (int i = 0; i < shuffledItemDatas.size(); i++) {
+                itemDatas.add(shuffledItemDatas.get(i));
             }
         }
 
