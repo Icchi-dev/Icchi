@@ -81,16 +81,14 @@
                     android:textSize="14dp"
                     android:layout_gravity="center_horizontal"
                     android:layout_marginTop="14dp"/>
-                <ScrollView
+                <ListView
+                    android:id="@+id/likeListView"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp">
-                    <LinearLayout
-                        android:id="@+id/likeContentsLayout"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="vertical" />
-                </ScrollView>
+                    android:layout_height="match_parent"
+                    android:layout_margin="8dp"
+                    android:overScrollMode="never"
+                    android:scrollbars="none"
+                    android:divider="@null"/>
             </LinearLayout>
 
             <LinearLayout
@@ -112,15 +110,14 @@
                     android:textSize="14dp"
                     android:layout_gravity="center_horizontal"
                     android:layout_marginTop="14dp"/>
-                <ScrollView
+                <ListView
+                    android:id="@+id/hateListView"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-                    <LinearLayout
-                        android:id="@+id/hateContentsLayout"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="vertical" />
-                </ScrollView>
+                    android:layout_height="match_parent"
+                    android:layout_margin="8dp"
+                    android:overScrollMode="never"
+                    android:scrollbars="none"
+                    android:divider="@null"/>
             </LinearLayout>
         </LinearLayout>
 
