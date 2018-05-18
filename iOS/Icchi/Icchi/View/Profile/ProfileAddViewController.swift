@@ -76,10 +76,12 @@ class ProfileAddViewController: UIViewController {
                     itemDatas.append($0)
             }
         }
+        else {
         
-        // 最初の10件を表示する
-        for i in 0...9 where i<shuffledItemDatas.count {
-            itemDatas.append(shuffledItemDatas[i])
+            // ランダム表示
+            shuffledItemDatas.forEach {
+                itemDatas.append($0)
+            }
         }
         
         // 表示対象に登録
@@ -104,6 +106,11 @@ class ProfileAddViewController: UIViewController {
     @IBAction func onTapLogo(_ sender: Any) {
         self.pop(animationType: .horizontal)
     }
+    
+    @IBAction func onTapReload(_ sender: UIButton) {
+        self.reload()
+    }
+    
     
     private func createItem() {
         
@@ -170,6 +177,27 @@ class ProfileAddViewController: UIViewController {
         }
     }
     
+    private func reload() {
+        
+        Loading.start()
+        
+        ItemRequester.sharedManager.fetch(completion: { (result) in
+            
+            Loading.stop()
+            
+            if result {
+                
+                self.resetCollectionView(search:"")
+            }
+            else {
+                
+                let action = AlertAction(title:"OK")
+                self.showAlert(title: "エラー", message: "通信に失敗しました", actions: [action])
+            }
+            
+        })
+        
+    }
 }
 
 extension ProfileAddViewController:UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
@@ -208,9 +236,9 @@ extension ProfileAddViewController:UICollectionViewDataSource, UICollectionViewD
         
         let label = UILabel()
         label.text = name!
-        label.font = UIFont.boldSystemFont(ofSize: 20)
+        label.font = UIFont.systemFont(ofSize: 16)
         let newSize = label.sizeThatFits(CGSize(width:400, height:300))
-        return CGSize(width:newSize.width + 40, height:50)
+        return CGSize(width:newSize.width + 20, height:30)
     }
     
 }
