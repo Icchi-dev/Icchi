@@ -5,10 +5,9 @@
     android:background="#fff"
     android:orientation="vertical">
 
-    <LinearLayout
+    <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:orientation="horizontal">
+        android:layout_height="50dp">
         <ImageButton
             android:id="@+id/menuButton"
             android:layout_width="60dp"
@@ -27,10 +26,16 @@
             android:textSize="14dp"
             android:textAlignment="center"
             android:gravity="center_vertical"/>
-        <View
-            android:layout_width="60dp"
-            android:layout_height="1dp"/>
-    </LinearLayout>
+        <ImageButton
+            android:id="@+id/reloadButton"
+            android:layout_width="36dp"
+            android:layout_height="36dp"
+            android:src="@drawable/reload"
+            android:scaleType="fitCenter"
+            android:background="#0000"
+            android:layout_gravity="right|center_vertical"
+            android:layout_marginRight="10dp"/>
+    </FrameLayout>
 
     <View
         android:layout_width="match_parent"
@@ -76,16 +81,14 @@
                     android:textSize="14dp"
                     android:layout_gravity="center_horizontal"
                     android:layout_marginTop="14dp"/>
-                <ScrollView
+                <ListView
+                    android:id="@+id/likeListView"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp">
-                    <LinearLayout
-                        android:id="@+id/likeContentsLayout"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="vertical" />
-                </ScrollView>
+                    android:layout_height="match_parent"
+                    android:layout_margin="8dp"
+                    android:overScrollMode="never"
+                    android:scrollbars="none"
+                    android:divider="@null"/>
             </LinearLayout>
 
             <LinearLayout
@@ -107,15 +110,14 @@
                     android:textSize="14dp"
                     android:layout_gravity="center_horizontal"
                     android:layout_marginTop="14dp"/>
-                <ScrollView
+                <ListView
+                    android:id="@+id/hateListView"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-                    <LinearLayout
-                        android:id="@+id/hateContentsLayout"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="vertical" />
-                </ScrollView>
+                    android:layout_height="match_parent"
+                    android:layout_margin="8dp"
+                    android:overScrollMode="never"
+                    android:scrollbars="none"
+                    android:divider="@null"/>
             </LinearLayout>
         </LinearLayout>
 
