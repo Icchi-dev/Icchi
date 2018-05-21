@@ -31,7 +31,7 @@ class Item {
 
 	static function readAll() {
 		if (file_exists(Item::FILE_NAME)) {
-			$fileData = file_get_contents(Post::FILE_NAME);
+			$fileData = file_get_contents(Item::FILE_NAME);
 			if ($fileData !== false) {
 				$itemList = [];
 				$lines = explode("\n", $fileData);
@@ -59,7 +59,7 @@ class Item {
     $itemList = Item::readAll();
     $newItemList = Array();
     foreach($itemList as $itemData) {
-      if (strcmp($itemList->id, $id) != 0) {
+      if (strcmp($itemData->id, $id) != 0) {
         $newItemList[] = $itemData;
       }
     }

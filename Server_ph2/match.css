@@ -1,0 +1,56 @@
+
+#match_table {
+  margin: 30px;
+  width: 90%;
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+#match_table tr {
+  background: #f4f7f8;
+  border-bottom: 1px solid #FFF;
+  margin-bottom: 5px;
+}
+
+#match_table tr:nth-child(even) {
+  background: #e8eeef;
+}
+
+#match_table th {
+  font-size: 14px;
+  font-weight: 400;
+  background: #8a97a0;
+  color: #FFF;
+  padding: 8px;
+}
+
+#match_table td {
+  font-size: 14px;
+  font-weight: 400;
+  text-align: center;
+  padding: 8px;
+}
+
+input {
+  font-size: 14px;
+  border: none;
+  color: #666;
+  width:70%;
+  height:32px;
+  text-align: center;
+  border-radius:16px;
+  -webkit-border-radius:16px;
+  -moz-border-radius:16px;
+  border: 1px solid #ddd;
+}
+
+input:focus {
+  outline: none;
+}
+
+#match_refresh {
+  width:70px;
+  height: 40px;
+  object-fit: contain;
+}

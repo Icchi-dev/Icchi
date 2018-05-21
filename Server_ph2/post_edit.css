@@ -1,0 +1,44 @@
+.edit_table {
+  margin: 30px;
+  width: 90%;
+}
+
+input {
+  font-size: 14px;
+  border: none;
+  border-bottom: 2px solid #e9e9e9;
+  color: #666;
+  width:70%;
+  height:50px;
+  transition: border-color 0.3s;
+}
+
+input:focus {
+  border-bottom: 2px solid #c0c0c0;
+  outline: none;
+}
+
+.add_button {
+  background: #f16272;
+  border: none;
+  color: #fff;
+  cursor: pointer;
+  width: 200px;
+  height: 50px;
+  font-size: 18px;
+  letter-spacing: 0.05em;
+  margin-left:30px;
+}
+
+.cancel_button {
+  float: left;
+  background: #ccc;
+  border: none;
+  color: #fff;
+  cursor: pointer;
+  width: 200px;
+  height: 50px;
+  font-size: 18px;
+  letter-spacing: 0.05em;
+  margin-left:30px;
+}
