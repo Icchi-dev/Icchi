@@ -17,8 +17,8 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="wordWrap" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5aZ-9r-lfj">
-                    <rect key="frame" x="10" y="0.0" width="120" height="40"/>
-                    <fontDescription key="fontDescription" type="boldSystem" pointSize="18"/>
+                    <rect key="frame" x="20" y="0.0" width="110" height="40"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="18"/>
                     <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     <nil key="highlightedColor"/>
                     <userDefinedRuntimeAttributes>
@@ -49,14 +49,14 @@
                 <constraint firstItem="5aZ-9r-lfj" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" id="PXg-pN-eKQ"/>
                 <constraint firstItem="rjh-23-poo" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" id="g0B-bG-BAJ"/>
                 <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="rjh-23-poo" secondAttribute="trailing" id="hAt-zC-kfZ"/>
-                <constraint firstItem="5aZ-9r-lfj" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="10" id="oVo-nP-ulq"/>
+                <constraint firstItem="5aZ-9r-lfj" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="20" id="oVo-nP-ulq"/>
                 <constraint firstItem="vUN-kp-3ea" firstAttribute="bottom" secondItem="rjh-23-poo" secondAttribute="bottom" id="qsH-qX-je1"/>
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
             <userDefinedRuntimeAttributes>
                 <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
-                    <integer key="value" value="10"/>
+                    <integer key="value" value="20"/>
                 </userDefinedRuntimeAttribute>
             </userDefinedRuntimeAttributes>
             <connections>

@@ -15,7 +15,6 @@ class ProfileAddCollectionViewCell: UICollectionViewCell {
     public func configure(with:ItemRequester.ItemData?, isLike:Bool) {
         self.title.text = with?.name
         self.backgroundColor = isLike ? UIColor.likeRed : UIColor.hateBlue
-        self.layer.cornerRadius = 20
     }
     
 }
