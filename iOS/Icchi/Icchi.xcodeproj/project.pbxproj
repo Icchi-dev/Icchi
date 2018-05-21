@@ -21,6 +21,7 @@
 		5B9F8EEA2052A7F30072BFC9 /* MatchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B9F8EE92052A7F30072BFC9 /* MatchViewController.swift */; };
 		5B9F8EEC2052AEED0072BFC9 /* MatchTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B9F8EEB2052AEED0072BFC9 /* MatchTableViewCell.swift */; };
 		5BAC297120458CC5000B61FF /* String+Base64.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BAC297020458CC4000B61FF /* String+Base64.swift */; };
+		5BC6884C20B2F03900F730B3 /* LikeListCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BC6884B20B2F03900F730B3 /* LikeListCollectionViewCell.swift */; };
 		5BE222C2203EEF720016B40B /* Loading.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5BE222C1203EEF720016B40B /* Loading.xib */; };
 		5BE222C4203EEF890016B40B /* Loading.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BE222C3203EEF890016B40B /* Loading.swift */; };
 		5BE222C6203EF2210016B40B /* AccountRequester.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BE222C5203EF2210016B40B /* AccountRequester.swift */; };
@@ -68,13 +69,14 @@
 		5B9F8EE92052A7F30072BFC9 /* MatchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MatchViewController.swift; sourceTree = "<group>"; };
 		5B9F8EEB2052AEED0072BFC9 /* MatchTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MatchTableViewCell.swift; sourceTree = "<group>"; };
 		5BAC297020458CC4000B61FF /* String+Base64.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "String+Base64.swift"; sourceTree = "<group>"; };
+		5BC6884B20B2F03900F730B3 /* LikeListCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = LikeListCollectionViewCell.swift; path = icchi/View/Tutorial/LikeListCollectionViewCell.swift; sourceTree = SOURCE_ROOT; };
 		5BE222C1203EEF720016B40B /* Loading.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = Loading.xib; sourceTree = "<group>"; };
 		5BE222C3203EEF890016B40B /* Loading.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Loading.swift; sourceTree = "<group>"; };
 		5BE222C5203EF2210016B40B /* AccountRequester.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountRequester.swift; sourceTree = "<group>"; };
 		5BED6FAC203AFDFD00874884 /* ItemRequester.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemRequester.swift; sourceTree = "<group>"; };
 		5BED6FAE203B014100874884 /* PostRequester.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostRequester.swift; sourceTree = "<group>"; };
 		5BF22E9520A5B1DE0054FA11 /* ProfileAddCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ProfileAddCollectionViewCell.swift; path = icchi/View/Profile/ProfileAddCollectionViewCell.swift; sourceTree = SOURCE_ROOT; };
-		5BF22E9620A5B1DF0054FA11 /* CollectionViewFlowLayoutLeftAlign.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CollectionViewFlowLayoutLeftAlign.swift; path = icchi/View/Profile/CollectionViewFlowLayoutLeftAlign.swift; sourceTree = SOURCE_ROOT; };
+		5BF22E9620A5B1DF0054FA11 /* CollectionViewFlowLayoutLeftAlign.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CollectionViewFlowLayoutLeftAlign.swift; path = Icchi/View/Common/CollectionViewFlowLayoutLeftAlign.swift; sourceTree = SOURCE_ROOT; };
 		5BF22E9920A5B2140054FA11 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Assets.xcassets; path = icchi/Assets.xcassets; sourceTree = SOURCE_ROOT; };
 		5BF22E9B20A5B6320054FA11 /* LikeListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LikeListViewController.swift; path = icchi/View/Tutorial/LikeListViewController.swift; sourceTree = SOURCE_ROOT; };
 		5BFCEB8D20A9B39600427C6A /* Array+shuffle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "Array+shuffle.swift"; path = "icchi/Extension/Array+shuffle.swift"; sourceTree = SOURCE_ROOT; };
@@ -226,6 +228,7 @@
 			isa = PBXGroup;
 			children = (
 				5BF22E9B20A5B6320054FA11 /* LikeListViewController.swift */,
+				5BC6884B20B2F03900F730B3 /* LikeListCollectionViewCell.swift */,
 				BB6BBA1020176D5600CC4179 /* TutorialViewController.swift */,
 			);
 			path = Tutorial;
@@ -235,7 +238,6 @@
 			isa = PBXGroup;
 			children = (
 				BBE8920A20189FFC004EE765 /* ProfileAddViewController.swift */,
-				5BF22E9620A5B1DF0054FA11 /* CollectionViewFlowLayoutLeftAlign.swift */,
 				5BF22E9520A5B1DE0054FA11 /* ProfileAddCollectionViewCell.swift */,
 				BB6BBA1E20176FFF00CC4179 /* ProfileViewController.swift */,
 				BBD66E302017A5D10070DFC4 /* ProfileHobbyView.swift */,
@@ -282,6 +284,7 @@
 			isa = PBXGroup;
 			children = (
 				BBD66E28201799450070DFC4 /* KeyboardRespondableViewController.swift */,
+				5BF22E9620A5B1DF0054FA11 /* CollectionViewFlowLayoutLeftAlign.swift */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -464,6 +467,7 @@
 				5BF22E9C20A5B6330054FA11 /* LikeListViewController.swift in Sources */,
 				BB6BBA1120176D5600CC4179 /* TutorialViewController.swift in Sources */,
 				BB6BBA1D20176EA300CC4179 /* CALayer+Border.swift in Sources */,
+				5BC6884C20B2F03900F730B3 /* LikeListCollectionViewCell.swift in Sources */,
 				5B25BBA92056A5DC001408DF /* CircleImageView.swift in Sources */,
 				5B9F8EEA2052A7F30072BFC9 /* MatchViewController.swift in Sources */,
 				BBF7B09F20174E0000964E95 /* AppDelegate.swift in Sources */,

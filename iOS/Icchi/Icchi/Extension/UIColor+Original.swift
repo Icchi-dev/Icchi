@@ -10,6 +10,10 @@ import UIKit
 
 extension UIColor {
     
+    class var selectedColor: UIColor {
+        return UIColor(red: 66 / 255, green: 66 / 255, blue: 66 / 255, alpha: 1)
+    }
+    
     class var likeRed: UIColor {
         return UIColor(red: 255 / 255, green: 85 / 255, blue: 85 / 255, alpha: 1)
     }
