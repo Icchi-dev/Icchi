@@ -1,7 +1,7 @@
 <?php
 
 class PostData {
-    public $id;
+  public $id;
 	public $title;
 	public $source;
 	public $relates;
@@ -12,8 +12,8 @@ class PostData {
 	static function initFromFileString($line) {
 		$datas = explode(",", $line);
 		if (count($datas) == 7) {
-		    $postData = new PostData();
-		    $postData->id = $datas[0];
+      $postData = new PostData();
+		  $postData->id = $datas[0];
 			$postData->title = $datas[1];
 			$postData->source = $datas[2];
 			$postData->relates = $datas[3];
@@ -24,6 +24,25 @@ class PostData {
 		}
 		return null;
 	}
+
+  function toFileString() {
+    $str = "";
+    $str .= $this->id;
+    $str .= ",";
+    $str .= $this->title;
+    $str .= ",";
+    $str .= $this->source;
+    $str .= ",";
+    $str .= $this->relates;
+    $str .= ",";
+    $str .= $this->sumbnail;
+    $str .= ",";
+    $str .= $this->link;
+    $str .= ",";
+    $str .= $this->sortOrder;
+    $str .= "\n";
+    return $str;
+  }
 }
 
 class Post {
@@ -42,199 +61,131 @@ class Post {
 						$postList[] = $postData;
 					}
 				}
-
-				// 配列をソート
 				usort($postList , "Post::cmp");
-
 				return $postList;
 			}
 		}
 		return [];
 	}
 
-	// ソートオーダーを昇順ソート
-	static function cmp($a, $b)
-	{
-	    $aval = intval($a->sortOrder);
-	    $bval = intval($b->sortOrder);
+	static function cmp($a, $b) {
 
-	    $cmp = 0;
-	    if($aval<$bval) {
-	        $cmp = -1;
-	    }
-	    else if($aval>$bval) {
-	        $cmp = 1;
-	    }
-	    return $cmp;
+    $aval = intval($a->sortOrder);
+    $bval = intval($b->sortOrder);
+
+    if ($aval < $bval) {
+      return -1;
+    } else if ($aval > $bval) {
+      return 1;
+    } else {
+      return 0;
+    }
 	}
-
 
 	static function writeAll($postList) {
 
 	    $str = "";
 	    foreach($postList as $postData) {
-
-	        $str .= $postData->id;
-	        $str .= ",";
-	        $str .= $postData->title;
-	        $str .= ",";
-	        $str .= $postData->source;
-	        $str .= ",";
-	        $str .= $postData->relates;
-	        $str .= ",";
-	        $str .= $postData->sumbnail;
-	        $str .= ",";
-	        $str .= $postData->link;
-	        $str .= ",";
-	        $str .= $postData->sortOrder;
-	        $str .= "\n";
+        $str .= $postData->toFileString();
 	    }
 	    file_put_contents(Post::FILE_NAME, $str);
 	}
 
-	static function register($id, $title, $source, $relates, $sumbnail, $link, $sortOrder) {
-
-    DebugSave($sortOrder);
-
-	    $postData = $id . "," . $title . "," . $source . "," . $relates . ","
-	        . $sumbnail . "," . $link . "," . $sortOrder . "\n";
-	        file_put_contents(Post::FILE_NAME, $postData, FILE_APPEND);
-	}
-
-	static function update($id, $title, $source, $relates, $sumbnail, $link, $sortOrder) {
-
-	    $postList = Post::readAll();
-	    foreach ($postList as &$post) {
-	        if (strcmp($post->id, $id) == 0) {
-	            $postData = new PostData();
-	            $postData->id = $id;
-	            $postData->title = $title;
-	            $postData->source = $source;
-	            $postData->relates = $relates;
-	            $postData->sumbnail = $sumbnail;
-	            $postData->link = $link;
-	            $postData->sortOrder = $sortOrder;
-	            $post = $postData;
-	        }
-	    }
-	    Post::writeAll($postList);
+	static function register($postData) {
+    file_put_contents(Post::FILE_NAME, $postData->toFileString(), FILE_APPEND);
 	}
 
   static function edit($id, $title, $source, $sumbnail, $link) {
 
-      $postList = Post::readAll();
-      foreach ($postList as &$post) {
-          if (strcmp($post->id, $id) == 0) {
-              $postData = new PostData();
-              $postData->id = $id;
-              $postData->title = $title;
-              $postData->source = $source;
-              $postData->sumbnail = $sumbnail;
-              $postData->link = $link;
-              $postData->sortOrder = $post->sortOrder;
-              $post = $postData;
-          }
+    $postList = Post::readAll();
+    foreach ($postList as &$post) {
+      if (strcmp($post->id, $id) == 0) {
+        $postData = new PostData();
+        $postData->id = $id;
+        $postData->title = $title;
+        $postData->source = $source;
+        $postData->sumbnail = $sumbnail;
+        $postData->link = $link;
+        $postData->sortOrder = $post->sortOrder;
+        $post = $postData;
       }
-      Post::writeAll($postList);
+    }
+    Post::writeAll($postList);
   }
 
-	// 指定するIDを一つ上のソート番号にする
 	static function setSortOrderUpById($id) {
 
-	    $orgSortOrder = 1;
-	    $upperSortOrder = 1;
-	    $upperId = 1;
-	    $postList = Post::readAll();
-	    foreach ($postList as &$post) {
-
-	        if (strcmp($post->id, $id) == 0) {
-
-	            $orgSortOrder = $post->sortOrder;
-	           break;
-	        }
-	        $upperId = $post->id;
-	        $upperSortOrder = $post->sortOrder;
+    $orgSortOrder = 1;
+	  $upperSortOrder = 1;
+    $upperId = 1;
+    $postList = Post::readAll();
+    foreach ($postList as $post) {
+      if (strcmp($post->id, $id) == 0) {
+        $orgSortOrder = $post->sortOrder;
+	      break;
 	    }
-
-	    if ($orgSortOrder != $upperSortOrder) {
-        	    Post::updateSortOrder($id, $upperSortOrder);
-        	    Post::updateSortOrder($upperId, $orgSortOrder);
-	    }
+	    $upperId = $post->id;
+      $upperSortOrder = $post->sortOrder;
+	   }
+     if ($orgSortOrder != $upperSortOrder) {
+       Post::updateSortOrder($id, $upperSortOrder);
+       Post::updateSortOrder($upperId, $orgSortOrder);
+	   }
 	}
 
-	// 指定するIDを一つ下のソート番号にする
 	static function setSortOrderDownById($id) {
 
-	    $orgSortOrder = 1;
-	    $postList = Post::readAll();
-	    $reversed = array_reverse($postList);
-	    $end = $reversed[0];
-	    $downId = $end->id;
-	    $downrSortOrder = $end->sortOrder;
+    $orgSortOrder = 1;
+    $postList = Post::readAll();
+    $reversed = array_reverse($postList);
+    $end = $reversed[0];
+    $downId = $end->id;
+    $downerSortOrder = $end->sortOrder;
 
-	    foreach ($reversed as &$post) {
-
-	        if (strcmp($post->id, $id) == 0) {
-
-	            $orgSortOrder = $post->sortOrder;
-	            break;
-	        }
-	        $downId = $post->id;
-	        $downrSortOrder = $post->sortOrder;
-	    }
-
-	    if ($orgSortOrder != $downrSortOrder) {
-	        Post::updateSortOrder($id, $downrSortOrder);
-	        Post::updateSortOrder($downId, $orgSortOrder);
-	    }
+    foreach ($reversed as &$post) {
+      if (strcmp($post->id, $id) == 0) {
+        $orgSortOrder = $post->sortOrder;
+        break;
+      }
+      $downId = $post->id;
+      $downerSortOrder = $post->sortOrder;
+    }
+    if ($orgSortOrder != $downerSortOrder) {
+      Post::updateSortOrder($id, $downerSortOrder);
+      Post::updateSortOrder($downId, $orgSortOrder);
+    }
 	}
 
-	// ソート番号だけ更新する
 	static function updateSortOrder($id,$sortOrder) {
 
-	    $postList = Post::readAll();
-	    foreach ($postList as &$post) {
-
-	        $postData = new PostData();
-	        $postData->id = $post->id;
-	        $postData->title = $post->title;
-	        $postData->source = $post->source;
-	        $postData->relates = $post->relates;
-	        $postData->sumbnail = $post->sumbnail;
-	        $postData->link = $post->link;
-	        $postData->sortOrder = $post->sortOrder;
-	        if (strcmp($post->id, $id) == 0) {
-	            $postData->sortOrder = $sortOrder;
-	        }
-	        $post = $postData;
+    $postList = Post::readAll();
+    foreach ($postList as &$post) {
+      $postData = new PostData();
+      $postData->id = $post->id;
+	    $postData->title = $post->title;
+	    $postData->source = $post->source;
+      $postData->relates = $post->relates;
+	    $postData->sumbnail = $post->sumbnail;
+	    $postData->link = $post->link;
+	    $postData->sortOrder = $post->sortOrder;
+	    if (strcmp($post->id, $id) == 0) {
+        $postData->sortOrder = $sortOrder;
 	    }
-	    Post::writeAll($postList);
+	    $post = $postData;
+	  }
+	  Post::writeAll($postList);
 	}
 
-
-	// 指定するIDを削除
 	static function delete($id) {
 
-	    $postList = Post::readAll();
-
-	    $newPostList = [];
-
-	    foreach ($postList as &$post) {
-	        if (strcmp($post->id, $id) == 0) {
-	            continue;
-	        }
-            $postData = new PostData();
-            $postData->id = $post->id;
-            $postData->title = $post->title;
-            $postData->source = $post->source;
-            $postData->relates = $post->relates;
-            $postData->sumbnail = $post->sumbnail;
-            $postData->link = $post->link;
-            $postData->sortOrder = $post->sortOrder;
-            $newPostList[] = $postData;
-
+    $postList = Post::readAll();
+    $newPostList = [];
+    foreach ($postList as $postData) {
+      if (strcmp($postData->id, $id) != 0) {
+        $newPostList[] = $postData;
 	    }
 	    Post::writeAll($newPostList);
+    }
 	}
 
   static function nextPostId() {

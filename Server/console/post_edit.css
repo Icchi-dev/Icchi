@@ -1,19 +1,6 @@
-
-.root {
-  margin: 0 auto;
-  text-align: center;
-  background: #fafafa;
-  width: 800px;
-}
-
-table {
-  width: 100%;
-}
-
-.title {
-  color: #5e5e5e;
-  font-size: 20px;
-  padding: 20px 0;
+.edit_table {
+  margin: 30px;
+  width: 90%;
 }
 
 input {
@@ -31,19 +18,12 @@ input:focus {
   outline: none;
 }
 
-.buttons{
-  margin-top: 20px;
-  margin-bottom: 30px;
-  text-align: center;
-  display: inline-block;
-}
-.button {
-  float: left;
+.add_button {
   background: #f16272;
   border: none;
   color: #fff;
   cursor: pointer;
-  width: 300px;
+  width: 200px;
   height: 50px;
   font-size: 18px;
   letter-spacing: 0.05em;
@@ -56,7 +36,7 @@ input:focus {
   border: none;
   color: #fff;
   cursor: pointer;
-  width: 300px;
+  width: 200px;
   height: 50px;
   font-size: 18px;
   letter-spacing: 0.05em;
