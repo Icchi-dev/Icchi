@@ -103,6 +103,13 @@ class UserRequester {
         var image:String? = ""
         var fbLink:String? = ""
 
+        mutating public func likesAddChange(like:String) {
+            self.likes?.append(like)
+        }
+        mutating public func hatesAddChange(hate:String) {
+            self.hates?.append(hate)
+        }
+        
         private enum CodingKeys: String, CodingKey {
             case userId
             case name

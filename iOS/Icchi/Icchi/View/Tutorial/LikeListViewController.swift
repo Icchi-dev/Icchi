@@ -15,7 +15,7 @@ class LikeListViewController: UIViewController {
     @IBOutlet weak var hateCollectionView: UICollectionView!
     
     // アイテムデータ
-    struct CellData {
+    class CellData {
         var itemData:ItemRequester.ItemData? = nil
         var selected:Bool = false
     }
@@ -82,13 +82,13 @@ class LikeListViewController: UIViewController {
         // セルデータ配列を作成
         var cellDataList: [CellData] = []
         newList1.forEach {
-            var cellData = CellData()
+            let cellData = CellData()
             cellData.itemData = $0
             cellData.selected = true
             cellDataList.append(cellData)
         }
         newList2.forEach {
-            var cellData = CellData()
+            let cellData = CellData()
             cellData.itemData = $0
             cellData.selected = false
             cellDataList.append(cellData)
@@ -108,9 +108,51 @@ class LikeListViewController: UIViewController {
     
     @IBAction func onTapOk(_ sender: UIButton) {
         
-        let ProfileViewController = self.viewController(storyboard: "Main", identifier: "ProfileViewController") as! ProfileViewController
-        self.stack(viewController: ProfileViewController, animationType: .horizontal)
+        
+        var myUserData = UserRequester.sharedManager.query(SaveData.shared.userId)
+        
+        for likeItemName in mSelectedLikeItemNames {
+            myUserData?.likesAddChange(like: likeItemName)
+        }
+        
+        for hateItemName in mSelectedHateItemNames {
+            myUserData?.hatesAddChange(hate: hateItemName)
+        }
+        
+        Loading.start()
+        
+        AccountRequester.sharedManager.update(userData: myUserData, completion:{(result) in
+            
+            if result {
+                
+                // ユーザー一覧取得
+                UserRequester.sharedManager.fetch() { (result) in
 
+                    // ローディング
+                    Loading.stop()
+
+                    // 入力チェック
+                    guard result else {
+                        let action = AlertAction(title:"OK")
+                        self.showAlert(title: "エラー", message: "通信に失敗しました", actions: [action])
+                        return;
+                    }
+
+                    // プロフィール画面へ
+                    let ProfileViewController = self.viewController(storyboard: "Main", identifier: "ProfileViewController") as! ProfileViewController
+                    self.stack(viewController: ProfileViewController, animationType: .horizontal)
+                }
+            }
+            else {
+                
+                // ローディング
+                Loading.stop()
+                
+                let action = AlertAction(title:"OK")
+                self.showAlert(title: "エラー", message: "通信に失敗しました", actions: [action])
+            }
+        })
+        
     }
     
     @IBAction func onTapLogo(_ sender: Any) {
@@ -151,6 +193,46 @@ extension LikeListViewController:UICollectionViewDataSource, UICollectionViewDel
         
     }
     
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        
+        if collectionView == self.likeCollectionView {
+            let selectData = self.likeCellDatas?[indexPath.row];
+            selectData?.selected = true
+            self.didTapItemName(itemData: selectData?.itemData, isLike: true)
+        }
+        else {
+            let selectData = self.hateCellDatas?[indexPath.row];
+            selectData?.selected = true
+            self.didTapItemName(itemData: selectData?.itemData, isLike: false)
+        }
+        
+        collectionView.reloadData()
+    }
+    
+    func didTapItemName(itemData: ItemRequester.ItemData?, isLike: Bool) {
+        
+        guard let itemName = itemData?.itemId else {
+            return
+        }
+        
+        if isLike {
+            if mSelectedLikeItemNames.contains(itemName) {
+                if let idx = mSelectedLikeItemNames.index(where: { itemName.elementsEqual($0) }) {
+                    mSelectedLikeItemNames.remove(at: idx)
+                }
+            } else {
+                mSelectedLikeItemNames.append(itemName);
+            }
+        } else {
+            if mSelectedHateItemNames.contains(itemName) {
+                if let idx = mSelectedHateItemNames.index(where: { itemName.elementsEqual($0) }) {
+                    mSelectedHateItemNames.remove(at: idx)
+                }
+            } else {
+                mSelectedHateItemNames.append(itemName);
+            }
+        }
+    }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         
