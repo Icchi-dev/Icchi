@@ -7,11 +7,11 @@ class ItemData {
 
 	static function initFromFileString($line) {
 		$datas = explode(",", $line);
-		if (count($datas) == 3) {
+		if (count($datas) == 2) {
 			$itemData = new ItemData();
 			$itemData->id = $datas[0];
 			$itemData->name = $datas[1];
-			$itemData->kana = $datas[2];
+			$itemData->kana = "";		// TODO そのうち削除する
 			return $itemData;
 		}
 		return null;
