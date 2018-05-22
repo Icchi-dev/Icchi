@@ -18,12 +18,8 @@
           <div class="title">
             Icchi管理画面
           </div>
-          <div class="form-item">
-            <input type="text" id="name" placeholder="Name">
-          </div>
-          <div class="form-item">
-            <input type="password" id="password" placeholder="Password">
-          </div>
+          <div><input type="text" id="name" placeholder="Name" onkeydown="javascript:onKeyDown()"></div>
+          <div><input type="password" id="password" placeholder="Password" onkeydown="javascript:onKeyDown()"></div>
           <button class="login" onclick="javascript:onClickLogin();">
             LOG IN
           </button>

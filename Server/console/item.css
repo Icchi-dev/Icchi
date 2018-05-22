@@ -1,139 +1,38 @@
 
-table {
-  width: 800px;
-  margin: 10px auto;
-	-moz-box-sizing: border-box;
-	-webkit-box-sizing: border-box;
-	box-sizing: border-box;
+#total_count {
+  font-size: 14px;
+  color: #555;
 }
 
-thead th {
-  font-weight: 400;
-  background: #8a97a0;
-  color: #FFF;
+#item_table {
+  margin: 30px;
+  width: 90%;
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
 }
 
-tr {
+#item_table tr {
   background: #f4f7f8;
   border-bottom: 1px solid #FFF;
   margin-bottom: 5px;
 }
 
-tr:nth-child(even) {
+#item_table tr:nth-child(even) {
   background: #e8eeef;
 }
 
-th, td {
-	font-size: 14px;
-  text-align: center;
+#item_table th {
+  font-size: 14px;
+  font-weight: 400;
+  background: #8a97a0;
+  color: #FFF;
   padding: 8px;
 }
 
-
-
-
-
-img{
-  width: 70px;
-  height: 40px;
-  object-fit: contain;
-}
-
-.root {
-    margin: 0 auto;
-    text-align: center;
-    background: #fafafa;
-}
-
-.title {
-  width: 100%;
-  background: #292929;
-  color: #fff;
+#item_table td {
   font-size: 14px;
-  padding: 7px 0;
-}
-
-.score_title {
-  color: #5e5e5e;
-  font-size: 20px;
-  margin: 30px 0 0 0;
-}
-
-input {
-  font-size: 14px;
-  border: none;
-  color: #666;
-  width:70%;
-  height:32px;
+  font-weight: 400;
   text-align: center;
-  border-radius:16px;
-  -webkit-border-radius:16px;
-  -moz-border-radius:16px;
-  border: 1px solid #ddd;
-}
-
-input:focus {
-  outline: none;
-}
-
-.parameter_button {
-  background: #f16272;
-  border: none;
-  color: #fff;
-  cursor: pointer;
-  width: 60%;
-  height: 34px;
-  font-size: 14px;
-}
-
-.item_title {
-  color: #5e5e5e;
-  font-size: 20px;
-  margin: 50px 0 0 0;
-}
-
-.buttons{
-  margin-top: 20px;
-  margin-bottom: 30px;
-  text-align: center;
-  display: inline-block;
-}
-
-.button {
-  float: left;
-  background: #f16272;
-  border: none;
-  color: #fff;
-  cursor: pointer;
-  width: 300px;
-  height: 50px;
-  font-size: 18px;
-  letter-spacing: 0.05em;
-  margin-left:30px;
-}
-
-.buttonContainer {
-	overflow: hidden;
-}
-
-/* clearfix */
-.buttonContainer:before,
-.buttonContainer:after {
-    content: "";
-    display: table;
-}
-
-.buttonContainer:after {
-    clear: both;
-}
-
-.item_link {
-	width: 24px;
-	height: 24px;
-}
-
-.configbutton {
-	width: 20px;
-	height: 20px;
-	margin: 0 6px;
+  padding: 8px;
 }

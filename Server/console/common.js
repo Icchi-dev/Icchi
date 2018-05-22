@@ -58,3 +58,11 @@ function base64Encode(str) {
 function base64Decode(str) {
   return decodeURIComponent(escape(atob(str)));
 }
+
+function authenticate() {
+  if (document.referrer.indexOf(location.origin) < 0) {
+    location.href = "index.html";
+    return false;
+  }
+  return true;
+}
