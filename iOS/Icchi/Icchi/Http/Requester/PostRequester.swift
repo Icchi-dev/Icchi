@@ -33,6 +33,7 @@ class PostRequester {
         var sumbnail:String? = nil
         var link:String? = nil
         var order:String? = nil
+        var forAll:String? = nil
         
         private enum CodingKeys: String, CodingKey {
             case title
@@ -41,6 +42,7 @@ class PostRequester {
             case sumbnail
             case link
             case order
+            case forAll
         }
         
         init(from decoder: Decoder) throws {
@@ -51,6 +53,7 @@ class PostRequester {
             sumbnail = try? values.decode(String.self, forKey: .sumbnail)
             link = try? values.decode(String.self, forKey: .link)
             order = try? values.decode(String.self, forKey: .order)
+            forAll = try? values.decode(String.self, forKey: .forAll)
         }
     }
     

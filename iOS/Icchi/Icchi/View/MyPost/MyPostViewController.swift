@@ -123,16 +123,11 @@ class MyPostViewController: UIViewController {
         let postList = PostRequester.sharedManager.postDatas
         postList.forEach { (postData) in
             var hasRelates = false
-            if let relates = postData.relates {
-                if relates.contains("*") {
-                    hasRelates = true
-                } else {
-                    for (_, relate) in relates.enumerated() {
-                        if let _ = myUserData.likes?.contains(relate) {
-                            hasRelates = true
-                            break
-                        }
-                    }
+            if postData.forAll == "1" {
+                hasRelates = true
+            } else {
+                myUserData.likes?.compactMap { $0 }.compactMap { ItemRequester.sharedManager.query($0) }.forEach { itemData in
+                    hasRelates = postData.title?.contains(itemData.name ?? "") ?? false
                 }
             }
             
