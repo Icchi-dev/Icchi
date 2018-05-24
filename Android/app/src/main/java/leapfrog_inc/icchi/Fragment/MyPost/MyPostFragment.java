@@ -129,16 +129,13 @@ public class MyPostFragment extends BaseFragment {
         for (int i = 0; i < postList.size(); i++) {
             PostRequester.PostData postData = postList.get(i);
             boolean relates = false;
-//            if (postData.relates.contains("*")) {
-//                relates = true;
-//            } else {
-//                for (int j = 0; j < postData.relates.size(); j++) {
-//                    if (myUserData.likes.contains(postData.relates.get(j))) {
-//                        relates = true;
-//                        break;
-//                    }
-//                }
-//            }
+
+            // 全員向け
+            if (postData.forAll) {
+                relates = true;
+            }
+
+            // 自分向け
             for (int j = 0; j < myUserData.likes.size(); j++) {
                 ItemRequester.ItemData itemData = ItemRequester.getInstance().query(myUserData.likes.get(j));
                 if (itemData != null) {
