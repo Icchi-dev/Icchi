@@ -24,6 +24,7 @@ public class PostRequester {
         public String sumbnail;
         public String link;
         public int order;
+        public boolean forAll;
 
         static public PostData create(JSONObject json) {
 
@@ -34,6 +35,8 @@ public class PostRequester {
                 String sumbnail = json.getString("sumbnail");
                 String link = json.getString("link");
                 int order = Integer.parseInt(json.getString("order"));
+                boolean forAll = json.getString("forAll").equals("1");
+
                 PostData postData = new PostData();
                 postData.title = title;
                 postData.source = source;
@@ -44,6 +47,7 @@ public class PostRequester {
                 postData.sumbnail = sumbnail;
                 postData.link = link;
                 postData.order = order;
+                postData.forAll = forAll;
 
                 return postData;
 
