@@ -8,10 +8,11 @@ class PostData {
 	public $sumbnail;
 	public $link;
 	public $sortOrder;
+  public $forAll;
 
 	static function initFromFileString($line) {
 		$datas = explode(",", $line);
-		if (count($datas) == 7) {
+		if (count($datas) == 8) {
       $postData = new PostData();
 		  $postData->id = $datas[0];
 			$postData->title = $datas[1];
@@ -20,6 +21,7 @@ class PostData {
 			$postData->sumbnail = $datas[4];
 			$postData->link = $datas[5];
 			$postData->sortOrder = $datas[6];
+      $postData->forAll = $datas[7];
 			return $postData;
 		}
 		return null;
@@ -40,6 +42,8 @@ class PostData {
     $str .= $this->link;
     $str .= ",";
     $str .= $this->sortOrder;
+    $str .= ",";
+    $str .= $this->forAll;
     $str .= "\n";
     return $str;
   }
@@ -95,7 +99,7 @@ class Post {
     file_put_contents(Post::FILE_NAME, $postData->toFileString(), FILE_APPEND);
 	}
 
-  static function edit($id, $title, $source, $sumbnail, $link) {
+  static function edit($id, $title, $source, $sumbnail, $link, $forAll) {
 
     $postList = Post::readAll();
     foreach ($postList as &$post) {
@@ -106,6 +110,7 @@ class Post {
         $postData->source = $source;
         $postData->sumbnail = $sumbnail;
         $postData->link = $link;
+        $postData->forAll = $forAll;
         $postData->sortOrder = $post->sortOrder;
         $post = $postData;
       }

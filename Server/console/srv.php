@@ -119,7 +119,8 @@ function getPost() {
                         "relates" => $postData->relates,
                         "sumbnail" => $postData->sumbnail,
                         "link" => $postData->link,
-                        "sortOrder" => $postData->sortOrder);
+                        "sortOrder" => $postData->sortOrder,
+                        "forAll" => $postData->forAll);
 	}
 	$ret = Array("result" => "0",
 	             "data" => $postList);
@@ -155,6 +156,7 @@ function createPost() {
   $postData->source = $_POST["source"];
   $postData->sumbnail = $_POST["sumbnail"];
   $postData->link = $_POST["link"];
+  $postData->forAll = $_POST["forAll"];
   $postData->sortOrder = POST::nextSortOrder();
 
   POST::register($postData);
@@ -168,8 +170,9 @@ function editPost() {
   $source = $_POST["source"];
   $sumbnail = $_POST["sumbnail"];
   $link = $_POST["link"];
+  $forAll = $_POST["forAll"];
 
-  POST::edit($id, $title, $source, $sumbnail, $link);
+  POST::edit($id, $title, $source, $sumbnail, $link, $forAll);
   echo(json_encode(Array("result" => "0")));
 }
 

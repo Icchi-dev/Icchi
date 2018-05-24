@@ -39,6 +39,13 @@ function display(dataList) {
     var tdLink = tr.insertCell(-1);
     tdLink.innerHTML = "<a href='" + dataList[i].link + "' target='_blank'><img class='item_link' src='img/item_link.png' style='width:24px'></a>"
 
+    var tdForAll = tr.insertCell(-1);
+    if (dataList[i].forAll == "1") {
+      tdForAll.innerHTML = "○";
+    } else {
+      tdForAll.innerHTML = "";
+    }
+    
     var tdControl = tr.insertCell(-1);
     tdControl.innerHTML = "<a href='javascript:onSortOrderUp(" + dataList[i].id + ");'><img class='control_button' src='img/item_up.png'></a>";
     tdControl.innerHTML += "<a href='javascript:onSortOrderDown(" + dataList[i].id + ");'><img class='control_button' src='img/item_down.png'></a>";

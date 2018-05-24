@@ -24,7 +24,6 @@ if(strcmp($command, "register") == 0) {
 } else if (strcmp($command, "getMatchParameter") == 0) {
 	getMatchParameter();
 } else {
-	login();
   echo("unknown");
 }
 
@@ -123,7 +122,8 @@ function getPost() {
 												"relates" => $postData->relates,
 												"sumbnail" => $postData->sumbnail,
 												"link" => $postData->link,
-											  "order" => $postData->sortOrder);
+											  "order" => $postData->sortOrder,
+											  "forAll" => $postData->forAll);
 	}
 	$ret = Array("result" => "0",
 							 "posts" => $postList);
