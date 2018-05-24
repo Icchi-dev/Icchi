@@ -8,10 +8,11 @@ class PostData {
 	public $sumbnail;
 	public $link;
 	public $sortOrder;
+	public $forAll;
 
 	static function initFromFileString($line) {
 		$datas = explode(",", $line);
-		if (count($datas) == 7) {
+		if (count($datas) == 8) {
 		    $postData = new PostData();
 		    $postData->id = $datas[0];
 		    $postData->title = $datas[1];
@@ -20,6 +21,7 @@ class PostData {
 			$postData->sumbnail = $datas[4];
 			$postData->link = $datas[5];
 			$postData->sortOrder = $datas[6];
+			$postData->forAll = $datas[7];
 			return $postData;
 		}
 		return null;

@@ -4,7 +4,7 @@ function fetch() {
   if (!authenticate()) {
     return;
   }
-  
+
   var postId = getPostId();
   if (postId.length == 0) {
     return;
@@ -44,6 +44,11 @@ function display(postData) {
   document.getElementById("title").value = postData.title;
   document.getElementById("sumbnail").value = postData.sumbnail;
   document.getElementById("link").value = postData.link;
+  if (postData.forAll == "1") {
+    document.getElementById("forAll").checked = true;
+  } else {
+    document.getElementById("forAll").checked = false;
+  }
 }
 
 function onClickEditEnd() {
@@ -53,6 +58,12 @@ function onClickEditEnd() {
   var source = document.getElementById("source").value;
   var sumbnail = document.getElementById("sumbnail").value;
   var link = document.getElementById("link").value;
+  var forAll = "";
+  if (document.getElementById("forAll").checked) {
+    forAll = "1";
+  } else {
+    forAll = "0";
+  }
 
   var params = "";
   if (postId.length == 0) {
@@ -60,7 +71,7 @@ function onClickEditEnd() {
   } else {
     params = "command=editPost&id=" + postId;
   }
-  params += ("&title=" + title + "&source=" + source + "&sumbnail=" + sumbnail + "&link=" + link);
+  params += ("&title=" + title + "&source=" + source + "&sumbnail=" + sumbnail + "&link=" + link + "&forAll=" + forAll);
 
   httpPost("srv.php", params, function(response) {
     try {
