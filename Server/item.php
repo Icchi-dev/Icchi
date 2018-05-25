@@ -53,7 +53,7 @@ class Item {
 			$newItemId = $allItems[count($allItems) - 1]->id;
 		}
 		$newItemId += 1;
-		$newLine = (string)$newItemId . "," . $itemName . ",\n";
+		$newLine = (string)$newItemId . "," . $itemName . "\n";
 		file_put_contents(Item::FILE_NAME, $newLine, FILE_APPEND);
 
 		return (string)$newItemId;
