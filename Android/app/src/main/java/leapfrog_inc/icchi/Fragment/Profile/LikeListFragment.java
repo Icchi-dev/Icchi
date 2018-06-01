@@ -131,7 +131,14 @@ public class LikeListFragment extends BaseFragment {
     }
 
     public static int getTextViewWidth(Activity activity, String text) {
-        return (int)(CommonUtility.getDeviceDensity(activity) * 14 * text.length()) + 40;
+        int deviceWidth = CommonUtility.getWindowSize(activity).x;
+        float density = CommonUtility.getDeviceDensity(activity);
+
+        int width = (int)(density * 14 * text.length()) + 56;
+        if (width > deviceWidth - (int)(density * 86)) {
+            width = deviceWidth - (int)(density * 86);
+        }
+        return width;
     }
 
     private void initContents(View view) {
@@ -311,13 +318,17 @@ public class LikeListFragment extends BaseFragment {
                         textView.setBackgroundResource(R.layout.shape_profile_hatecontents);
                     }
                 }
+                float density = CommonUtility.getDeviceDensity((Activity)mContext);
                 textView.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
                 int width = LikeListFragment.getTextViewWidth((Activity) mContext, adapterData.itemName);
-                ViewGroup.MarginLayoutParams params = new ViewGroup.MarginLayoutParams(new LinearLayout.LayoutParams(width, (int)(CommonUtility.getDeviceDensity((Activity)mContext) * 30)));
-                int margin = (int)(CommonUtility.getDeviceDensity((Activity) mContext) * 8);
+                ViewGroup.MarginLayoutParams params = new ViewGroup.MarginLayoutParams(new LinearLayout.LayoutParams(width, ViewGroup.LayoutParams.WRAP_CONTENT));
+                int margin = (int)(density * 8);
                 params.topMargin = margin;
                 params.leftMargin = margin;
                 textView.setLayoutParams(params);
+                int padding = (int)(density * 8);
+                textView.setPadding(padding, padding, padding, padding);
+
                 textView.setGravity(Gravity.CENTER_VERTICAL);
 
                 textView.setClickable(true);
