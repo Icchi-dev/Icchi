@@ -290,13 +290,13 @@ public class ProfileFragment extends BaseFragment {
             if (tmpUserData.hates.contains(itemId)) {
                 return false;
             } else if (!tmpUserData.likes.contains(itemId)) {
-                tmpUserData.likes.add(itemId);
+                tmpUserData.likes.add(0, itemId);
             }
         } else {
             if (tmpUserData.likes.contains(itemId)) {
                 return false;
             } else if (!tmpUserData.hates.contains(itemId)) {
-                tmpUserData.hates.add(itemId);
+                tmpUserData.hates.add(0, itemId);
             }
         }
 

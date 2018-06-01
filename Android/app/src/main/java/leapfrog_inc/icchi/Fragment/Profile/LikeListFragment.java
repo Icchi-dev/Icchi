@@ -53,8 +53,6 @@ import leapfrog_inc.icchi.R;
 
 public class LikeListFragment extends BaseFragment {
 
-    static ArrayList<Integer> mCheckList = new ArrayList<Integer>();
-
     private ArrayList<String> mSelectedLikeItemNames = new ArrayList<String>();
     private ArrayList<String> mSelectedHateItemNames = new ArrayList<String>();
 
