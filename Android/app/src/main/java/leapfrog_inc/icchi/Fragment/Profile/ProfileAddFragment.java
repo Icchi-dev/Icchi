@@ -189,10 +189,13 @@ public class ProfileAddFragment extends BaseFragment {
             }
             textView.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
             int width = getTextViewWidth(itemName);
-            ViewGroup.MarginLayoutParams params = new ViewGroup.MarginLayoutParams(new LinearLayout.LayoutParams(width, (int)(CommonUtility.getDeviceDensity(getActivity()) * 30)));
-            int margin = (int)(CommonUtility.getDeviceDensity(getActivity()) * 8);
+            float density = CommonUtility.getDeviceDensity(getActivity());
+            ViewGroup.MarginLayoutParams params = new ViewGroup.MarginLayoutParams(new LinearLayout.LayoutParams(width, ViewGroup.LayoutParams.WRAP_CONTENT));
+            int margin = (int)(density * 8);
             params.topMargin = margin;
             params.leftMargin = margin;
+            int padding = (int)(density * 8);
+            textView.setPadding(padding, padding, padding, padding);
             textView.setLayoutParams(params);
             textView.setGravity(Gravity.CENTER_VERTICAL);
             textView.setClickable(true);
@@ -223,7 +226,15 @@ public class ProfileAddFragment extends BaseFragment {
     }
 
     private int getTextViewWidth(String text) {
-        return (int)(CommonUtility.getDeviceDensity(getActivity()) * 14 * text.length()) + 40;
+
+        int deviceWidth = CommonUtility.getWindowSize(getActivity()).x;
+        float density = CommonUtility.getDeviceDensity(getActivity());
+
+        int width = (int)(density * 14 * text.length()) + 56;
+        if (width > deviceWidth - (int)(density * 116)) {
+            width = deviceWidth - (int)(density * 116);
+        }
+        return width;
     }
 
     private void createItem() {
@@ -235,11 +246,6 @@ public class ProfileAddFragment extends BaseFragment {
         if (editText == null) return;
 
         String itemName = editText.getText().toString();
-
-        if (itemName.length() > 10) {
-            AlertUtility.showAlert(getActivity(), "エラー", "10文字以内で入力してください", "OK", null);
-            return;
-        }
 
         if (itemName.length() > 0) {
 
