@@ -18,6 +18,7 @@ class ProfileHobbyView: UIView {
         self.backgroundColor = isLike ? .likeRed : .hateBlue
         self.titleLbale.text = title
         self.didTapDelete = didTapDelete
+        self.titleLbale.sizeToFit()
     }
 
     @IBAction func onTapDelete(_ sender: Any) {

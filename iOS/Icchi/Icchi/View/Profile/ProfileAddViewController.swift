@@ -118,11 +118,6 @@ class ProfileAddViewController: UIViewController {
             return
         }
 
-        guard addString.count <= 10 else {
-            self.showAlert(title: "エラー", message: "10文字以内で入力してください", actions: [AlertAction(title:"OK")])
-            return
-        }
-        
         if addString.count > 0 {
             
             Loading.start()
@@ -227,18 +222,12 @@ extension ProfileAddViewController:UICollectionViewDataSource, UICollectionViewD
 
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
 
-        let selectData = self.itemDatas?[indexPath.row]
-
-        return self.newSize(selectData?.name);
-    }
-
-    public func newSize(_ name:String?) -> CGSize {
-        
         let label = UILabel()
-        label.text = name!
+        label.text = self.itemDatas?[indexPath.row].name
         label.font = UIFont.systemFont(ofSize: 16)
-        let newSize = label.sizeThatFits(CGSize(width:400, height:300))
-        return CGSize(width:newSize.width + 20, height:30)
+        label.numberOfLines = 0
+        let padding = CGFloat(20)
+        let labelSize = label.sizeThatFits(CGSize(width: collectionView.frame.size.width - padding, height: 1))
+        return CGSize(width: labelSize.width + padding, height: labelSize.height + 14)
     }
-    
 }

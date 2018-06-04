@@ -215,7 +215,7 @@ class ProfileViewController: UIViewController {
                 return false;
             }
             else if let likes = self.tmpUserData?.likes, !likes.contains(itemId) {
-                self.tmpUserData?.likes?.append(itemId)
+                self.tmpUserData?.likes?.insert(itemId, at: 0)
             }
         }
         else {
@@ -223,7 +223,7 @@ class ProfileViewController: UIViewController {
                 return false;
             }
             else if let hates = self.tmpUserData?.hates, !hates.contains(itemId) {
-                self.tmpUserData?.hates?.append(itemId)
+                self.tmpUserData?.hates?.insert(itemId, at: 0)
             }
         }
         self.likeContentsStackView.arrangedSubviews.forEach({subView in
