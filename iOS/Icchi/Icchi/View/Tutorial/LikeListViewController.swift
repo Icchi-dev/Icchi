@@ -236,30 +236,17 @@ extension LikeListViewController:UICollectionViewDataSource, UICollectionViewDel
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         
-        var selectData:CellData?
-        
-        if collectionView == self.likeCollectionView {
-            selectData = self.likeCellDatas?[indexPath.row];
-        }
-        else {
-            selectData = self.hateCellDatas?[indexPath.row];
-        }
-        
-        var resizeName = ""
-        if let itemData = selectData?.itemData, let name = itemData.name {
-            resizeName = name
-        }
-        
-        return self.newSize(resizeName);
-    }
-    
-    public func newSize(_ name:String?) -> CGSize {
+        let cellDatas = (collectionView == self.likeCollectionView) ? self.likeCellDatas : self.hateCellDatas
+        let cellData = cellDatas?[indexPath.row]
+        let itemName = cellData?.itemData?.name
         
         let label = UILabel()
-        label.text = name!
+        label.text = itemName
         label.font = UIFont.systemFont(ofSize: 16)
-        let newSize = label.sizeThatFits(CGSize(width:400, height:300))
-        return CGSize(width:newSize.width + 20, height:30)
-    }
+        label.numberOfLines = 0
+        let padding = CGFloat(20)
+        let labelSize = label.sizeThatFits(CGSize(width: collectionView.frame.size.width - padding, height: 1))
+        return CGSize(width: labelSize.width + padding, height: labelSize.height + 14)
+    }    
 }
 
