@@ -202,25 +202,30 @@ class ProfileViewController: UIViewController {
             self.tmpUserData?.hates = hates
         }
     }
+    
+    enum AddResult {
+        case success
+        case contain
+        case over25
+    }
 
-    public func addItemId(itemId: String?, isLike: Bool) -> Bool {
-        
-        guard let itemId = itemId else {
-            return false
-        }
+    public func addItemId(itemId: String, isLike: Bool) -> AddResult {
         
         if isLike {
-            
-            if let hates = self.tmpUserData?.hates, hates.contains(itemId) {
-                return false;
+            if self.tmpUserData?.likes?.count ?? 0 >= 25 {
+                return .over25
+            } else if let hates = self.tmpUserData?.hates, hates.contains(itemId) {
+                return .contain;
             }
             else if let likes = self.tmpUserData?.likes, !likes.contains(itemId) {
                 self.tmpUserData?.likes?.insert(itemId, at: 0)
             }
         }
         else {
-            if let likes = self.tmpUserData?.likes, likes.contains(itemId) {
-                return false;
+            if self.tmpUserData?.hates?.count ?? 0 >= 25 {
+                return .over25
+            } else if let likes = self.tmpUserData?.likes, likes.contains(itemId) {
+                return .contain;
             }
             else if let hates = self.tmpUserData?.hates, !hates.contains(itemId) {
                 self.tmpUserData?.hates?.insert(itemId, at: 0)
@@ -236,7 +241,7 @@ class ProfileViewController: UIViewController {
         })
         
         self.setProfile(userData: self.tmpUserData)
-        return true;
+        return .success;
     }
     
     @IBAction func onTapLogo(_ sender: Any) {

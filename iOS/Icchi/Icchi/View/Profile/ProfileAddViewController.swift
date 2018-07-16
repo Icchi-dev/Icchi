@@ -151,19 +151,20 @@ class ProfileAddViewController: UIViewController {
         }
     }
     
-    private func notifyToProfile(itemId:String?) {
+    private func notifyToProfile(itemId: String) {
     
         if let profileViewController = self.parent as? ProfileViewController {
         
             let result = profileViewController.addItemId(itemId: itemId, isLike: isLike)
             
-            if result  {
+            if result == .success  {
                 self.pop(animationType: .horizontal)
-            }
-            else {
-                var message = "\"好き\"に登録されたコンテンツです";
-                if isLike {
-                    message = "\"嫌い\"に登録されたコンテンツです";
+            } else {
+                var message = ""
+                if result == .contain {
+                    message = isLike ? "\"嫌い\"に登録されたコンテンツです" : "\"好き\"に登録されたコンテンツです"
+                } else if result == .over25 {
+                    message = "25個以上のアイテムは登録できません"
                 }
                 
                 let action = AlertAction(title:"OK")
@@ -216,8 +217,9 @@ extension ProfileAddViewController:UICollectionViewDataSource, UICollectionViewD
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         
-        let selectData = self.itemDatas?[indexPath.row]
-        self.notifyToProfile(itemId: selectData?.itemId)
+        if let selectData = self.itemDatas?[indexPath.row], let itemId = selectData.itemId {
+            self.notifyToProfile(itemId: itemId)
+        }
     }
 
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
