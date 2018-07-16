@@ -284,17 +284,27 @@ public class ProfileFragment extends BaseFragment {
         AlertUtility.showAlert(getActivity(), "エラー", "通信に失敗しました", "OK", null);
     }
 
-    public boolean addItemId(String itemId, boolean isLike) {
+    public enum AddResult {
+        success,
+        over25,
+        contain
+    };
+
+    public AddResult addItemId(String itemId, boolean isLike) {
 
         if (isLike) {
-            if (tmpUserData.hates.contains(itemId)) {
-                return false;
+            if (tmpUserData.likes.size() >= 25) {
+                return AddResult.over25;
+            } else if (tmpUserData.hates.contains(itemId)) {
+                return AddResult.contain;
             } else if (!tmpUserData.likes.contains(itemId)) {
                 tmpUserData.likes.add(0, itemId);
             }
         } else {
-            if (tmpUserData.likes.contains(itemId)) {
-                return false;
+            if (tmpUserData.hates.size() >= 25) {
+                return AddResult.over25;
+            } else if (tmpUserData.likes.contains(itemId)) {
+                return AddResult.contain;
             } else if (!tmpUserData.hates.contains(itemId)) {
                 tmpUserData.hates.add(0, itemId);
             }
@@ -304,6 +314,6 @@ public class ProfileFragment extends BaseFragment {
         if (view != null) {
             setProfile(view, tmpUserData);
         }
-        return true;
+        return AddResult.success;
     }
 }

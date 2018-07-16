@@ -281,16 +281,20 @@ public class ProfileAddFragment extends BaseFragment {
     private void notifyToProfile(String itemId) {
 
         ProfileFragment profileFragment = (ProfileFragment) FragmentController.getInstance().getPreviousFragment();
-        boolean result = profileFragment.addItemId(itemId, mIsLike);
+        ProfileFragment.AddResult result = profileFragment.addItemId(itemId, mIsLike);
 
-        if (result) {
+        if (result == ProfileFragment.AddResult.success) {
             FragmentController.getInstance().pop(FragmentController.AnimationType.horizontal);
         } else {
             String message = "";
-            if (mIsLike) {
-                message = "\"嫌い\"に登録されたコンテンツです";
-            } else {
-                message = "\"好き\"に登録されたコンテンツです";
+            if (result == ProfileFragment.AddResult.contain) {
+                if (mIsLike) {
+                    message = "\"嫌い\"に登録されたコンテンツです";
+                } else {
+                    message = "\"好き\"に登録されたコンテンツです";
+                }
+            } else if (result == ProfileFragment.AddResult.over25) {
+                message = "25個以上のアイテムは登録できません";
             }
             AlertUtility.showAlert(getActivity(), "エラー", message, "OK", null);
         }
